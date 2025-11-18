@@ -36,9 +36,9 @@ export default function Header() {
           <Link
             className={clsx(css.logo, isHome && css.whiteLogo)}
             to="/"
-            aria-label="Logo Foodies"
+            aria-label="Logo SELL-O"
           >
-            Foodies
+            SELL-O
           </Link>
 
           {isLoggedIn && !isMobile && <Nav />}
