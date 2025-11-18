@@ -1,0 +1,139 @@
+.Typography.truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.Typography.truncate.lineClamp {
+    @supports (-webkit-line-clamp: 2) and (display: -webkit-box) {
+        display: -webkit-box;
+        -webkit-line-clamp: var(--Typography-line-clamp);
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        white-space: normal;
+        height: calc(
+                var(--Typography-line-clamp) * var(--Typography-line-height)
+        );
+    }
+}
+
+.black {
+    color: var(--main-color);
+}
+
+.gray {
+    color: var(--gray-color);
+}
+
+.white {
+    color: var(--white-color);
+}
+
+.red {
+    color: var(--red-color);
+}
+
+.h1 {
+    font-size: 40px;
+    text-transform: uppercase;
+    line-height: 40px;
+    font-weight: 800;
+    --Typography-line-height: 40px;
+}
+
+@media (min-width: 481px) {
+    .h1 {
+        font-size: 70px;
+        line-height: 70px;
+        --Typography-line-height: 70px;
+    }
+}
+
+@media (min-width: 769px) {
+    .h1 {
+        font-size: 90px;
+        line-height: 90px;
+        --Typography-line-height: 90px;
+    }
+}
+
+.h2 {
+    font-size: 28px;
+    line-height: 32px;
+    font-weight: 800;
+    text-transform: uppercase;
+    --Typography-line-height: 32px;
+}
+
+@media (min-width: 481px) {
+    .h2 {
+        font-size: 40px;
+        line-height: 44px;
+        --Typography-line-height: 44px;
+    }
+}
+
+.h3 {
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: 800;
+    text-transform: uppercase;
+    --Typography-line-height: 24px;
+}
+
+@media (min-width: 481px) {
+    .h3 {
+        font-size: 24px;
+        line-height: 28px;
+        --Typography-line-height: 28px;
+    }
+}
+
+.h4 {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 800;
+    text-transform: uppercase;
+    --Typography-line-height: 24px;
+}
+
+@media (min-width: 481px) {
+    .h4 {
+        font-size: 20px;
+    }
+}
+
+.body {
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 500;
+    --Typography-line-height: 20px;
+}
+
+@media (min-width: 481px) {
+    .body {
+        font-size: 16px;
+        line-height: 24px;
+        --Typography-line-height: 24px;
+    }
+}
+
+.bodyS {
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    --Typography-line-height: 16px;
+}
+
+@media (min-width: 481px) {
+    .bodyS {
+        font-size: 14px;
+        line-height: 20px;
+        --Typography-line-height: 20px;
+    }
+}
+
+.TypographyError {
+    margin: 4px 0;
+}
