@@ -8,6 +8,7 @@ import Container from "../UI/Container/Container";
 import { Nav } from "../Nav";
 import { UserBar } from "../UserBar";
 import { NavMenu } from "../NavMenu";
+import { LocationDisplay } from "../LocationDisplay/LocationDisplay";
 import { useBreakpoint } from "../../hooks/useBreakpoint";
 import { selectIsLoggedIn } from "../../store/auth";
 
@@ -15,6 +16,10 @@ import css from "./Header.module.css";
 
 import BurgerMenuIcon from "../../assets/icons/burger-menu.svg?react";
 import clsx from "clsx";
+import { Logo } from "../Logo/Logo";
+
+// SVG з assets/icons імпортується як React компонент
+import LogoSvg from "../../assets/icons/logo.svg?react";
 
 export default function Header() {
   const homePath = useMatch("/");
@@ -33,13 +38,18 @@ export default function Header() {
     <>
       <header className={css.header}>
         <Container className={clsx(css.container, isHome && css.homeContainer)}>
-          <Link
-            className={clsx(css.logo, isHome && css.whiteLogo)}
-            to="/"
-            aria-label="Logo SELL-O"
-          >
-            SELL-O
-          </Link>
+          <div className={css.leftSection}>
+            <Link
+              className={clsx(css.logo, isHome && css.whiteLogo)}
+              to="/"
+              aria-label="Logo SELL-O"
+            >
+              <LogoSvg className={css.logoImage} />
+            </Link>
+
+            {/* Показуємо геолокацію на всіх пристроях для маркетплейсу */}
+            <LocationDisplay isHome={isHome} />
+          </div>
 
           {isLoggedIn && !isMobile && <Nav />}
 

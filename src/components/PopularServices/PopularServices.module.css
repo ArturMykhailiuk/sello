@@ -1,0 +1,17 @@
+.PopularServices {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 100%;
+}
+
+.PopularServices :global(.swiper) {
+  width: 100%;
+  height: 100%;
+}
+
+@media (min-width: 481px) {
+  .PopularServices {
+    gap: 40px;
+  }
+}

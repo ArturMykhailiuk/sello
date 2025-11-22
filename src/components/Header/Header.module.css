@@ -78,14 +78,18 @@
   align-items: center;
 }
 
+.leftSection {
+  display: flex;
+  align-items: center;
+}
+
 .logo {
   font-weight: 800;
   font-size: 20px;
   line-height: 120%;
   letter-spacing: -0.02em;
-  text-transform: lowercase;
+  /* text-transform: lowercase; */
   text-decoration: none;
-  color: var(--main-color);
 
   @media screen and (min-width: 768px) {
     font-size: 24px;
@@ -96,4 +100,18 @@
 
 .whiteLogo {
   color: var(--white-color);
+}
+
+.logoImage {
+  height: 64px;
+  /* width: auto; */
+  fill: var(--white-color);
+}
+
+@media screen and (min-width: 768px) {
+  .logoImage {
+    fill: var(--white-color);
+    height: 64px;
+    border-radius: 8px;
+  }
 }

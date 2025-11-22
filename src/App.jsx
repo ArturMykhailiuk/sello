@@ -9,9 +9,12 @@ import { getCurrentUser } from "./store/auth";
 import { getAllAreas } from "./store/areas";
 import { getAllCategories } from "./store/categories";
 import { getAllIngredients } from "./store/ingredients";
+import { getAllItems } from "./store/services";
 
 const Home = lazy(() => import("./pages/Home/Home.jsx"));
 const Recipe = lazy(() => import("./pages/Recipe/Recipe.jsx"));
+const Service = lazy(() => import("./pages/Service/Service.jsx"));
+const AddService = lazy(() => import("./pages/AddService/AddService.jsx"));
 const UserPage = lazy(() => import("./pages/UserPage/UserPage.jsx"));
 const NotFound = lazy(() => import("./pages/NotFound/NotFound.jsx"));
 const AddRecipe = lazy(() => import("./pages/AddRecipe/AddRecipe.jsx"));
@@ -28,6 +31,7 @@ export const App = () => {
     dispatch(getAllAreas());
     dispatch(getAllCategories());
     dispatch(getAllIngredients());
+    dispatch(getAllItems());
   }, [dispatch]);
 
   return (
@@ -44,13 +48,15 @@ export const App = () => {
           }
         />
 
-        <Route path="/recipe/:recipeId" element={<Recipe />} />
-
+        {/* <Route path="/recipe/:recipeId" element={<Recipe />} /> */}
+        <Route path="/service/:serviceId" element={<Service />} />
         <Route
-          path="/recipe/add"
+          // path="/recipe/add"
+          path="/service/add"
           element={
             <PrivateRoute>
-              <AddRecipe />
+              {/* <AddRecipe /> */}
+              <AddService />
             </PrivateRoute>
           }
         />

@@ -15,13 +15,13 @@
   position: relative;
 
   max-width: 1440px;
-  padding: 194px 20px 338px;
+  padding: 94px 20px 50px;
 
-  background-color: var(--main-color);
+  background-color: rgba(0, 0, 0, 0.7);
   border-radius: 20px;
   overflow: hidden;
 
-  background-image: url("../../assets/images/hero/mobile_big_meat.webp@1x.webp"),
+  /* background-image: url("../../assets/images/hero/mobile_big_meat.webp@1x.webp"),
     url("../../assets/images/hero/mobile_small_dessert.webp@1x.webp");
   background-repeat: no-repeat;
   background-size: 222px 209px, 90px 84px;
@@ -32,16 +32,16 @@
     (min-resolution: 192dpi),
     (min-resolution: 2dppx) {
     background-image: url("../../assets/images/hero/mobile_big_meat.webp@2x.webp"),
-      url("../../assets/images/hero/mobile_small_dessert.webp@2x.webp");
-  }
+      url("../../assets/images/hero/mobile_small_dessert.webp@2x.webp"); 
+  }*/
 
   /* Tablet */
   @media screen and (min-width: 768px) {
-    padding: 217px 29px 451px;
+    padding: 217px 29px 50px;
 
     border-radius: 30px;
 
-    background-image: url("../../assets/images/hero/tablet_big_meat.webp@1x.webp"),
+    /* background-image: url("../../assets/images/hero/tablet_big_meat.webp@1x.webp"),
       url("../../assets/images/hero/tablet_small_dessert.webp@1x.webp");
     background-size: 353px 331px, 149px 139px;
     background-position: calc(50% + 70px) calc(100% - 90px),
@@ -52,14 +52,15 @@
       (min-resolution: 2dppx) {
       background-image: url("../../assets/images/hero/tablet_big_meat.webp@2x.webp"),
         url("../../assets/images/hero/tablet_small_dessert.webp@2x.webp");
-    }
+    } */
   }
 
   /* Desktop */
   @media screen and (min-width: 1440px) {
-    padding: 154px 262px 452px;
+    padding: 100px 262px 50px;
+    max-width: 1600px;
 
-    background-image: url("../../assets/images/hero/desktop_big_meat.webp@1x.webp"),
+    /* background-image: url("../../assets/images/hero/desktop_big_meat.webp@1x.webp"),
       url("../../assets/images/hero/desktop_small_dessert.webp@1x.webp");
     background-position: calc(50% + 80px) calc(100% - 81px),
       calc(50% - 170px) calc(100% - 135px);
@@ -69,7 +70,7 @@
       (min-resolution: 2dppx) {
       background-image: url("../../assets/images/hero/desktop_big_meat.webp@2x.webp"),
         url("../../assets/images/hero/desktop_small_dessert.webp@2x.webp");
-    }
+    } */
   }
 }
 
@@ -108,4 +109,8 @@
     line-height: 24px;
     max-width: 577px;
   }
+}
+
+.heroButton {
+  border: 1px solid var(--ua-blue);
 }

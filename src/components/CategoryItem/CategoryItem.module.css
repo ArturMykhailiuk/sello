@@ -55,6 +55,18 @@
     );
 }
 
+.juridical {
+  background-image: linear-gradient(
+      0deg,
+      rgba(5, 5, 5, 0.2) 0%,
+      rgba(5, 5, 5, 0.2) 100%
+    ),
+    image-set(
+      url("../../assets/images/categories/Juridical.webp@1x.webp") 1x,
+      url("../../assets/images/categories/Juridical.webp@2x.webp") 2x
+    );
+}
+
 .breakfast {
   background-image: linear-gradient(
       0deg,

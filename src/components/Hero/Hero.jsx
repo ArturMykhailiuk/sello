@@ -25,19 +25,20 @@ export const Hero = () => {
       <div className={styles.heroSection}>
         <div className={styles.heroTextWrapper}>
           <Typography className={styles.heroTitle} variant="h1">
-            Improve Your Culinary Talents
+            Свій до свого по своє
           </Typography>
           <Typography className={styles.heroSubtitle} variant="body">
-            Amazing recipes for beginners in the world of cooking, enveloping
-            you in the aromas and tastes of various cuisines.
+            Відкрийте безмежний світ можливостей та скористайтеся якісними
+            послугами, що поєднують професіоналізм, надійність та теплу
+            атмосферу української спільноти.
           </Typography>
           <Button
-            bordered
+            className={styles.heroButton}
             variant="transparent"
             size="medium"
             onClick={handleClick}
           >
-            Add recipe
+            Додати послугу
           </Button>
         </div>
       </div>

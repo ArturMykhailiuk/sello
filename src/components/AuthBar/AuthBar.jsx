@@ -9,8 +9,8 @@ export const AuthBar = () => {
 
   return (
     <DualButtonGroup
-      leftLabel="Sign in"
-      rightLabel="Sign up"
+      leftLabel="Увійти"
+      rightLabel="Реєстрація"
       onLeftClick={() => dispatch(openSignIn())}
       onRightClick={() => dispatch(openSignUp())}
     />

@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { Category } from "../../components/Category";
 import { Hero } from "../../components/Hero";
 import { Recipes } from "../../components/Recipes";
+import { Services } from "../../components/Services/Services";
 import { Testimonials } from "../../components/Testimonials/Testimonials";
 import { getTestimonials } from "../../services/testimonials";
 import { DEFAULT_ERROR_MESSAGE } from "../../constants/common";
@@ -48,7 +49,7 @@ export default function Home() {
     <div className={css.container}>
       <Hero />
 
-      {isRecipesSubPage ? <Recipes categoryId={categoryId} /> : <Category />}
+      {isRecipesSubPage ? <Services categoryId={categoryId} /> : <Category />}
 
       <Testimonials data={testimonials} />
     </div>

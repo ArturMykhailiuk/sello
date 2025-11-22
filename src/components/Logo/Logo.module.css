@@ -7,7 +7,7 @@
   font-weight: 800;
   line-height: 1.2;
   letter-spacing: -0.4px;
-  text-transform: lowercase;
+  /* text-transform: lowercase; */
   color: var(--white-color);
 }
 
@@ -15,9 +15,19 @@
   color: var(--main-color);
 }
 
+.logoImage {
+  height: 32px;
+  border-radius: 8px;
+}
+
 @media screen and (min-width: 768px) {
   .logo {
     font-size: 24px;
     line-height: 1.16;
+  }
+
+  .logoImage {
+    height: 40px;
+    border-radius: 10px;
   }
 }

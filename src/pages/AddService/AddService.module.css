@@ -1,0 +1,165 @@
+.AddService {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 40px;
+  width: 100%;
+  padding: 126px 0 64px;
+}
+
+@media (min-width: 1440px) {
+  .AddService {
+    padding-top: 150px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .AddService {
+    padding-top: 170px;
+  }
+}
+
+.AddService__header {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+@media (min-width: 481px) {
+  .AddService__header {
+    max-width: 443px;
+  }
+}
+
+.AddService__form {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+}
+
+@media (min-width: 481px) {
+  .AddService__form {
+    gap: 80px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .AddService__form {
+    grid-template-columns: 551px 1fr;
+  }
+}
+
+.AddService__inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+@media (min-width: 481px) {
+  .AddService__inputs {
+    gap: 60px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .AddService__inputs {
+    width: unset;
+  }
+}
+
+.AddService__inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+@media (min-width: 1440px) {
+  .AddService__inputGroup {
+    gap: 16px;
+  }
+}
+
+.AddService__inputGroupWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+@media (min-width: 481px) {
+  .AddService__inputGroupWrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    align-items: end;
+  }
+}
+
+.AddService__inputGroup_bottom {
+  margin-top: 44px;
+}
+
+@media (min-width: 481px) {
+  .AddService__inputGroup_bottom {
+    margin-top: 20px;
+  }
+}
+
+.AddService__inputGroup_top {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+@media (min-width: 481px) {
+  .AddService__inputGroup_top {
+    gap: 40px;
+  }
+}
+
+.AddService__inputGroup .Typography {
+  text-transform: uppercase;
+}
+
+.AddService__actions {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+@media (min-width: 481px) {
+  .AddService__actions {
+    margin-top: 20px;
+  }
+}
+
+.AddService__publishBtn {
+  padding: 14px 32px !important;
+}
+
+.ItemsFieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ItemsFieldGroup__button {
+  margin-top: 12px;
+}
+
+.AddService__itemsList {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.errorMessage {
+  color: var(--red-color);
+  font-size: 14px;
+  line-height: 20px;
+  margin-top: 4px;
+}

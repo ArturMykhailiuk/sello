@@ -1,56 +1,68 @@
 [
   {
     "id": 5,
-    "name": "Beef"
+    "name": "Juridical",
+    "ua": "Юридичні"
   },
   {
     "id": 12,
-    "name": "Breakfast"
+    "name": "Breakfast",
+    "ua": "Сніданок"
   },
 
   {
     "id": 6,
-    "name": "Dessert"
+    "name": "Dessert",
+    "ua": "Десерт"
   },
   {
     "id": 2,
-    "name": "Lamb"
-  },
+    "name": "Lamb",
+    "ua": "Баранина"},
   {
     "id": 14,
-    "name": "Goat"
+    "name": "Goat",
+    "ua": "Козлятина"
   },
   {
     "id": 10,
-    "name": "Miscellaneous"
+    "name": "Miscellaneous",
+    "ua": "Різне"
   },
   {
     "id": 11,
-    "name": "Pasta"
+    "name": "Pasta",
+    "ua": "Паста"
   },
   {
     "id": 8,
-    "name": "Pork"
+    "name": "Pork",
+    "ua": "Свинина"
   },
   {
     "id": 1,
-    "name": "Seafood"
+    "name": "Seafood",
+    "ua": "Морепродукти"
   },
   {
     "id": 13,
-    "name": "Side"
+    "name": "Side",
+    "ua": "Гарнір"
   },
 
   {
     "id": 3,
-    "name": "Starter"
+    "name": "Starter",
+    "ua": "Закуска"
   },
   {
     "id": 7,
-    "name": "Vegan"
+    "name": "Vegan",
+    "ua": "Веган"
   },
   {
     "id": 9,
-    "name": "Vegetarian"
+    "name": "Vegetarian",
+    "ua": "Вегетаріанська"
   }
 ]

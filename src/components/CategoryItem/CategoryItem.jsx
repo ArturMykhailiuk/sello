@@ -10,7 +10,7 @@ export default function CategoryItem({ data }) {
   return (
     <div className={`${css.thumb} ${css[categoryName.toLowerCase()]}`}>
       <div className={css.wrapper}>
-        <p className={css.label}>{data.name}</p>
+        <p className={css.label}>{data.ua}</p>
         <ButtonIcon
           variant="transparent"
           size="medium"

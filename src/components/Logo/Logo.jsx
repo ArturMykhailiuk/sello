@@ -1,5 +1,6 @@
 import { NavLink } from "react-router";
 import clx from "clsx";
+import LogoSvg from "../../assets/icons/logo.svg?react";
 import styles from "./Logo.module.css";
 
 export const Logo = () => {
@@ -7,9 +8,9 @@ export const Logo = () => {
     <NavLink
       className={clx(styles.navLink, styles.logo, styles.logoWhite)}
       to="/"
-      aria-label="Logo Foodies"
+      aria-label="Logo SELL-O"
     >
-      Foodies
+      <LogoSvg className={styles.logoImage} />
     </NavLink>
   );
 };

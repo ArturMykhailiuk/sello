@@ -26,12 +26,12 @@ export function Category() {
     <section>
       <Container className={css.container}>
         <div className={css.headWrapper}>
-          <Typography variant="h2">Categories</Typography>
-          <Typography variant="body" className={css.description}>
-            Discover a limitless world of culinary possibilities and enjoy
-            exquisite recipes that combine taste, style and the warm atmosphere
-            of the kitchen.
-          </Typography>
+          <Typography variant="h2">Категорії послуг</Typography>
+          {/* <Typography variant="body" className={css.description}>
+            Відкрийте безмежний світ можливостей та скористайтеся якісними
+            послугами, що поєднують професіоналізм, надійність та теплу
+            атмосферу української спільноти.
+          </Typography> */}
         </div>
 
         {categories.length > 0 && <CategoryList categories={categories} />}

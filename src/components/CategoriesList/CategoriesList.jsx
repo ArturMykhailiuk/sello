@@ -18,7 +18,7 @@ export function CategoryList({ categories }) {
             textColor="white"
             className={css.allCategories}
           >
-            All Categories
+            Всі послуги
           </Typography>
         </Link>
       </li>

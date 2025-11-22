@@ -4,6 +4,7 @@ import { areasReducer } from "./areas";
 import { authReducer } from "./auth";
 import { categoriesReducer } from "./categories";
 import { ingredientsReducer } from "./ingredients";
+import { itemsReducer } from "./services/slice";
 import { appClearSessionMiddleware } from "./utils";
 
 export const store = configureStore({
@@ -12,6 +13,7 @@ export const store = configureStore({
     auth: authReducer,
     categories: categoriesReducer,
     ingredients: ingredientsReducer,
+    items: itemsReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(appClearSessionMiddleware),
