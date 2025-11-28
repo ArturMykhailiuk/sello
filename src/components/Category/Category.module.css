@@ -22,10 +22,10 @@
   padding-bottom: 32px;
 }
 
-.description {
+/* .description {
   color: var(--gray-color);
-  letter-spacing: -0.28px;
-}
+  letter-spacing: -0.28px; 
+}*/
 
 /* tablet */
 @media screen and (min-width: 768px) {
@@ -40,11 +40,11 @@
     text-transform: uppercase;
   }
 
-  .description {
+  /* .description {
     color: var(--main-color);
     line-height: 24px;
     letter-spacing: -0.32px;
-  }
+  } */
 }
 
 /* desktop */

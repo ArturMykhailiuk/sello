@@ -7,6 +7,7 @@ export const TabKey = {
   FAVORITES: "favorites",
   FOLLOWERS: "followers",
   FOLLOWING: "following",
+  WORKFLOWS: "workflows",
 };
 
 export const tabsForOwner = [
@@ -14,6 +15,7 @@ export const tabsForOwner = [
   { key: TabKey.FAVORITES, label: "My Favorites" },
   { key: TabKey.FOLLOWERS, label: "Followers" },
   { key: TabKey.FOLLOWING, label: "Following" },
+  { key: TabKey.WORKFLOWS, label: "AI Workflows" },
 ];
 
 export const tabsForUser = [
@@ -30,6 +32,9 @@ export const emptyTabMessagesForOwner = {
     "There are currently no followers on your account. Please engage our visitors with interesting content and draw their attention to your profile.",
   following:
     "Your account currently has no subscriptions to other users. Learn more about our users and select those whose content interests you.",
+
+  workflows:
+    "You have not created any workflows yet. Start by adding new workflows to manage your tasks efficiently.",
 };
 
 export const emptyTabMessagesForUser = {

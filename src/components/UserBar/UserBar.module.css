@@ -8,9 +8,10 @@
   padding-right: 6px;
   width: 122px;
 
-  background-color: var(--button-color);
+  background-color: var(--ua-yellow);
   border-radius: 30px;
   cursor: pointer;
+  border: 1px solid var(--ua-blue);
 
   @media screen and (min-width: 768px) {
     padding-right: 14px;

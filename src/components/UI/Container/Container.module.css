@@ -6,13 +6,13 @@
 }
 
 @media screen and (min-width: 768px) {
-  .container {
+  /* .container {
     padding: 0 32px;
-  }
+  } */
 }
 
 @media screen and (min-width: 1440px) {
-  .container {
+  /* .container {
     padding: 0 80px;
-  }
+  } */
 }

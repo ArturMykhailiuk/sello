@@ -1,0 +1,148 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modalContent {
+  background: white;
+  border-radius: 12px;
+  max-width: 700px;
+  width: 100%;
+  max-height: 95vh;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #6b7280;
+  padding: 4px;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.closeButton:hover {
+  color: #374151;
+}
+
+.mapWrapper {
+  flex: 1;
+  min-height: 350px;
+  margin: 0 20px 20px 20px;
+  border-radius: 8px;
+  overflow: visible;
+}
+
+.selectedInfo {
+  margin: 0 20px 20px 20px;
+  padding: 16px;
+  background: #f9fafb;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+.selectedInfo h3 {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.selectedInfo p {
+  margin: 0 0 4px 0;
+  color: #374151;
+  font-size: 14px;
+}
+
+.locationName {
+  font-weight: 500;
+  color: #1f2937 !important;
+  font-size: 15px !important;
+}
+
+.coordinates {
+  font-size: 12px !important;
+  color: #6b7280 !important;
+  font-style: italic;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  padding: 20px;
+  justify-content: flex-end;
+  border-top: 1px solid #e5e7eb;
+}
+
+.actions button {
+  min-width: 120px;
+}
+
+.subtitle {
+  margin: 20px 25px 10px 25px;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+@media (max-width: 768px) {
+  .modalOverlay {
+    padding: 5px;
+  }
+
+  .modalContent {
+    max-height: 98vh;
+    max-width: 95vw;
+  }
+
+  .mapWrapper {
+    min-height: 250px;
+    margin: 0 10px 15px 10px;
+  }
+
+  .modalHeader,
+  .selectedInfo,
+  .actions {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .container {
+    width: 95vw;
+    max-height: 95vh;
+  }
+
+  .mapContainer {
+    height: 300px;
+  }
+
+  .actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .actions button {
+    width: 100%;
+  }
+}

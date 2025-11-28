@@ -14,7 +14,7 @@ export const Hero = () => {
 
   const handleClick = () => {
     if (isLoggedIn) {
-      navigate("/recipe/add");
+      navigate("/service/add");
     } else {
       dispatch(openSignIn());
     }
@@ -25,7 +25,7 @@ export const Hero = () => {
       <div className={styles.heroSection}>
         <div className={styles.heroTextWrapper}>
           <Typography className={styles.heroTitle} variant="h1">
-            Свій до свого по своє
+            Свій до Свого по Своє
           </Typography>
           <Typography className={styles.heroSubtitle} variant="body">
             Відкрийте безмежний світ можливостей та скористайтеся якісними

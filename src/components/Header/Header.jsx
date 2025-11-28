@@ -47,7 +47,6 @@ export default function Header() {
               <LogoSvg className={css.logoImage} />
             </Link>
 
-            {/* Показуємо геолокацію на всіх пристроях для маркетплейсу */}
             <LocationDisplay isHome={isHome} />
           </div>
 

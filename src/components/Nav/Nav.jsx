@@ -6,7 +6,7 @@ import css from "./Nav.module.css";
 
 export const Nav = () => {
   const homePath = useMatch("/");
-  const recipePath = useMatch("/recipe/add");
+  // const recipePath = useMatch("/recipe/add");
   const navigate = useNavigate();
 
   const isHomePage = !!homePath;
@@ -26,7 +26,7 @@ export const Nav = () => {
           </Button>
         </li>
 
-        <li>
+        {/* <li>
           <Button
             className={clx(!!recipePath && css.activeBtn)}
             variant={isHomePage ? "dark" : "light"}
@@ -36,7 +36,7 @@ export const Nav = () => {
           >
             Add recipe
           </Button>
-        </li>
+        </li> */}
       </ul>
     </nav>
   );

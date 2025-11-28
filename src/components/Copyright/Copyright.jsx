@@ -4,10 +4,13 @@ import { useBreakpoint } from "../../hooks/index.js";
 
 export const Copyright = () => {
   const year = new Date().getFullYear();
-  const breakpoint = useBreakpoint()
+  const breakpoint = useBreakpoint();
   return (
-    <Typography variant={breakpoint === "mobile" ? "bodyS" : "body"} className={styles.wrapper}>
-      &copy; {year}, Foodies. All rights reserved
+    <Typography
+      variant={breakpoint === "mobile" ? "bodyS" : "body"}
+      className={styles.wrapper}
+    >
+      &copy; {year}, SELL-O. All rights reserved
     </Typography>
   );
 };

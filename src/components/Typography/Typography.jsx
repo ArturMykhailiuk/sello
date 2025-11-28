@@ -1,13 +1,13 @@
 import clsx from "clsx";
-import * as styles from './Typography.module.css';
+import * as styles from "./Typography.module.css";
 
 const tagMap = {
-  h1: 'h1',
-  h2: 'h2',
-  h3: 'h3',
-  h4: 'h4',
-  body: 'p',
-  bodyS: 'p',
+  h1: "h1",
+  h2: "h2",
+  h3: "h3",
+  h4: "h4",
+  body: "p",
+  bodyS: "p",
 };
 
 /**
@@ -15,14 +15,21 @@ const tagMap = {
 
  * @param {object} props
  * @param {"h1"|"h2"|"h3"|"h4"|"body"|"bodyS"} props.variant  — typography style
- * @param {"black"|"gray"|"white"|"red"} [props.textColor] — text color
+ * @param {"black"|"gray"|"white"|"red"|"blue"} [props.textColor] — text color
  * @param {boolean} [props.truncate] — whether to truncate the text
  * @param {number} [props.lineClamp] — number of lines to clamp
  * @param {React.ReactNode} props.children
  * @param {string} [props.className]
  */
-const Typography = ({ variant = "body", children, truncate, lineClamp, className, textColor = "black" }) => {
-  const Tag = tagMap[variant] || 'p';
+const Typography = ({
+  variant = "body",
+  children,
+  truncate,
+  lineClamp,
+  className,
+  textColor,
+}) => {
+  const Tag = tagMap[variant] || "p";
 
   return (
     <Tag
@@ -32,14 +39,14 @@ const Typography = ({ variant = "body", children, truncate, lineClamp, className
         styles[textColor],
         truncate && styles.truncate,
         lineClamp && styles.lineClamp,
-        className
+        className,
       )}
-      style={lineClamp ? { '--Typography-line-clamp': lineClamp } : {} }
+      style={lineClamp ? { "--Typography-line-clamp": lineClamp } : {}}
     >
       {children}
     </Tag>
   );
-}
+};
 
 /**
  * @param {object} props
@@ -47,10 +54,14 @@ const Typography = ({ variant = "body", children, truncate, lineClamp, className
  */
 const TypographyError = ({ children }) => {
   return (
-    <Typography variant="bodyS" textColor="red" className={styles.TypographyError}>
+    <Typography
+      variant="bodyS"
+      textColor="red"
+      className={styles.TypographyError}
+    >
       {children}
     </Typography>
   );
-}
+};
 
-export { Typography, TypographyError }
+export { Typography, TypographyError };

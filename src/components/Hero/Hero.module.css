@@ -17,9 +17,10 @@
   max-width: 1440px;
   padding: 94px 20px 50px;
 
-  background-color: rgba(0, 0, 0, 0.7);
+  /* background-color: rgba(0, 0, 0, 0.7); */
   border-radius: 20px;
   overflow: hidden;
+  background: linear-gradient(180deg, #bfbfc0 10%, #056cb2 100%);
 
   /* background-image: url("../../assets/images/hero/mobile_big_meat.webp@1x.webp"),
     url("../../assets/images/hero/mobile_small_dessert.webp@1x.webp");
@@ -36,10 +37,11 @@
   }*/
 
   /* Tablet */
-  @media screen and (min-width: 768px) {
-    padding: 217px 29px 50px;
 
-    border-radius: 30px;
+  @media screen and (min-width: 768px) {
+    padding: 100px 29px 50px;
+
+    border-radius: 20px;
 
     /* background-image: url("../../assets/images/hero/tablet_big_meat.webp@1x.webp"),
       url("../../assets/images/hero/tablet_small_dessert.webp@1x.webp");
@@ -88,17 +90,31 @@
 }
 
 .heroTitle {
-  color: var(--white-color);
+  color: var(--ua-main);
   letter-spacing: -0.02em;
   text-align: center;
   margin: 0 auto;
+  text-transform: none;
+  padding: 0 25px;
+
+  @media screen and (min-width: 768px) {
+    padding: 0 25px;
+  }
+
+  @media screen and (min-width: 1440px) {
+    padding: 0 50px;
+  }
+
+  @media screen and (max-width: 481px) {
+    padding: 0 25px;
+  }
 }
 
 .heroSubtitle {
   text-align: center;
   margin: 0 auto;
   max-width: 326px;
-  color: var(--white-color);
+  color: var(--ua-main);
 
   font-size: 14px;
   line-height: 143%;
@@ -112,5 +128,13 @@
 }
 
 .heroButton {
-  border: 1px solid var(--ua-blue);
+  border: 1px solid #bfbfc0 !important;
+  color: var(--ua-main) !important;
+  /* background: rgba(255, 255, 255, 0.2); */
+}
+
+.heroButton:hover {
+  border-color: var(--ua-yellow) !important;
+  background: rgba(5, 108, 178, 0.2) !important;
+  color: var(--ua-yellow) !important;
 }

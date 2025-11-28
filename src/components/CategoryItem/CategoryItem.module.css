@@ -17,23 +17,32 @@
   left: 16px;
 }
 
-.label {
+.categoryButton {
   font-weight: 700;
-  color: var(--white-color);
+  /* color: var(--ua-yellow) !important; */
 
-  display: flex;
+  /* display: flex;
   justify-content: center;
   align-items: center;
+  padding: 8px; */
 
-  border: 1px solid var(--white-color);
-  background: rgba(255, 255, 255, 0.2);
-  padding: 8px 12px;
-  border-radius: 30px;
+  border: 1px solid #bfbfc0 !important;
+  /* background: rgba(255, 255, 255, 0.2); */
+  background: rgb(5, 108, 178, 0.1) !important;
+  padding: 10px !important;
+  color: var(--ua-main) !important;
+  /* padding: 8px 12px; */
+  /* border-radius: 10px !important; */
+}
+.categoryButton:hover {
+  border-color: var(--ua-yellow) !important;
+  background: rgba(5, 108, 178, 0.2) !important;
+  color: var(--ua-yellow) !important;
 }
 
 /* tablet -> desktop */
 @media only screen and (min-width: 768px) {
-  .label {
+  .categoryButton {
     font-size: 20px;
   }
   .wrapper {
@@ -43,19 +52,15 @@
   }
 }
 
-.beef {
+.image {
   background-image: linear-gradient(
-      0deg,
-      rgba(5, 5, 5, 0.2) 0%,
-      rgba(5, 5, 5, 0.2) 100%
-    ),
-    image-set(
-      url("../../assets/images/categories/Beef.webp@1x.webp") 1x,
-      url("../../assets/images/categories/Beef.webp@2x.webp") 2x
-    );
+    0deg,
+    rgba(5, 5, 5, 0.7) 0%,
+    rgba(5, 5, 5, 0.7) 100%
+  );
 }
 
-.juridical {
+/* .juridical {
   background-image: linear-gradient(
       0deg,
       rgba(5, 5, 5, 0.2) 0%,
@@ -179,4 +184,4 @@
     url("../../assets/images/categories/Vegetarian.webp@1x.webp") 1x,
     url("../../assets/images/categories/Vegetarian.webp@2x.webp") 2x
   );
-}
+} */

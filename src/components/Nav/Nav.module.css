@@ -18,5 +18,7 @@
 }
 
 .activeBtn {
-  border-color: var(--gray-color) !important;
+  border-color: var(--ua-blue) !important;
+  color: var(--ua-blue) !important;
+  background-color: transparent !important;
 }

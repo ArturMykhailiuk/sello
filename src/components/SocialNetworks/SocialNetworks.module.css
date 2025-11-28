@@ -37,17 +37,17 @@
 }
 
 .link.light {
-  background: var(--white-color);
-  color: var(--main-color);
+  background: var(--ua-main);
+  color: var(--ua-blue);
   border-color: var(--gray-light-color);
 }
 
 .link.light:not(:disabled):hover {
-  background: var(--main-color);
+  background: var(--ua-blue);
   color: var(--white-color);
-  border-color: var(--main-color);
+  border-color: var(--ua-blue);
 }
 
 .link.light:not(:disabled):hover svg {
-  color: var(--white-color);
+  color: var(--ua-yellow);
 }

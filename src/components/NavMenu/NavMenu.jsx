@@ -55,7 +55,7 @@ export const NavMenu = ({ onClose }) => {
               Home
             </button>
           </li>
-          <li>
+          {/* <li>
             <button
               className={clsx(css.link)}
               onClick={() => {
@@ -64,8 +64,8 @@ export const NavMenu = ({ onClose }) => {
               }}
             >
               Add recipe
-            </button>
-          </li>
+            </button> 
+          </li>*/}
         </ul>
       </nav>
     </div>

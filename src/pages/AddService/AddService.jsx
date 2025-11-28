@@ -20,7 +20,7 @@ import SearchSelect from "../../components/SearchSelect/SearchSelect.jsx";
 import { InputStepper } from "../../components/InputStepper/InputStepper.jsx";
 import PlusIcon from "../../assets/icons/plus.svg?react";
 import clsx from "clsx";
-import { IngredientBadge } from "../../components/IngredientBadge/IngredientBadge.jsx";
+import { ItemBadge } from "../../components/ItemBadge/ItemBadge.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { selectItems } from "../../store/items/index.js";
 import { selectCategories } from "../../store/categories/index.js";
