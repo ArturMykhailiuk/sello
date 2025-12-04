@@ -1,6 +1,6 @@
 .DualButtonGroup {
   width: fit-content;
-  border-radius: var(--border-radius-m);
+  border-radius: 18px;
   /*background: var(--white-color);*/
   background: #056cb2;
 }
@@ -37,7 +37,7 @@
 }
 
 .DualButton.right {
-  border-radius: var(--border-radius-m);
+  border-radius: 18px;
   /*background: var(--main-color);*/
   background: #f6c114;
   color: var(--white-color);
