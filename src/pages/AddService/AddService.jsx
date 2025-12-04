@@ -63,7 +63,7 @@ const ItemsFieldGroup = ({ itemsList, onAdd, excludeIds }) => {
           value={measure}
           onChange={(e) => setMeasure(e.target.value)}
           variant="underline"
-          placeholder="Enter quantity"
+          placeholder="Enter price"
         />
       </div>
 
@@ -106,7 +106,7 @@ const validationSchema = object({
   description: string().required("Description is required"),
   category: object().required("Category is required"),
   area: object().required("Area is required"),
-  instructions: string().required("Instructions are required"),
+  instructions: string().required("Details are required"),
   items: array()
     .of(
       object().shape({
@@ -215,7 +215,7 @@ const AddService = () => {
                     <Field
                       name="description"
                       as={Textarea}
-                      placeholder="Enter a description of the dish"
+                      placeholder="Enter a description of the service"
                     />
                     <ErrorMessage
                       name="description"
@@ -269,16 +269,6 @@ const AddService = () => {
                       />
                     </div>
                   </div>
-
-                  <div className={styles.AddService__inputGroup}>
-                    <Typography variant="h4">Cooking time</Typography>
-                    <Field
-                      name="cookingTime"
-                      component={InputStepper}
-                      value={values.cookingTime}
-                      onChange={(value) => setFieldValue("cookingTime", value)}
-                    />
-                  </div>
                 </div>
 
                 <div>
@@ -317,7 +307,7 @@ const AddService = () => {
                     styles.AddService__inputGroup_bottom,
                   )}
                 >
-                  <Typography variant="h4">Recipe Preparation</Typography>
+                  <Typography variant="h4">Деталі послуги</Typography>
                   <div>
                     <Field
                       name="instructions"

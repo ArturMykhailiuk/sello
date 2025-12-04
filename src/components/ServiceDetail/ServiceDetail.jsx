@@ -13,9 +13,9 @@ import {
   removeFavoriteService,
 } from "../../services/services";
 
-import styles from "./ServicePreparation.module.css";
+import styles from "./ServiceDetail.module.css";
 
-export const ServicePreparation = ({
+export const ServiceDetail = ({
   serviceId,
   textColor,
   instructions,
@@ -59,7 +59,7 @@ export const ServicePreparation = ({
   return (
     <div>
       <Typography variant="h3" textColor="black" className={styles.title}>
-        Recipe Preparation
+        Опис послуги
       </Typography>
 
       <Typography variant="body" textColor={textColor} className={styles.text}>

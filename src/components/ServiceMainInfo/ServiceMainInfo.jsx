@@ -9,7 +9,7 @@ import { normalizeImagePath } from "../../utils";
 import { useBreakpoint } from "../../hooks/useBreakpoint";
 
 import css from "./ServiceMainInfo.module.css";
-import { ServicePreparation } from "../ServicePreparation";
+import { ServiceDetail } from "../ServiceDetail";
 import { openSignIn, selectIsLoggedIn } from "../../store/auth";
 
 export const ServiceMainInfo = ({
@@ -18,7 +18,6 @@ export const ServiceMainInfo = ({
   title,
   category,
   description,
-  time,
   owner,
   items,
   instructions,
@@ -61,7 +60,6 @@ export const ServiceMainInfo = ({
 
           <div className={css.category}>
             <span>{category?.name}</span>
-            <span>{time} min</span>
           </div>
 
           <Typography
@@ -96,7 +94,7 @@ export const ServiceMainInfo = ({
         </div>
 
         <ServiceItems items={items} />
-        <ServicePreparation
+        <ServiceDetail
           serviceId={serviceId}
           isFavorite={isFavorite}
           instructions={instructions}
