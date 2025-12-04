@@ -11,7 +11,7 @@ import { Avatar } from "../Avatar/Avatar.jsx";
 import { Image } from "../Image/Image.jsx";
 
 /**
- * @typedef {Object} RecipePreview
+ * @typedef {Object} ServicePreview
  * @property {number} id
  * @property {string} thumb
  *
@@ -19,15 +19,16 @@ import { Image } from "../Image/Image.jsx";
  * @property {number} id
  * @property {string} name
  * @property {string} avatarURL
- * @property {RecipePreview[]} recipes
- * @property {number} recipesCount
+ * @property {ServicePreview[]} services
+ * @property {number} servicesCount
+ * @property {number} [workflowsCount]
  */
 
 /**
  * UserCard component
  *
- * Displays a user card with avatar, name, recipe count, follow/unfollow button,
- * recipe thumbnails (on tablet and desktop), and a button to navigate to user page.
+ * Displays a user card with avatar, name, services count, follow/unfollow button,
+ * service thumbnails (on tablet and desktop), and a button to navigate to user page.
  *
  * @param {Object} props
  * @param {UserCardData} props.user - User data object
@@ -61,7 +62,7 @@ export const UserCard = ({
     }
   };
 
-  const showRecipes = breakpoint === "tablet" || breakpoint === "desktop";
+  const showServices = breakpoint === "tablet" || breakpoint === "desktop";
   const thumbCount = breakpoint === "desktop" ? 4 : 3;
   const iconSize = breakpoint === "desktop" ? "medium" : "small";
   const buttonSize = breakpoint === "desktop" ? "medium" : "small";
@@ -79,7 +80,7 @@ export const UserCard = ({
             {user.name}
           </Typography>
           <Typography variant="bodyS" textColor="gray">
-            Own recipes: {user.recipesCount}
+            Мої послуги: {user.servicesCount}
           </Typography>
           <Button
             variant="light"
@@ -95,13 +96,13 @@ export const UserCard = ({
         </div>
       </div>
 
-      {showRecipes && user.recipes?.length > 0 && (
-        <div className={styles.recipeList}>
-          {user.recipes.slice(0, thumbCount).map((recipe) => (
-            <div key={recipe.id} className={styles.thumb}>
+      {showServices && user.services?.length > 0 && (
+        <div className={styles.serviceList}>
+          {user.services.slice(0, thumbCount).map((service) => (
+            <div key={service.id} className={styles.thumb}>
               <Image
-                src={normalizeImagePath(recipe.thumb)}
-                alt={`Recipe ${recipe.id}`}
+                src={normalizeImagePath(service.thumb)}
+                alt={`Service ${service.id}`}
               />
             </div>
           ))}
@@ -125,13 +126,13 @@ UserCard.propTypes = {
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     avatarURL: PropTypes.string.isRequired,
-    recipes: PropTypes.arrayOf(
+    services: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,
         thumb: PropTypes.string.isRequired,
       }),
     ).isRequired,
-    recipesCount: PropTypes.number.isRequired,
+    servicesCount: PropTypes.number.isRequired,
     isFollowed: PropTypes.bool, // will be added in the future can be undefined
   }).isRequired,
   tabType: PropTypes.oneOf(["followers", "following"]).isRequired,

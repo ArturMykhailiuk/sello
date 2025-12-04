@@ -1,5 +1,5 @@
 {
-  "name": "foodies",
+  "name": "sello",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@googlemaps/react-wrapper": "^1.2.0",
+    "@n8n/chat": "^0.68.0",
     "@reduxjs/toolkit": "^2.7.0",
     "axios": "^1.9.0",
     "classnames": "^2.5.1",
@@ -27,6 +28,7 @@
     "react-redux": "^9.2.0",
     "react-router": "^7.5.3",
     "react-router-dom": "^7.5.3",
+    "react-spinners": "^0.17.0",
     "scipy": "^0.1.4",
     "sklearn": "^1.0.0",
     "swiper": "^11.2.6",

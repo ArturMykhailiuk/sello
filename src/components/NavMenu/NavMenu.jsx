@@ -32,9 +32,9 @@ export const NavMenu = ({ onClose }) => {
             handleClose();
             navigate("/");
           }}
-          aria-label="Logo Foodies"
+          aria-label="Logo SELL-O"
         >
-          Foodies
+          SELL-O
         </button>
 
         <button onClick={handleClose} className={css.close}>
@@ -52,10 +52,10 @@ export const NavMenu = ({ onClose }) => {
                 navigate("/");
               }}
             >
-              Home
+              Головна
             </button>
           </li>
-          {/* <li>
+          <li>
             <button
               className={clsx(css.link)}
               onClick={() => {
@@ -63,9 +63,9 @@ export const NavMenu = ({ onClose }) => {
                 navigate("/recipe/add");
               }}
             >
-              Add recipe
-            </button> 
-          </li>*/}
+              Додати послугу
+            </button>
+          </li>
         </ul>
       </nav>
     </div>

@@ -20,12 +20,19 @@ import { TabsList } from "../../components/TabsList/TabsList";
 import { ListItems } from "../../components/ListItems/ListItems";
 import { normalizeHttpError } from "../../utils";
 import toast from "react-hot-toast";
-import { getFavoriteRecipes, getRecipesByUserId } from "../../services/recipes";
+import {
+  getServicesByUserId,
+  getFavoriteServices,
+} from "../../services/services";
 import { TabKey } from "../../constants/common";
 import { appClearSessionAction } from "../../store/utils.js";
 import { Container } from "../../components/UI/index.js";
 import { PathInfo } from "../../components/PathInfo/PathInfo.jsx";
 import { Pagination } from "../../components/Pagination/Pagination.jsx";
+import { Modal } from "../../components/Modal/Modal";
+import { N8nConnectionModal } from "../../components/N8nConnectionModal/N8nConnectionModal";
+import { WorkflowExecutionModal } from "../../components/WorkflowExecutionModal/WorkflowExecutionModal";
+import { checkN8nStatus } from "../../services/workflows";
 
 const UserPage = () => {
   const { id } = useParams();
@@ -41,15 +48,21 @@ const UserPage = () => {
   const dispatch = useDispatch();
   const isMyProfile = user?.id === currentUser?.id;
 
-  const [activeTab, setActiveTab] = useState(TabKey.RECIPES);
+  const [activeTab, setActiveTab] = useState(TabKey.SERVICES);
   const [items, setItems] = useState([]);
+  const [n8nStatus, setN8nStatus] = useState(null);
+
+  // Workflows modals state
+  const [isN8nModalOpen, setIsN8nModalOpen] = useState(false);
+  const [isExecutionModalOpen, setIsExecutionModalOpen] = useState(false);
+  const [selectedWorkflow, setSelectedWorkflow] = useState(null);
 
   useEffect(() => {
     const loadUser = async () => {
       await fetchUserData(id);
       setPage(1);
       setTotalPages(1);
-      setActiveTab(TabKey.RECIPES);
+      setActiveTab(TabKey.SERVICES);
     };
 
     loadUser();
@@ -64,12 +77,12 @@ const UserPage = () => {
           let data = {};
 
           switch (activeTab) {
-            case TabKey.RECIPES:
-              data = await getRecipesByUserId(id, pagination);
+            case TabKey.SERVICES:
+              data = await getServicesByUserId(id, pagination);
               break;
             case TabKey.FAVORITES:
               if (isMyProfile) {
-                data = await getFavoriteRecipes(pagination);
+                data = await getFavoriteServices(pagination);
               }
               break;
             case TabKey.FOLLOWERS:
@@ -78,6 +91,28 @@ const UserPage = () => {
             case TabKey.FOLLOWING:
               if (isMyProfile) {
                 data = await getUserFollowing(pagination);
+              }
+              break;
+            case TabKey.WORKFLOWS:
+              if (isMyProfile) {
+                try {
+                  // Check n8n status first
+                  const status = await checkN8nStatus();
+                  console.log("n8n status:", status);
+                  setN8nStatus(status);
+
+                  if (status.autoConnected) {
+                    toast.success("Connected to existing n8n account");
+                    // Reload user data to get updated n8nEnabled status
+                    await fetchUserData(id);
+                  }
+
+                  // WorkflowsTabs will handle its own data loading
+                  data = { items: [], total: 0 };
+                } catch (error) {
+                  console.error("Error checking n8n status:", error);
+                  data = { items: [], total: 0 };
+                }
               }
               break;
             default:
@@ -183,6 +218,37 @@ const UserPage = () => {
     setPage(newPage);
   };
 
+  // Workflows handlers
+  const handleConnectN8n = () => {
+    setIsN8nModalOpen(true);
+  };
+
+  const handleCloseN8nModal = () => {
+    setIsN8nModalOpen(false);
+    // Reload user data and workflows after connection
+    fetchUserData(id).then(() => {
+      if (activeTab === TabKey.WORKFLOWS) {
+        reloadData(page);
+      }
+    });
+  };
+
+  const handleExecuteWorkflow = (workflowId) => {
+    const workflow = items.find((w) => w.id === workflowId);
+    setSelectedWorkflow(workflow);
+    setIsExecutionModalOpen(true);
+  };
+
+  const handleCloseExecutionModal = () => {
+    setIsExecutionModalOpen(false);
+    setSelectedWorkflow(null);
+  };
+
+  const handleViewWorkflow = (workflowId) => {
+    // Navigate to workflow details or open n8n editor
+    window.open(`https://sell-o.shop/n8n/workflow/${workflowId}`, "_blank");
+  };
+
   if (!user)
     return <section className={styles.userPage}>User not found</section>;
 
@@ -249,6 +315,10 @@ const UserPage = () => {
             onDelete={handleDelete}
             onFollow={handleFollow}
             onUnFollow={handleUnFollow}
+            user={user}
+            onConnectN8n={handleConnectN8n}
+            onExecuteWorkflow={handleExecuteWorkflow}
+            onViewWorkflow={handleViewWorkflow}
           />
           {totalPages > 1 && (
             <div className={styles.pagination}>
@@ -261,6 +331,24 @@ const UserPage = () => {
           )}
         </div>
       </div>
+
+      {/* Workflows Modals */}
+      <Modal isOpen={isN8nModalOpen} closeModal={handleCloseN8nModal}>
+        <N8nConnectionModal onClose={handleCloseN8nModal} />
+      </Modal>
+
+      <Modal
+        isOpen={isExecutionModalOpen}
+        closeModal={handleCloseExecutionModal}
+      >
+        {selectedWorkflow && (
+          <WorkflowExecutionModal
+            workflowId={selectedWorkflow.id}
+            workflowName={selectedWorkflow.name}
+            onClose={handleCloseExecutionModal}
+          />
+        )}
+      </Modal>
     </Container>
   );
 };

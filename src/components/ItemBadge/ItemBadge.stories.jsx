@@ -1,14 +1,12 @@
-import React from "react";
-import { IngredientBadge } from "./ItemBadge";
+import { ItemBadge } from "./ItemBadge";
 
 export default {
-  title: "Components/IngredientBadge",
-  component: IngredientBadge,
+  title: "Components/ItemBadge",
+  component: ItemBadge,
   tags: ["autodocs"],
 };
 
-const Template = (args) => <IngredientBadge {...args} />;
-
+const Template = (args) => <ItemBadge {...args} />;
 export const Default = Template.bind({});
 Default.args = {
   imgURL:

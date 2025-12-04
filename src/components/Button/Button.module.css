@@ -23,7 +23,7 @@
 }
 
 .Button.small {
-  padding: 14px;
+  /* padding: 14px; */
   font-size: 12px;
   line-height: 18px;
 }
@@ -38,6 +38,12 @@
     font-size: 16px;
     line-height: 24px;
   }
+}
+
+.Button.mysmall {
+  padding: 14px 14px 14px 14px;
+  font-size: 12px;
+  line-height: 18px;
 }
 
 .Button.light {
@@ -65,6 +71,64 @@
   color: var(--main-color);
 }
 
+.Button.blue {
+  background: var(--ua-blue);
+  color: var(--white-color);
+}
+
+.Button.blue:not(:disabled):hover {
+  background: var(--ua-blue);
+  color: var(--ua-yellow);
+}
+
+.Button.uastyle {
+  background: transparent;
+  color: var(--ua-blue);
+  border: 1px solid var(--ua-blue);
+  border-radius: 16px;
+}
+
+.Button.uastyle:not(:disabled):hover {
+  background: var(--ua-blue);
+  color: var(--ua-yellow);
+}
+
+.Button.uastyleGrayBorder {
+  background: transparent;
+  color: var(--ua-blue);
+  border: 1px solid var(--gray-light-color);
+  border-radius: 16px;
+}
+
+.Button.uastyleGrayBorder:not(:disabled):hover {
+  background: var(--ua-blue);
+  color: var(--ua-yellow);
+}
+
+.Button.uastyleHeaderHomePage {
+  font-size: 16px;
+  background: transparent;
+  color: var(--ua-main);
+  padding-bottom: 5px;
+  /* border:1px solid var(--gray-light-color); */
+}
+
+.Button.uastyleHeaderHomePage:not(:disabled):hover {
+  color: var(--ua-main);
+}
+
+.Button.uastyleHeader {
+  font-size: 16px;
+  background: transparent;
+  color: var(--ua-blue);
+  padding-bottom: 5px;
+  /* border:1px solid var(--gray-light-color); */
+}
+
+.Button.uastyleHeader:not(:disabled):hover {
+  color: var(--ua-main);
+}
+
 .Button.transparent {
   background: transparent;
   color: var(--white-color);
@@ -80,7 +144,16 @@
 }
 
 .Button.bordered {
-  border: 1px solid var(--main-color);
+  /* border: 1px solid var(--main-color); */
+  border: 1px solid var(--gray-color);
+}
+
+.Button.uabordered {
+  /* border: 1px solid var(--main-color); */
+  border-bottom: 1px solid var(--ua-main);
+  border-radius: 0;
+  /* padding-left: 2px;
+  padding-right: 2px; */
 }
 
 .Button:disabled {

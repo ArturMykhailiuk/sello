@@ -6,7 +6,7 @@ import css from "./Nav.module.css";
 
 export const Nav = () => {
   const homePath = useMatch("/");
-  // const recipePath = useMatch("/recipe/add");
+  const servicePath = useMatch("/service/add");
   const navigate = useNavigate();
 
   const isHomePage = !!homePath;
@@ -17,26 +17,26 @@ export const Nav = () => {
         <li>
           <Button
             className={clx(isHomePage && css.activeBtn)}
-            variant={isHomePage ? "dark" : "light"}
+            variant={isHomePage ? "uastyleHeaderHomePage" : "uastyleHeader"}
             size="small"
-            bordered={isHomePage}
+            uabordered={isHomePage}
             onClick={() => navigate("/")}
           >
-            Home
+            Головна
           </Button>
         </li>
 
-        {/* <li>
+        <li>
           <Button
-            className={clx(!!recipePath && css.activeBtn)}
-            variant={isHomePage ? "dark" : "light"}
+            className={clx(!!servicePath && css.activeBtn)}
+            variant={isHomePage ? "uastyleHeader" : "uastyleHeaderHomePage"}
             size="small"
-            bordered={!!recipePath}
-            onClick={() => navigate("/recipe/add")}
+            uabordered={!!servicePath}
+            onClick={() => navigate("/service/add")}
           >
-            Add recipe
+            Додати послугу
           </Button>
-        </li> */}
+        </li>
       </ul>
     </nav>
   );

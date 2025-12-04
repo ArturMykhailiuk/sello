@@ -1,11 +1,12 @@
-# 🍽️ Foodies Frontend
+# 🍽️ SELL-O Frontend
 
-Foodies is a modern React-based frontend application built with Vite. It serves as the user interface for a
+SELL-O is a modern React-based frontend application built with Vite. It serves as the user interface for a
 recipe-sharing platform, supporting user profiles, following functionality, recipe browsing, and responsive layout.
 
 ## 🔗 Live Demo
 
-Check out the live website here: [https://foodies-pink.vercel.app](hhttps://foodies-pink.vercel.app)
+Check out the live website here: [https://sello-six.vercel.app](https://sell-o.six.vercel.app)
+
 > Make sure the backend is properly running for full functionality.
 
 ## 🧰 Tech Stack
@@ -38,6 +39,7 @@ cp .env.example .env
 ```
 
 Then update the `.env` file:
+
 ```bash
 VITE_API_BASE_URL=https://your-api-url.com
 ```
@@ -61,11 +63,11 @@ npm run build
 ```
 
 ---
+
 ## 🧩 API Documentation
 
-This frontend consumes a [REST API](https://github.com/MykytaOlenykov/foodies-api) documented via [Swagger](https://mykytaolenykov.com/foodies/api/docs/#/).
+This frontend consumes a [REST API](https://github.com/MykytaOlenykov/sello-api) documented via [Swagger](https://mykytaolenykov.com/sello/api/docs/#/).
 Make sure your `.env` file includes the correct `VITE_API_BASE_URL` to match the deployed or local backend environment.
-
 
 ## 📁 Project Structure
 
@@ -94,7 +96,7 @@ src/
 ## 📐 Design System
 
 If applicable, here's
-the [Figma Design File](https://www.figma.com/design/TKl7kDNvwtz62RsuWNnQ5E/Foodies?node-id=0-1&p=f&t=25QJW9YlWYqqMzGc-0)  
+the [Figma Design File](https://www.figma.com/design/TKl7kDNvwtz62RsuWNnQ5E/Sello?node-id=0-1&p=f&t=25QJW9YlWYqqMzGc-0)  
 _(Ask your team for access if the link doesn’t work.)_
 
 ---

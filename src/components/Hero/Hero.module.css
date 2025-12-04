@@ -39,7 +39,7 @@
   /* Tablet */
 
   @media screen and (min-width: 768px) {
-    padding: 100px 29px 50px;
+    padding: 120px 29px 50px;
 
     border-radius: 20px;
 
@@ -59,7 +59,7 @@
 
   /* Desktop */
   @media screen and (min-width: 1440px) {
-    padding: 100px 262px 50px;
+    padding: 120px 262px 50px;
     max-width: 1600px;
 
     /* background-image: url("../../assets/images/hero/desktop_big_meat.webp@1x.webp"),

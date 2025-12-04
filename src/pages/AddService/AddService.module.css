@@ -5,6 +5,7 @@
   gap: 40px;
   width: 100%;
   padding: 126px 0 64px;
+  margin-top: 20px;
 }
 
 @media (min-width: 1440px) {

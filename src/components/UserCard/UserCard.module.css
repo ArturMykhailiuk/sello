@@ -40,8 +40,8 @@
     }
 }
 
-/* Recipe thumbnails (tablet and desktop only) */
-.recipeList {
+/* Service thumbnails (tablet and desktop only) */
+.serviceList {
     display: none;
 }
 
@@ -90,7 +90,7 @@
         padding: 40px 0;
     }
 
-    .recipeList {
+    .serviceList {
         display: flex;
         gap: 12px;
         flex-wrap: nowrap;

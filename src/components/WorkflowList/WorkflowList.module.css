@@ -1,0 +1,95 @@
+.loaderContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+  width: 100%;
+}
+
+.emptyState {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+  padding: 32px 16px;
+  width: 100%;
+
+  @media screen and (min-width: 768px) {
+    min-height: 500px;
+    padding: 48px 24px;
+  }
+}
+
+.emptyContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 500px;
+  gap: 16px;
+
+  @media screen and (min-width: 768px) {
+    gap: 24px;
+  }
+}
+
+.emptyTitle {
+  color: #1a1a1a;
+  font-size: 24px;
+  font-weight: 700;
+
+  @media screen and (min-width: 768px) {
+    font-size: 32px;
+  }
+}
+
+.emptyDescription {
+  color: #666;
+  font-size: 14px;
+  line-height: 1.6;
+
+  @media screen and (min-width: 768px) {
+    font-size: 16px;
+  }
+}
+
+.connectButton {
+  margin-top: 8px;
+
+  @media screen and (min-width: 768px) {
+    margin-top: 16px;
+  }
+}
+
+.workflowList {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  padding: 16px 0;
+
+  @media screen and (min-width: 768px) {
+    gap: 32px;
+    padding: 24px 0;
+  }
+}
+
+.workflowsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+
+  /* @media screen and (min-width: 540px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  @media screen and (min-width: 1024px) {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 20px;
+  }
+
+  @media screen and (min-width: 1440px) {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 24px;
+  } */
+}

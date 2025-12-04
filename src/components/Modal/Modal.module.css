@@ -21,7 +21,7 @@
   position: relative;
 
   margin: 0 16px;
-  padding: 60px 30px;
+  padding: 60px 30px 30px 30px;
   max-width: 343px;
   min-inline-size: min(280px, 100% - 32px); /* prevents edge collision */
   width: 100%;
@@ -38,8 +38,9 @@
     opacity var(--transition-duration) var(--transition-timing-function);
 
   @media screen and (min-width: 768px) {
-    padding: 80px;
-    max-width: 560px;
+    /* padding: 80px; */
+    padding: 60px 60px 30px 60px;
+    max-width: 760px;
   }
 }
 

@@ -4,9 +4,11 @@ import clsx from "clsx";
 /**
  * @param {object} props
  * @param {string} props.className - CSS class to apply to the component.
- * @param {"dark"|"light"|"transparent"} props.variant — color/style preset.
+ * @param {"dark"|"light"|"transparent"|"blue"|"uastyle"|"uastyleGrayBorder"|"uastyleHeader"} props.variant — color/style preset.
  * @param {"small"|"medium"} props.size — padding/font-size preset.
  * @param {boolean} props.bordered — whether to draw a border.
+ * @param {boolean} props.uabordered — whether to draw a border.
+
  * @param {React.ReactNode} props.icon — an icon element.
  * @param {boolean} props.disabled — whether the button is disabled.
  * @param {"button"|"submit"|"reset"} [props.type] — button type.
@@ -18,6 +20,7 @@ const Button = ({
   variant,
   size,
   bordered = false,
+  uabordered = false,
   disabled = false,
   type = "button",
   icon,
@@ -34,6 +37,7 @@ const Button = ({
         styles[variant],
         styles[size],
         bordered && styles.bordered,
+        uabordered && styles.uabordered,
         fullWidth && styles.fullWidth,
         className,
       )}

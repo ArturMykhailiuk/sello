@@ -11,7 +11,7 @@ import { Typography } from "../Typography/Typography.jsx";
  * @param {(e: React.ChangeEvent<HTMLInputElement>) => void} props.onChange - Handler called when input value changes.
  * @param {string} [props.type='text'] - The HTML input type (e.g. 'text', 'password').
  * @param {string} [props.error] - Optional error message shown below the input.
- * @param {"default" | "underline" | "ghost"} [variant='default'] - Visual style of the input.
+ * @param {"default" | "underline" | "ghost" | "uastyle"} [variant='default'] - Visual style of the input.
  * @param {number} [props.maxLength] - Maximum number of characters allowed in the input.
  * @param {boolean} [props.disabled=false] - If true, the input is disabled.
  * @param {boolean} [props.required=false] - If true, appends "*" to the placeholder and sets `required` on the input.
@@ -42,10 +42,16 @@ export const Input = ({
   const showCounter = typeof maxLength === "number";
 
   return (
-    <div className={`${styles.wrapper} ${disabled ? styles.disabled : ""} ${className}`}>
+    <div
+      className={`${styles.wrapper} ${
+        disabled ? styles.disabled : ""
+      } ${className}`}
+    >
       <div className={styles.inputWrapper}>
         <input
-          className={`${styles.input} ${styles[variant]} ${error ? styles.error : ""}`}
+          className={`${styles.input} ${styles[variant]} ${
+            error ? styles.error : ""
+          }`}
           type={type}
           placeholder={required ? `${placeholder}*` : placeholder}
           required={required}
@@ -57,7 +63,11 @@ export const Input = ({
           onBlur={onBlur}
         />
         {iconRight && (
-          <button type="button" className={styles.iconButton} onClick={onIconClick}>
+          <button
+            type="button"
+            className={styles.iconButton}
+            onClick={onIconClick}
+          >
             {iconRight}
           </button>
         )}
@@ -67,7 +77,11 @@ export const Input = ({
           </div>
         )}
       </div>
-      {error && <Typography variant="body" textColor="red">{error}</Typography>}
+      {error && (
+        <Typography variant="body" textColor="red">
+          {error}
+        </Typography>
+      )}
     </div>
   );
 };

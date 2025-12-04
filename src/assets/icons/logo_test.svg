@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 100" width="200" height="16" fill="currentColor">
+  <!-- Текст SELL- -->
+  <text x="0" y="85" font-family="Arial, sans-serif" font-weight="700" font-size="90" fill="#0D73BA">
+    SELL-
+  </text>
+
+  <!-- Літера O з маркером (зменшена і вирівняна по розміру) -->
+  <g transform="translate(270, 16) scale(0.78)">
+    <!-- Зовнішнє синє коло -->
+    <circle cx="45" cy="45" r="45" fill="#0D73BA"/>
+
+    <!-- Жовтий маркер -->
+    <path d="M45 15
+             C30 15 20 27 20 40
+             C20 60 45 90 45 90
+             C45 90 70 60 70 40
+             C70 27 60 15 45 15Z"
+          fill="#F7C400"/>
+
+    <!-- Внутрішнє блакитне коло -->
+    <circle cx="45" cy="40" r="12" fill="#0D73BA"/>
+  </g>
+</svg>

@@ -3,7 +3,7 @@ export const BACKEND_URL = import.meta.env.VITE_API_BASE_URL;
 export const DEFAULT_ERROR_MESSAGE = "Something went wrong. Try again.";
 
 export const TabKey = {
-  RECIPES: "recipes",
+  SERVICES: "services",
   FAVORITES: "favorites",
   FOLLOWERS: "followers",
   FOLLOWING: "following",
@@ -11,23 +11,23 @@ export const TabKey = {
 };
 
 export const tabsForOwner = [
-  { key: TabKey.RECIPES, label: "My Recipes" },
-  { key: TabKey.FAVORITES, label: "My Favorites" },
-  { key: TabKey.FOLLOWERS, label: "Followers" },
-  { key: TabKey.FOLLOWING, label: "Following" },
-  { key: TabKey.WORKFLOWS, label: "AI Workflows" },
+  { key: TabKey.SERVICES, label: "Мої послуги" },
+  { key: TabKey.WORKFLOWS, label: "Мої АІ сценарії" },
+  { key: TabKey.FAVORITES, label: "Мої вподобання" },
+  { key: TabKey.FOLLOWERS, label: "Підписники" },
+  { key: TabKey.FOLLOWING, label: "Підписки" },
 ];
 
 export const tabsForUser = [
-  { key: TabKey.RECIPES, label: "Recipes" },
-  { key: TabKey.FOLLOWERS, label: "Followers" },
+  { key: TabKey.SERVICES, label: "Послуги" },
+  { key: TabKey.FOLLOWERS, label: "Підписники" },
 ];
 
 export const emptyTabMessagesForOwner = {
-  recipes:
-    "Nothing has been added to your recipes list yet. Please browse our recipes and add your favorites for easy access in the future.",
+  services:
+    "Nothing has been added to your services list yet. Please browse our services and add your favorites for easy access in the future.",
   favorites:
-    "Nothing has been added to your favorite recipes list yet. Please browse our recipes and add your favorites for easy access in the future.",
+    "Nothing has been added to your favorite services list yet. Please browse our services and add your favorites for easy access in the future.",
   followers:
     "There are currently no followers on your account. Please engage our visitors with interesting content and draw their attention to your profile.",
   following:
@@ -38,8 +38,8 @@ export const emptyTabMessagesForOwner = {
 };
 
 export const emptyTabMessagesForUser = {
-  recipes:
-    "This user hasn't added any recipes yet. Check back later to see if they've shared something tasty!",
+  services:
+    "This user hasn't added any services yet. Check back later to see if they've shared something tasty!",
   followers:
     "No one is following this user yet. Be the first to follow and stay updated on their activity.",
 };

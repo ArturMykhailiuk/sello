@@ -47,7 +47,6 @@ export const getFavoriteServices = async ({ page, limit }) => {
 
 export const getServiceById = async (id) => {
   const { data } = await api.get(`/services/${id}`);
-  console.log("getServiceById:", data);
   return data.data.service;
 };
 

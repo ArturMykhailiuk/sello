@@ -1,11 +1,37 @@
 .header {
   position: absolute;
   top: 0;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 1;
 
   padding: 24px 0;
   width: 100%;
+  max-width: 1400px;
+  background: linear-gradient(180deg, #bfbfc0 10%, #056cb2 100%);
+  border-radius: 20px;
+  margin-top: 20px;
+
+  @media screen and (min-width: 768px) {
+    padding: 36px 0;
+  }
+
+  @media screen and (min-width: 1440px) {
+    padding: 40px 40px;
+  }
+}
+
+.homeHeader {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+
+  padding: 24px 0;
+  width: 100%;
+  max-width: 1440px;
+  background: transparent;
 
   @media screen and (min-width: 768px) {
     padding: 36px 0;
@@ -21,19 +47,19 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 0 16px;
+  padding: 0 20px;
 
   @media screen and (min-width: 768px) {
-    padding: 0 32px;
+    /* padding: 0 32px; */
   }
 
   @media screen and (min-width: 1440px) {
-    padding: 0 80px;
+    /* padding: 0 80px; */
   }
 }
 
 .homeContainer {
-  padding: 0 24px;
+  /* padding: 0 24px; */
 
   @media screen and (min-width: 768px) {
     padding: 0 48px;

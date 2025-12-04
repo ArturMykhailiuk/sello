@@ -34,7 +34,7 @@ export const Hero = () => {
           </Typography>
           <Button
             className={styles.heroButton}
-            variant="transparent"
+            variant="uastyleGrayBorder"
             size="medium"
             onClick={handleClick}
           >

@@ -7,7 +7,6 @@ import ArrowUpRight from "../../assets/icons/arrow-up-right.svg?react";
 export default function CategoryItem({ data }) {
   const categoryName = data.name;
   const navigate = useNavigate();
-  console.log("Rendering CategoryItem for:", categoryName);
 
   return (
     // <div className={`${css.thumb} ${css[categoryName.toLowerCase()]}`}>

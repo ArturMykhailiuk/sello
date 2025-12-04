@@ -1,0 +1,102 @@
+.container {
+  width: 100%;
+  padding: 20px 0;
+}
+
+.header {
+  margin-bottom: 32px;
+}
+
+.subtitle {
+  margin-top: 8px;
+  color: var(--gray-text);
+}
+
+.loaderContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+}
+
+.emptyState {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+  padding: 40px 20px;
+}
+
+.emptyContent {
+  max-width: 500px;
+  text-align: center;
+}
+
+.emptyTitle {
+  margin-bottom: 16px;
+  color: var(--text-primary);
+}
+
+.emptyDescription {
+  margin-bottom: 12px;
+  color: var(--gray-text);
+  line-height: 1.6;
+}
+
+.emptyHint {
+  margin-top: 24px;
+  padding: 16px;
+  background: var(--background-light);
+  border-radius: 8px;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.serviceGroups {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.serviceGroup {
+  width: 100%;
+}
+
+.serviceHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.serviceTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.serviceCount {
+  color: var(--gray-text);
+  font-size: 14px;
+}
+
+.workflowsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .workflowsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .serviceHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}

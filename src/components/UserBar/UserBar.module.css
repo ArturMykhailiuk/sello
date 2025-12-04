@@ -9,7 +9,7 @@
   width: 122px;
 
   background-color: var(--ua-yellow);
-  border-radius: 30px;
+  border-radius: 18px;
   cursor: pointer;
   border: 1px solid var(--ua-blue);
 
@@ -76,8 +76,8 @@
   padding: 15px;
   min-width: 100%;
 
-  background-color: var(--main-color);
-  border: 1px solid var(--gray-color);
+  background-color: var(--ua-yellow);
+  border: 1px solid var(--ua-blue);
   border-radius: 15px;
 
   @media screen and (min-width: 768px) {
@@ -90,11 +90,15 @@
   font-weight: 700;
   line-height: 1.5;
   letter-spacing: -0.24px;
-  color: var(--white-color);
+  color: var(--ua-main);
   text-transform: uppercase;
   text-decoration: none;
 
   cursor: pointer;
+}
+
+.link:hover {
+  color: var(--ua-blue);
 }
 
 .logoutButton {
@@ -104,6 +108,10 @@
   background-color: transparent;
   border: none;
   padding: 0;
+}
+
+.link.logoutButton:hover svg {
+  fill: var(--ua-blue);
 }
 
 .logoutIcon {

@@ -6,8 +6,8 @@ import XIcon from "../../assets/icons/x.svg?react";
 
 /**
  * @param {object} props
- * @param {string} props.imgURL — URL of the ingredient image.
- * @param {string} props.name — Name of the ingredient.
+ * @param {string} props.imgURL — URL of the item image.
+ * @param {string} props.name — Name of the item.
  * @param {string} props.measure — Measure string to display.
  * @param {() => void} [props.onDelete] — Optional delete handler.
  */

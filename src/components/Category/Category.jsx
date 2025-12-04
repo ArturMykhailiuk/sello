@@ -18,7 +18,6 @@ import { fetchCategories } from "../../services/categories";
 export function Category() {
   const breakpoint = useBreakpoint({ tablet: 640 });
   const [categories, setCategories] = useState([]);
-  console.log("Categories loaded:", categories);
 
   // useEffect(() => {
   //   setCategories(allCategories.slice(0, getCountOfCategories(breakpoint)));

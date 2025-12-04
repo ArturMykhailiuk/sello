@@ -19,7 +19,7 @@ import clsx from "clsx";
 import { Logo } from "../Logo/Logo";
 
 // SVG з assets/icons імпортується як React компонент
-import LogoSvg from "../../assets/icons/logo.svg?react";
+import LogoSvg from "../../assets/icons/logo_test.svg?react";
 
 export default function Header() {
   const homePath = useMatch("/");
@@ -36,7 +36,7 @@ export default function Header() {
 
   return (
     <>
-      <header className={css.header}>
+      <header className={clsx(css.header, isHome && css.homeHeader)}>
         <Container className={clsx(css.container, isHome && css.homeContainer)}>
           <div className={css.leftSection}>
             <Link
