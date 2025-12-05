@@ -58,7 +58,7 @@ export const ServiceDetail = ({
 
   return (
     <div>
-      <Typography variant="h3" textColor="black" className={styles.title}>
+      <Typography variant="h3" textColor={textColor} className={styles.title}>
         Опис послуги
       </Typography>
 
@@ -69,12 +69,12 @@ export const ServiceDetail = ({
       <Button
         onClick={handleFavoriteClick}
         type="button"
-        variant="light"
+        variant="blue"
         size="medium"
         bordered
         disabled={updating}
       >
-        {isFavorite ? "Remove from favorites" : "Add to favorites"}
+        {isFavorite ? "Видалити з улюблених" : "Додати до улюблених"}
       </Button>
     </div>
   );

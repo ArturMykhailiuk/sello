@@ -10,14 +10,20 @@ export const Nav = () => {
   const navigate = useNavigate();
 
   const isHomePage = !!homePath;
+  const isServicePage = !!servicePath;
+  console.log("isHomePage", isHomePage);
+  console.log("isServicePage", isServicePage);
 
   return (
     <nav className={css.container}>
       <ul className={clx(css.list, !isHomePage && css.headerAll)}>
         <li>
           <Button
-            className={clx(isHomePage && css.activeBtn)}
-            variant={isHomePage ? "uastyleHeaderHomePage" : "uastyleHeader"}
+            variant={
+              isHomePage
+                ? "uastyleHeaderActivePage"
+                : "uastyleHeaderNotActivePage"
+            }
             size="small"
             uabordered={isHomePage}
             onClick={() => navigate("/")}
@@ -28,10 +34,13 @@ export const Nav = () => {
 
         <li>
           <Button
-            className={clx(!!servicePath && css.activeBtn)}
-            variant={isHomePage ? "uastyleHeader" : "uastyleHeaderHomePage"}
+            variant={
+              isServicePage
+                ? "uastyleHeaderActivePage"
+                : "uastyleHeaderNotActivePage"
+            }
             size="small"
-            uabordered={!!servicePath}
+            uabordered={isServicePage}
             onClick={() => navigate("/service/add")}
           >
             Додати послугу

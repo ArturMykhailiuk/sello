@@ -6,8 +6,8 @@ import css from "./ServiceItems.module.css";
 export const ServiceItems = ({ items }) => {
   return (
     <div>
-      <Typography className={css.title} variant="h3">
-        Items
+      <Typography className={css.title} variant="h3" textColor="uablue">
+        Деталізація послуги
       </Typography>
 
       <ul className={css.list}>

@@ -30,7 +30,7 @@ export const Services = ({ categoryId }) => {
             onClick={handleBackClick}
           >
             <ArrowLeftIcon className={css.servicesBackIcon} />
-            Back
+            Повернутися
           </button>
           <Typography className={css.servicesCategory} variant="h1">
             {currentCategory.name}

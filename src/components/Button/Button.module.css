@@ -105,7 +105,7 @@
   color: var(--ua-yellow);
 }
 
-.Button.uastyleHeaderHomePage {
+.Button.uastyleHeaderActivePage {
   font-size: 16px;
   background: transparent;
   color: var(--ua-main);
@@ -113,11 +113,11 @@
   /* border:1px solid var(--gray-light-color); */
 }
 
-.Button.uastyleHeaderHomePage:not(:disabled):hover {
+.Button.uastyleHeaderActivePage:not(:disabled):hover {
   color: var(--ua-main);
 }
 
-.Button.uastyleHeader {
+.Button.uastyleHeaderNotActivePage {
   font-size: 16px;
   background: transparent;
   color: var(--ua-blue);
@@ -125,7 +125,7 @@
   /* border:1px solid var(--gray-light-color); */
 }
 
-.Button.uastyleHeader:not(:disabled):hover {
+.Button.uastyleHeaderNotActivePage:not(:disabled):hover {
   color: var(--ua-main);
 }
 
@@ -141,6 +141,20 @@
 
 .Button.transparent.bordered {
   border: 1px solid var(--white-transparent-color);
+}
+
+.Button.uatransparent {
+  background: transparent;
+  color: var(--ua-blue);
+}
+
+.Button.uatransparent:not(:disabled):hover {
+  background: var(--ua-blue);
+  color: var(--ua-yellow);
+}
+
+.Button.uatransparent.bordered {
+  border-radius: 18px;
 }
 
 .Button.bordered {

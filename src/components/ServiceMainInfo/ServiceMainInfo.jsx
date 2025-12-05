@@ -30,8 +30,8 @@ export const ServiceMainInfo = ({
   const navigate = useNavigate();
 
   const textColor = ["small-mobile", "mobile"].includes(breakpoint)
-    ? "gray"
-    : "black";
+    ? "uablue"
+    : "uablue";
 
   const navigateToAuthor = () => {
     if (!isLoggedIn) {
@@ -56,10 +56,33 @@ export const ServiceMainInfo = ({
 
       <div className={css.info}>
         <div>
-          <Typography variant="h3">{title}</Typography>
+          <Typography variant="h3" textColor={textColor}>
+            {title}
+          </Typography>
 
           <div className={css.category}>
-            <span>{category?.name}</span>
+            <span className={css.categoryName}>{category?.name}</span>
+            <button
+              className={css.authorBlock}
+              type="button"
+              onClick={navigateToAuthor}
+            >
+              <Avatar
+                src={avatarUrl}
+                size={38}
+                alt={owner?.name}
+                name={owner?.name}
+              />
+              <div className={css.authorText}>
+                <Typography variant="body" textColor="gray">
+                  Створено:
+                </Typography>
+
+                <Typography variant="body" textColor={textColor}>
+                  {owner?.name}
+                </Typography>
+              </div>
+            </button>
           </div>
 
           <Typography
@@ -69,28 +92,6 @@ export const ServiceMainInfo = ({
           >
             {description}
           </Typography>
-
-          <button
-            className={css.authorBlock}
-            type="button"
-            onClick={navigateToAuthor}
-          >
-            <Avatar
-              src={avatarUrl}
-              size={32}
-              alt={owner?.name}
-              name={owner?.name}
-            />
-            <div className={css.authorText}>
-              <Typography variant="body" textColor="gray">
-                Created by:
-              </Typography>
-
-              <Typography variant="body" textColor="main">
-                {owner?.name}
-              </Typography>
-            </div>
-          </button>
         </div>
 
         <ServiceItems items={items} />

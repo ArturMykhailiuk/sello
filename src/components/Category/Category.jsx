@@ -34,11 +34,6 @@ export function Category() {
           <Typography variant="h2" textColor="blue" className={css.title}>
             Категорії послуг
           </Typography>
-          {/* <Typography variant="body" className={css.description}>
-            Відкрийте безмежний світ можливостей та скористайтеся якісними
-            послугами, що поєднують професіоналізм, надійність та теплу
-            атмосферу української спільноти.
-          </Typography> */}
         </div>
 
         {categories.length > 0 && <CategoryList categories={categories} />}

@@ -1,7 +1,7 @@
 # 🍽️ SELL-O Frontend
 
 SELL-O is a modern React-based frontend application built with Vite. It serves as the user interface for a
-recipe-sharing platform, supporting user profiles, following functionality, recipe browsing, and responsive layout.
+service-sharing platform, supporting user profiles, following AI workflows functionality, service browsing, and responsive layout.
 
 ## 🔗 Live Demo
 

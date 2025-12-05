@@ -50,7 +50,7 @@ const UserPage = () => {
 
   const [activeTab, setActiveTab] = useState(TabKey.SERVICES);
   const [items, setItems] = useState([]);
-  const [n8nStatus, setN8nStatus] = useState(null);
+  // const [n8nStatus, setN8nStatus] = useState(null);
 
   // Workflows modals state
   const [isN8nModalOpen, setIsN8nModalOpen] = useState(false);
@@ -99,7 +99,7 @@ const UserPage = () => {
                   // Check n8n status first
                   const status = await checkN8nStatus();
                   console.log("n8n status:", status);
-                  setN8nStatus(status);
+                  // setN8nStatus(status);
 
                   if (status.autoConnected) {
                     toast.success("Connected to existing n8n account");
@@ -263,8 +263,8 @@ const UserPage = () => {
         textColor={isMobile ? "black" : "gray"}
         className={styles.description}
       >
-        Reveal your culinary art, share your favorite recipe and create
-        gastronomic masterpieces with us.
+        Об’єднуймо наші зусилля, знання та таланти, щоб створювати послуги, які
+        надихають і приносять цінність кожному клієнтові.
       </Typography>
       <div className={styles.profileContainer}>
         <div className={styles.profile}>

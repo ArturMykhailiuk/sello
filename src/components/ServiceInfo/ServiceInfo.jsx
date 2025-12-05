@@ -23,6 +23,7 @@ import {
 
 import css from "./ServiceInfo.module.css";
 import NotFound from "../../pages/NotFound/NotFound.jsx";
+import ArrowLeftIcon from "../../assets/icons/arrow-left.svg?react";
 
 export const ServiceInfo = () => {
   const navigate = useNavigate();
@@ -169,23 +170,24 @@ export const ServiceInfo = () => {
     setSelectedWorkflow(null);
   };
 
+  const handleBackClick = () => {
+    navigate(goBackPath.current);
+  };
+
   if (loading) return <Loader />;
 
   if (!service) return <NotFound />;
 
   return (
     <section>
-      <Breadcrumbs>
-        <BreadcrumbsItem
-          onClick={() => {
-            navigate(goBackPath.current);
-          }}
-        >
-          Home
-        </BreadcrumbsItem>
-        <BreadcrumbsDivider />
-        <BreadcrumbsItem isActive>{service.title}</BreadcrumbsItem>
-      </Breadcrumbs>
+      <button
+        className={css.servicesBackButton}
+        type="button"
+        onClick={handleBackClick}
+      >
+        <ArrowLeftIcon className={css.servicesBackIcon} />
+        Повернутись
+      </button>
 
       <div className={css.detailsBlock}>
         <ServiceMainInfo

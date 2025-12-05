@@ -4,7 +4,7 @@ import clsx from "clsx";
 /**
  * @param {object} props
  * @param {string} props.className - CSS class to apply to the component.
- * @param {"dark"|"light"|"transparent"|"blue"|"uastyle"|"uastyleGrayBorder"|"uastyleHeader"} props.variant — color/style preset.
+ * @param {"dark"|"light"|"transparent"|"uatransparent"|blue"|"uastyle"|"uastyleGrayBorder"|"uastyleHeaderActivePage"|"uastyleHeaderNotActivePage"} props.variant — color/style preset.
  * @param {"small"|"medium"} props.size — padding/font-size preset.
  * @param {boolean} props.bordered — whether to draw a border.
  * @param {boolean} props.uabordered — whether to draw a border.

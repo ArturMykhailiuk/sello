@@ -24,13 +24,6 @@ export default function CategoryItem({ data }) {
         >
           {categoryName}
         </Button>
-        {/* <ButtonIcon
-          variant="transparent"
-          size="medium"
-          type="button"
-          icon={<ArrowUpRight />}
-          onClick={() => navigate(`/?category=${data.id}`)}
-        /> */}
       </div>
     </div>
   );

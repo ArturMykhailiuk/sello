@@ -1,8 +1,12 @@
 .detailsBlock {
-  margin-top: 32px;
+  margin-top: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 
   @media screen and (min-width: 768px) {
-    margin-top: 40px;
+    margin-top: 20px;
   }
 }
 
@@ -14,5 +18,40 @@
   @media screen and (min-width: 768px) {
     margin-top: 64px;
     padding-top: 64px;
+  }
+}
+
+.servicesBackButton {
+  display: flex;
+  gap: 4px;
+  padding: 0px;
+  background-color: transparent;
+  color: var(--main-color);
+  border: none;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+@media screen and (min-width: 768px) {
+  .servicesBackButton {
+    font-size: 14px;
+    line-height: 18px;
+    gap: 6px;
+  }
+}
+
+.servicesBackIcon {
+  width: 16px;
+  height: 16px;
+}
+@media screen and (min-width: 768px) {
+  .servicesBackIcon {
+    width: 18px;
+    height: 18px;
   }
 }

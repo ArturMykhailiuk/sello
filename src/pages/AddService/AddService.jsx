@@ -171,17 +171,17 @@ const AddService = () => {
               window.open("/", "_self");
             }}
           >
-            Home
+            Головна
           </BreadcrumbsItem>
           <BreadcrumbsDivider />
-          <BreadcrumbsItem isActive>Add service</BreadcrumbsItem>
+          <BreadcrumbsItem isActive>Додати послугу</BreadcrumbsItem>
         </Breadcrumbs>
 
         <div className={styles.AddService__header}>
-          <Typography variant="h2">Add service</Typography>
+          <Typography variant="h2">Додати послугу</Typography>
           <Typography variant="body">
-            Reveal your culinary art, share your favorite recipe and create
-            gastronomic masterpieces with us.
+            Об’єднуймо наші зусилля, знання та таланти, щоб створювати послуги,
+            які надихають і приносять цінність кожному клієнтові.
           </Typography>
         </div>
 

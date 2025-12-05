@@ -60,7 +60,7 @@ export const NavMenu = ({ onClose }) => {
               className={clsx(css.link)}
               onClick={() => {
                 handleClose();
-                navigate("/recipe/add");
+                navigate("/service/add");
               }}
             >
               Додати послугу
