@@ -173,6 +173,7 @@ export const ServiceInfo = () => {
   const handleBackClick = () => {
     navigate(goBackPath.current);
   };
+  console.log(goBackPath);
 
   if (loading) return <Loader />;
 

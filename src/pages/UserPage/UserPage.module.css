@@ -1,5 +1,5 @@
 .container {
-  margin-top: 126px;
+  margin-top: 106px;
 }
 .pagination {
   margin-top: 30px;
@@ -23,12 +23,13 @@
 }
 
 .title {
-  margin-top: 32px;
+  margin-top: 22px;
+  color: var(--ua-blue);
 }
 
 @media (min-width: 768px) {
   .title {
-    margin-top: 40px;
+    margin-top: 10px;
   }
 }
 

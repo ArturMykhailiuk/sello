@@ -60,7 +60,7 @@ export const UserInfo = ({ user, isMyProfile, onAvatarChange }) => {
           <Fragment>
             <ButtonIcon
               className={styles.avatarEdit}
-              variant="dark"
+              variant="yellow"
               icon={<PlusIcon width={16} height={16} />}
               onClick={handleAvatarClick}
             />
@@ -74,7 +74,9 @@ export const UserInfo = ({ user, isMyProfile, onAvatarChange }) => {
           </Fragment>
         )}
       </div>
-      <Typography variant="h3">{name}</Typography>
+      <Typography variant="h3" textColor="uablue">
+        {name}
+      </Typography>
 
       <div className={styles.profileData}>
         <div>

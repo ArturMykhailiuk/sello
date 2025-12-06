@@ -91,7 +91,7 @@ export const UserCard = ({
             disabled={loading}
             className={styles.followButton}
           >
-            {isFollowing ? "FOLLOWING" : "FOLLOW"}
+            {isFollowing ? "ПІДПИСАНО" : "ПІДПИСАТИСЯ"}
           </Button>
         </div>
       </div>

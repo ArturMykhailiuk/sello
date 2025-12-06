@@ -27,12 +27,12 @@
 }
 
 .tab:hover {
-  color: var(--main-color);
+  color: var(--ua-blue);
 }
 
 .active {
-  color: var(--main-color);
-  border-bottom: 3px solid var(--main-color);
+  color: var(--ua-blue);
+  border-bottom: 3px solid var(--ua-blue);
   padding-bottom: 10px;
 }
 

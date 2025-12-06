@@ -256,7 +256,7 @@ const UserPage = () => {
     <Container className={styles.container}>
       <PathInfo current={user.name} />
       <Typography variant="h2" className={styles.title}>
-        Profile
+        Панель користувача
       </Typography>
       <Typography
         variant="body"
@@ -275,30 +275,30 @@ const UserPage = () => {
           />
           {isMyProfile ? (
             <Button
-              variant="dark"
+              variant="blue"
               bordered={true}
               size="medium"
               onClick={handleOpenLogOut}
             >
-              LOG OUT
+              Вийти
             </Button>
           ) : user.isFollowed ? (
             <Button
-              variant="dark"
+              variant="blue"
               size="medium"
               bordered={true}
               onClick={() => handleUnFollow(id)}
             >
-              FOLLOWING
+              Відписатися
             </Button>
           ) : (
             <Button
-              variant="dark"
+              variant="blue"
               size="medium"
               bordered={true}
               onClick={() => handleFollow(id)}
             >
-              FOLLOW
+              Підписатися
             </Button>
           )}
         </div>

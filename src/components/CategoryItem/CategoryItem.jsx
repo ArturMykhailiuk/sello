@@ -18,8 +18,8 @@ export default function CategoryItem({ data }) {
         {/* <p className={css.label}>{categoryName}</p> */}
         <Button
           className={css.categoryButton}
-          variant="transparent"
-          size="small"
+          variant="uatransparent"
+          size="mysmall"
           onClick={() => navigate(`/?category=${data.id}`)}
         >
           {categoryName}

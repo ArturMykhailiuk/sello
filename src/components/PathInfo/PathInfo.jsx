@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom';
-import { Typography }from '../Typography/Typography';
-import styles from './PathInfo.module.css';
+import { Link } from "react-router-dom";
+import { Typography } from "../Typography/Typography";
+import styles from "./PathInfo.module.css";
 
 /**
  * @param {Object} props
@@ -10,10 +10,14 @@ export const PathInfo = ({ current }) => {
   return (
     <div className={styles.wrapper}>
       <Link to="/" className={styles.link}>
-        <Typography variant="body" textColor="gray" className={styles.text}>Home</Typography>
+        <Typography variant="body" textColor="gray" className={styles.text}>
+          Головна
+        </Typography>
       </Link>
       <span className={styles.separator}>/</span>
-      <Typography variant="body" textColor="black" className={styles.text}>{current}</Typography>
+      <Typography variant="body" textColor="uablue" className={styles.text}>
+        {current}
+      </Typography>
     </div>
   );
 };

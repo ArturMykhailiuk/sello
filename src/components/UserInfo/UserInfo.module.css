@@ -6,7 +6,7 @@
   gap: 16px;
   padding: 30px 54px;
   border-radius: 30px;
-  border: 1px solid #e0e0e0;
+  border: 1px solid var(--gray-light-color);
   background-color: #fff;
   position: relative;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -26,6 +26,8 @@
 
   max-width: 28px;
   height: 28px;
+
+  fill: var(--ua-blue);
 }
 
 .fileInput {

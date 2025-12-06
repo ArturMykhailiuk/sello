@@ -1,7 +1,7 @@
 .Button {
   width: fit-content;
   font-weight: 700;
-  border-radius: var(--border-radius-m);
+  border-radius: 18px;
   background: transparent;
   border: none;
   cursor: pointer;

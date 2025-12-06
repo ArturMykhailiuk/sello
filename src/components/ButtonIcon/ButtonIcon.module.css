@@ -1,90 +1,110 @@
 .ButtonIcon {
-    border: 1px solid transparent;
-    background: transparent;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: color var(--transition-duration) var(--transition-timing-function), background var(--transition-duration) var(--transition-timing-function), border var(--transition-duration) var(--transition-timing-function);;
-    border-radius: var(--border-radius-full);
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color var(--transition-duration) var(--transition-timing-function),
+    background var(--transition-duration) var(--transition-timing-function),
+    border var(--transition-duration) var(--transition-timing-function);
+  border-radius: var(--border-radius-full);
 }
 
 .ButtonIcon.small {
-    width: 36px;
-    height: 36px;
+  width: 36px;
+  height: 36px;
 }
 
 .ButtonIcon.small svg {
-    width: 16px;
-    height: 16px;
+  width: 16px;
+  height: 16px;
 }
 
 .ButtonIcon.medium {
-    width: 42px;
-    height: 42px;
+  width: 42px;
+  height: 42px;
 }
 
 .ButtonIcon.medium svg {
-    width: 18px;
-    height: 18px;
+  width: 18px;
+  height: 18px;
 }
 
 .ButtonIcon.large {
-    width: 56px;
-    height: 56px;
+  width: 56px;
+  height: 56px;
 }
 
 .ButtonIcon.large svg {
-    width: 24px;
-    height: 24px;
+  width: 24px;
+  height: 24px;
 }
 
 .ButtonIcon.light {
-    background: var(--white-color);
-    color: var(--main-color);
-    border-color: var(--gray-light-color);
+  background: var(--white-color);
+  color: var(--main-color);
+  border-color: var(--gray-light-color);
 }
 
 .ButtonIcon.light:not(:disabled):hover {
-    background: var(--main-color);
-    color: var(--white-color);
-    border-color: var(--main-color);
+  background: var(--main-color);
+  color: var(--white-color);
+  border-color: var(--main-color);
 }
 
 .ButtonIcon.light:not(:disabled):hover svg {
-    color: var(--white-color);
+  color: var(--white-color);
 }
 
 .ButtonIcon.dark {
-    background: var(--main-color);
-    color: var(--white-color);
-    border-color: var(--main-color);
+  background: var(--main-color);
+  color: var(--white-color);
+  border-color: var(--main-color);
 }
 
 .ButtonIcon.dark:not(:disabled):hover {
-    background: var(--white-color);
-    color: var(--main-color);
-    border-color: var(--white-color);
+  background: var(--white-color);
+  color: var(--main-color);
+  border-color: var(--white-color);
 }
 
 .ButtonIcon.dark:not(:disabled):hover svg {
-    color: var(--main-color);
+  color: var(--main-color);
+}
+
+.ButtonIcon.yellow {
+  background: var(--ua-yellow);
+  color: var(--white-color);
+  border-color: var(--ua-blue);
+}
+.ButtonIcon.yellow:not(:disabled):hover svg {
+  color: var(--ua-blue);
+}
+.ButtonIcon.yellow:not(:disabled):hover {
+  border-color: var(--ua-yellow);
+}
+
+.ButtonIcon.dark:not(:disabled):hover {
+  background: var(--white-color);
+  color: var(--main-color);
+  border-color: var(--white-color);
 }
 
 .ButtonIcon.transparent {
-    background: transparent;
-    color: var(--white-color);
-    border-color: var(--white-transparent-color);
+  background: transparent;
+  color: var(--white-color);
+  border-color: var(--white-transparent-color);
 }
 
 .ButtonIcon.transparent:not(:disabled):hover {
-    background: transparent;
-    border-color: var(--white-color);
+  background: transparent;
+  border-color: var(--white-color);
 }
 
 .ButtonIcon:disabled {
-    background: var(--gray-light-color);
-    border-color: var(--gray-light-color);
-    color: var(--gray-color);
-    cursor: not-allowed;
+  background: var(--gray-light-color);
+  border-color: var(--gray-light-color);
+  color: var(--gray-color);
+  cursor: not-allowed;
 }

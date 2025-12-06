@@ -19,7 +19,7 @@ const ProfileMenu = ({ onClose }) => {
   return (
     <div className={css.popover}>
       <NavLink to={`/user/${user.id}`} className={css.link} onClick={onClose}>
-        Profile
+        Панель
       </NavLink>
 
       <button
@@ -27,7 +27,7 @@ const ProfileMenu = ({ onClose }) => {
         className={clx(css.link, css.logoutButton)}
         onClick={() => dispatch(openLogOut())}
       >
-        Log out
+        Вийти
         <ArrowUpRightIcon className={css.logoutIcon} />
       </button>
     </div>

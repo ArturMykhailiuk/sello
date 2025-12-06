@@ -2,6 +2,7 @@ import { Link } from "react-router";
 import CategoryItem from "../CategoryItem/CategoryItem";
 import css from "./CategoriesList.module.css";
 import { Typography } from "../Typography/Typography";
+import Loader from "../Loader/Loader";
 
 export function CategoryList({ categories }) {
   return (

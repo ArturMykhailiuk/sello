@@ -36,9 +36,8 @@ export const Services = ({ categoryId }) => {
             {currentCategory.name}
           </Typography>
           <Typography className={css.servicesDescription} variant="body">
-            Go on a taste journey, where every sip is a sophisticated creative
-            chord, and every dessert is an expression of the most refined
-            gastronomic desires.
+            Об’єднуймо наші зусилля, знання та таланти, щоб створювати послуги,
+            які надихають і приносять цінність кожному клієнтові.
           </Typography>
         </div>
 

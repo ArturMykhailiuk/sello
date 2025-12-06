@@ -41,13 +41,13 @@ export const LogOutModal = ({ onClose }) => {
       <Button
         className={`${css.button} ${css.buttonMB}`}
         type="button"
-        variant="dark"
+        variant="blue"
         size="medium"
         disabled={disabled}
         bordered
         onClick={handleLogout}
       >
-        Log out
+        Вийти
       </Button>
 
       <Button
