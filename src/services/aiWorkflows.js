@@ -47,6 +47,19 @@ export const deleteAIWorkflow = async (id) => {
 };
 
 /**
+ * Update an AI workflow
+ * @param {number} id - Workflow ID
+ * @param {Object} workflowData - Updated workflow data
+ * @param {string} workflowData.name - Workflow name
+ * @param {string} workflowData.systemPrompt - System prompt for AI
+ * @returns {Promise<Object>} Updated workflow
+ */
+export const updateAIWorkflow = async (id, workflowData) => {
+  const response = await api.patch(`/ai-workflows/${id}`, workflowData);
+  return response.data.workflow;
+};
+
+/**
  * Toggle AI workflow active status
  * @param {number} id - Workflow ID
  * @returns {Promise<Object>} Updated workflow
@@ -91,4 +104,18 @@ export const sendMessageToAI = async (webhookUrl, message, sessionId) => {
 
   const data = await response.json();
   return data;
+};
+
+/**
+ * Generate system prompt using n8n workflow
+ * @param {string} assistantType - Type of assistant (e.g., "AI Chat")
+ * @param {number} serviceId - Service ID for context
+ * @returns {Promise<string>} Generated system prompt
+ */
+export const generateSystemPrompt = async (assistantType, serviceId) => {
+  const response = await api.post("/ai-workflows/generate-prompt", {
+    assistantType,
+    serviceId,
+  });
+  return response.data.systemPrompt;
 };

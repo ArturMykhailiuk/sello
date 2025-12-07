@@ -4,15 +4,19 @@ import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
 
 import { Modal } from "../Modal/Modal";
-import { Input } from "../Input/Input";
 import { Button } from "../Button/Button";
 import { Typography } from "../Typography/Typography";
 import Loader from "../Loader/Loader";
+import { DynamicFormField } from "../DynamicFormField/DynamicFormField";
 import {
   fetchAITemplates,
   createAIWorkflow,
+  updateAIWorkflow,
   selectAITemplates,
   selectAIWorkflowsCreating,
+  selectAIWorkflowsUpdating,
+  selectAIWorkflowsGenerating,
+  generateSystemPrompt,
 } from "../../store/aiWorkflows";
 import { normalizeHttpError } from "../../utils";
 
@@ -23,18 +27,27 @@ export const ServiceAIAssistantModal = ({
   onClose,
   serviceId,
   onWorkflowCreated,
+  editingWorkflow = null, // Якщо передано - режим редагування
 }) => {
   const dispatch = useDispatch();
   const templatesRaw = useSelector(selectAITemplates);
   const templates = useMemo(() => templatesRaw || [], [templatesRaw]);
   const isCreating = useSelector(selectAIWorkflowsCreating);
+  const isUpdating = useSelector(selectAIWorkflowsUpdating);
+  const isGenerating = useSelector(selectAIWorkflowsGenerating);
 
-  const [formData, setFormData] = useState({
-    aiTemplateId: "",
-    name: "",
-    systemPrompt: "",
-  });
+  const isEditMode = Boolean(editingWorkflow);
+  const isSubmitting = isEditMode ? isUpdating : isCreating;
+
+  const [selectedTemplateId, setSelectedTemplateId] = useState("");
+  const [formData, setFormData] = useState({});
   const [errors, setErrors] = useState({});
+
+  // Знаходимо вибраний template
+  const selectedTemplate = useMemo(
+    () => templates.find((t) => t.id === Number(selectedTemplateId)),
+    [templates, selectedTemplateId],
+  );
 
   useEffect(() => {
     if (isOpen && templates.length === 0) {
@@ -42,42 +55,116 @@ export const ServiceAIAssistantModal = ({
     }
   }, [isOpen, dispatch, templates.length]);
 
+  // Ініціалізація при редагуванні
   useEffect(() => {
-    if (isOpen && templates.length > 0 && !formData.aiTemplateId) {
-      setFormData((prev) => ({
-        ...prev,
-        aiTemplateId: templates[0].id,
-      }));
+    if (editingWorkflow) {
+      setSelectedTemplateId(
+        String(
+          editingWorkflow.aiTemplateId || editingWorkflow.aiTemplate?.id || "",
+        ),
+      );
     }
-  }, [isOpen, templates, formData.aiTemplateId]);
+  }, [editingWorkflow]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-    if (errors[name]) {
-      setErrors((prev) => ({ ...prev, [name]: "" }));
+  // Ініціалізація формових даних з defaultValue або editingWorkflow
+  useEffect(() => {
+    if (selectedTemplate?.formConfig?.fields) {
+      const initialData = {};
+      selectedTemplate.formConfig.fields.forEach((field) => {
+        if (editingWorkflow && editingWorkflow[field.id] !== undefined) {
+          // Якщо режим редагування - використовуємо значення з workflow
+          initialData[field.id] = editingWorkflow[field.id];
+        } else if (field.defaultValue !== undefined) {
+          // Інакше - defaultValue з formConfig
+          initialData[field.id] = field.defaultValue;
+        }
+      });
+      setFormData(initialData);
+      setErrors({});
+    } else {
+      // Fallback для старих templates без formConfig
+      setFormData({});
+      setErrors({});
+    }
+  }, [selectedTemplate, editingWorkflow]);
+
+  const handleFieldChange = (fieldId, value) => {
+    setFormData((prev) => ({ ...prev, [fieldId]: value }));
+    if (errors[fieldId]) {
+      setErrors((prev) => ({ ...prev, [fieldId]: "" }));
+    }
+  };
+
+  const handleTemplateChange = async (e) => {
+    const newTemplateId = e.target.value;
+    setSelectedTemplateId(newTemplateId);
+
+    // If template selected and not in edit mode, trigger prompt generation
+    if (newTemplateId && !isEditMode && serviceId) {
+      // Find the selected template to get its name
+      const template = templates.find((t) => t.id === Number(newTemplateId));
+      if (template) {
+        try {
+          const generatedPrompt = await dispatch(
+            generateSystemPrompt({
+              assistantType: template.name,
+              serviceId: serviceId,
+            }),
+          ).unwrap();
+
+          // Auto-fill the systemPrompt field if it exists in formConfig
+          if (generatedPrompt) {
+            setFormData((prev) => ({
+              ...prev,
+              systemPrompt: generatedPrompt,
+            }));
+          }
+        } catch (error) {
+          console.error("Failed to generate system prompt:", error);
+          toast.error(
+            normalizeHttpError(error).message ||
+              "Failed to generate system prompt. You can enter it manually.",
+          );
+        }
+      }
     }
   };
 
   const validateForm = () => {
+    if (!selectedTemplate?.formConfig?.fields) return false;
+
     const newErrors = {};
 
-    if (!formData.aiTemplateId) {
-      newErrors.aiTemplateId = "Please select a template";
-    }
-    if (!formData.name.trim()) {
-      newErrors.name = "Name is required";
-    } else if (formData.name.trim().length < 3) {
-      newErrors.name = "Name must be at least 3 characters";
-    }
-    if (!formData.systemPrompt.trim()) {
-      newErrors.systemPrompt = "System prompt is required";
-    } else if (formData.systemPrompt.trim().length < 10) {
-      newErrors.systemPrompt = "System prompt must be at least 10 characters";
-    }
+    selectedTemplate.formConfig.fields.forEach((field) => {
+      const value = formData[field.id];
+
+      if (field.required && (!value || value.toString().trim() === "")) {
+        newErrors[field.id] = `${field.label} is required`;
+        return;
+      }
+
+      if (field.validation && value) {
+        const val = field.validation;
+        const stringValue = value.toString();
+
+        if (val.minLength && stringValue.length < val.minLength) {
+          newErrors[field.id] =
+            val.errorMessage || `Minimum length is ${val.minLength}`;
+        }
+        if (val.maxLength && stringValue.length > val.maxLength) {
+          newErrors[field.id] =
+            val.errorMessage || `Maximum length is ${val.maxLength}`;
+        }
+        if (val.min && Number(value) < val.min) {
+          newErrors[field.id] =
+            val.errorMessage || `Minimum value is ${val.min}`;
+        }
+        if (val.max && Number(value) > val.max) {
+          newErrors[field.id] =
+            val.errorMessage || `Maximum value is ${val.max}`;
+        }
+      }
+    });
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -91,123 +178,125 @@ export const ServiceAIAssistantModal = ({
     }
 
     try {
-      const newWorkflow = await dispatch(
-        createAIWorkflow({
-          serviceId,
-          workflowData: {
-            aiTemplateId: Number(formData.aiTemplateId),
-            name: formData.name.trim(),
-            systemPrompt: formData.systemPrompt.trim(),
-          },
-        }),
-      ).unwrap();
+      if (isEditMode) {
+        // Режим редагування
+        const updatedWorkflow = await dispatch(
+          updateAIWorkflow({
+            id: editingWorkflow.id,
+            workflowData: formData, // Тільки динамічні поля (без aiTemplateId)
+          }),
+        ).unwrap();
 
-      toast.success("AI Assistant created successfully!");
-      handleClose();
+        toast.success("AI Assistant updated successfully!");
+        handleClose();
 
-      // Автоматично відкриваємо чат з новоствореним workflow
-      if (onWorkflowCreated && newWorkflow) {
-        onWorkflowCreated(newWorkflow);
+        if (onWorkflowCreated && updatedWorkflow) {
+          onWorkflowCreated(updatedWorkflow);
+        }
+      } else {
+        // Режим створення
+        const newWorkflow = await dispatch(
+          createAIWorkflow({
+            serviceId,
+            workflowData: {
+              aiTemplateId: Number(selectedTemplateId),
+              ...formData, // Всі динамічні поля
+            },
+          }),
+        ).unwrap();
+
+        toast.success("AI Assistant created successfully!");
+        handleClose();
+
+        if (onWorkflowCreated && newWorkflow) {
+          onWorkflowCreated(newWorkflow);
+        }
       }
     } catch (error) {
       toast.error(
-        normalizeHttpError(error).message || "Failed to create AI assistant",
+        normalizeHttpError(error).message ||
+          `Failed to ${isEditMode ? "update" : "create"} AI assistant`,
       );
     }
   };
 
   const handleClose = () => {
-    setFormData({
-      aiTemplateId: "",
-      name: "",
-      systemPrompt: "",
-    });
+    setSelectedTemplateId("");
+    setFormData({});
     setErrors({});
     onClose();
+  };
+
+  const renderForm = () => {
+    if (!selectedTemplate?.formConfig?.fields) {
+      // Fallback для старих templates без formConfig
+      return (
+        <div className={css.field}>
+          <Typography variant="body" className={css.error}>
+            Please select a template type first
+          </Typography>
+        </div>
+      );
+    }
+
+    const config = selectedTemplate.formConfig;
+
+    return config.fields.map((field) => (
+      <DynamicFormField
+        key={field.id}
+        field={field}
+        value={formData[field.id] || ""}
+        onChange={handleFieldChange}
+        error={errors[field.id]}
+        disabled={isSubmitting}
+      />
+    ));
   };
 
   return (
     <Modal isOpen={isOpen} closeModal={handleClose}>
       <form onSubmit={handleSubmit} className={css.form}>
         <Typography variant="h2" className={css.title}>
-          Додайте АІ Асистента
+          {isEditMode ? "Редагувати АІ Асистента" : "Додайте АІ Асистента"}
         </Typography>
 
+        {/* Вибір типу асистента */}
         <div className={css.field}>
-          <label htmlFor="aiTemplateId" className={css.label}>
+          <label htmlFor="templateSelect" className={css.label}>
             Тип ассистента
           </label>
           <select
-            id="aiTemplateId"
-            name="aiTemplateId"
-            value={formData.aiTemplateId}
-            onChange={handleChange}
+            id="templateSelect"
+            value={selectedTemplateId}
+            onChange={handleTemplateChange}
             className={css.customSelect}
-            disabled={isCreating}
+            disabled={isSubmitting || isEditMode || isGenerating} // Заблоковано при редагуванні або генерації
           >
-            <option value="">Виберіть шаблон</option>
+            <option value="">Виберіть тип</option>
             {templates.map((template) => (
               <option key={template.id} value={template.id}>
                 {template.name}
               </option>
             ))}
           </select>
-          {errors.aiTemplateId && (
-            <span className={css.error}>{errors.aiTemplateId}</span>
+          {isGenerating && (
+            <Typography variant="caption" className={css.generatingText}>
+              <Loader /> Generating system prompt...
+            </Typography>
           )}
         </div>
 
-        <div className={css.field}>
-          <label htmlFor="inputAItemplateName" className={css.label}>
-            Назва ассистента
-          </label>
-          <Input
-            id="inputAItemplateName"
-            variant="uastyle"
-            label="Назва ассистента"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            placeholder="наприклад, Асистент підтримки клієнтів"
-            error={errors.name}
-            disabled={isCreating}
-            required
-          />
-        </div>
+        {/* Динамічні поля форми */}
+        {renderForm()}
 
-        <div className={css.field}>
-          <label htmlFor="systemPrompt" className={css.label}>
-            Системний промпт
-          </label>
-          <textarea
-            id="systemPrompt"
-            name="systemPrompt"
-            value={formData.systemPrompt}
-            onChange={handleChange}
-            className={css.textarea}
-            placeholder="Визначте роль і поведінку штучного інтелекту.
-                        Приклад: Ви — корисний асистент служби підтримки для маркетплейсу локальних послуг.
-                        Допомагайте клієнтам знаходити відповідних постачальників послуг, відповідайте на запитання про послуги та надавайте дружню підтримку."
-            rows={6}
-            disabled={isCreating}
-            required
-          />
-          {errors.systemPrompt && (
-            <span className={css.error}>{errors.systemPrompt}</span>
-          )}
-          <Typography variant="caption" className={css.hint}>
-            The system prompt defines how your AI assistant will behave and
-            respond to users.
-          </Typography>
-        </div>
-
+        {/* Кнопки */}
         <div className={css.actions}>
           <Button
             type="button"
             variant="uastyleGrayBorder"
             size="mysmall"
             onClick={handleClose}
-            disabled={isCreating}
+            disabled={isSubmitting}
           >
             Скасувати
           </Button>
@@ -215,12 +304,14 @@ export const ServiceAIAssistantModal = ({
             type="submit"
             variant="uastyleGrayBorder"
             size="mysmall"
-            disabled={isCreating}
+            disabled={isSubmitting || !selectedTemplateId}
           >
-            {isCreating ? (
+            {isSubmitting ? (
               <>
-                <Loader /> Creating...
+                <Loader /> {isEditMode ? "Оновлення..." : "Створення..."}
               </>
+            ) : isEditMode ? (
+              "Оновити"
             ) : (
               "Створити"
             )}
@@ -236,4 +327,14 @@ ServiceAIAssistantModal.propTypes = {
   onClose: PropTypes.func.isRequired,
   serviceId: PropTypes.number.isRequired,
   onWorkflowCreated: PropTypes.func,
+  editingWorkflow: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    systemPrompt: PropTypes.string,
+    aiTemplateId: PropTypes.number,
+    aiTemplate: PropTypes.shape({
+      id: PropTypes.number,
+      name: PropTypes.string,
+    }),
+  }),
 };

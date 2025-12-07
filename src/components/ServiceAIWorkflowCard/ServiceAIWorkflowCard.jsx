@@ -6,7 +6,7 @@ import css from "./ServiceAIWorkflowCard.module.css";
 
 export const ServiceAIWorkflowCard = ({
   workflow,
-  onChat,
+  onEdit,
   onToggle,
   onDelete,
   isToggling,
@@ -59,7 +59,7 @@ export const ServiceAIWorkflowCard = ({
       </div>
 
       <div className={css.actions}>
-        <Button variant="primary" size="small" onClick={() => onChat(workflow)}>
+        <Button variant="primary" size="small" onClick={() => onEdit(workflow)}>
           Змінити
         </Button>
         <Button
@@ -96,7 +96,7 @@ ServiceAIWorkflowCard.propTypes = {
       name: PropTypes.string,
     }),
   }).isRequired,
-  onChat: PropTypes.func.isRequired,
+  onEdit: PropTypes.func.isRequired,
   onToggle: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
   isToggling: PropTypes.bool,

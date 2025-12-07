@@ -11,8 +11,6 @@ export const Nav = () => {
 
   const isHomePage = !!homePath;
   const isServicePage = !!servicePath;
-  console.log("isHomePage", isHomePage);
-  console.log("isServicePage", isServicePage);
 
   return (
     <nav className={css.container}>

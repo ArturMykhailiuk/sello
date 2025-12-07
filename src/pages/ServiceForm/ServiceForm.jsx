@@ -3,7 +3,7 @@ import {
   Typography,
   TypographyError,
 } from "../../components/Typography/Typography.jsx";
-import * as styles from "./AddService.module.css";
+import * as styles from "./ServiceForm.module.css";
 import {
   Breadcrumbs,
   BreadcrumbsDivider,
@@ -12,7 +12,7 @@ import {
 import { ImageUpload } from "../../components/ImageUpload/ImageUpload.jsx";
 import { Input } from "../../components/Input/Input.jsx";
 import { Textarea } from "../../components/Textarea/Textarea.jsx";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ButtonIcon } from "../../components/ButtonIcon/ButtonIcon.jsx";
 import TrashIcon from "../../assets/icons/trash.svg?react";
 import { Button } from "../../components/Button/Button.jsx";
@@ -22,48 +22,73 @@ import PlusIcon from "../../assets/icons/plus.svg?react";
 import clsx from "clsx";
 import { ItemBadge } from "../../components/ItemBadge/ItemBadge.jsx";
 import { useDispatch, useSelector } from "react-redux";
-import { selectItems } from "../../store/items/index.js";
 import { selectCategories } from "../../store/categories/index.js";
 import { selectAreas } from "../../store/areas/index.js";
 import { object, string, array } from "yup";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { normalizeHttpError } from "../../utils/index.js";
+import { normalizeHttpError, normalizeImagePath } from "../../utils/index.js";
 import toast from "react-hot-toast";
 import { DEFAULT_ERROR_MESSAGE } from "../../constants/common.js";
 import { appClearSessionAction } from "../../store/utils.js";
-import { addService } from "../../services/services.js";
-import { useNavigate } from "react-router";
+import {
+  addService,
+  updateService,
+  getServiceById,
+} from "../../services/services.js";
+import { useNavigate, useParams } from "react-router";
+import { createItem } from "../../services/items.js";
+import Loader from "../../components/Loader/Loader.jsx";
 
-const ItemsFieldGroup = ({ itemsList, onAdd, excludeIds }) => {
-  const [selectedItem, setSelectedItem] = useState(null);
+const ItemsFieldGroup = ({ onAdd }) => {
+  const [itemName, setItemName] = useState("");
   const [measure, setMeasure] = useState("");
-  const [itemSearch, setItemSearch] = useState("");
+  const [isCreating, setIsCreating] = useState(false);
+
+  const handleAddItem = async () => {
+    if (!itemName.trim() || !measure.trim()) return;
+
+    setIsCreating(true);
+
+    try {
+      const newItem = await createItem({
+        name: itemName.trim(),
+      });
+
+      onAdd({
+        id: newItem.id,
+        name: newItem.name,
+        imgURL: newItem.imgURL,
+        measure: measure,
+      });
+
+      setItemName("");
+      setMeasure("");
+      toast.success(`Item "${newItem.name}" added!`);
+    } catch (error) {
+      const { message } = normalizeHttpError(error);
+      toast.error(message ?? "Failed to create item");
+    } finally {
+      setIsCreating(false);
+    }
+  };
 
   return (
     <div className={styles.ItemsFieldGroup}>
       <div className={styles.AddService__inputGroupWrapper}>
         <div className={styles.AddService__inputGroup}>
-          <Typography variant="h4">Items</Typography>
-          <SearchSelect
-            excludeIds={excludeIds}
-            value={itemSearch}
-            onChange={(val) => {
-              setItemSearch(val);
-              if (!val) setSelectedItem(null);
-            }}
-            items={itemsList}
-            onSelect={(item) => {
-              setSelectedItem(item);
-              setItemSearch(item.name);
-            }}
-            placeholder="Add the item"
+          <Typography variant="h4">Деталізація послуги</Typography>
+          <Input
+            value={itemName}
+            onChange={(e) => setItemName(e.target.value)}
+            variant="underline"
+            placeholder="Внесіть назву деталізованої послуги"
           />
         </div>
         <Input
           value={measure}
           onChange={(e) => setMeasure(e.target.value)}
           variant="underline"
-          placeholder="Enter price"
+          placeholder="Внесіть вартість послуги"
         />
       </div>
 
@@ -73,18 +98,10 @@ const ItemsFieldGroup = ({ itemsList, onAdd, excludeIds }) => {
         bordered
         size="medium"
         icon={<PlusIcon />}
-        disabled={!selectedItem || !measure || !itemSearch}
-        onClick={() => {
-          onAdd({
-            ...selectedItem,
-            measure: measure,
-          });
-          setSelectedItem(null);
-          setMeasure("");
-          setItemSearch("");
-        }}
+        disabled={!itemName.trim() || !measure.trim() || isCreating}
+        onClick={handleAddItem}
       >
-        Add item
+        {isCreating ? "Додаємо..." : "Додати деталь"}
       </Button>
     </div>
   );
@@ -101,38 +118,94 @@ const defaultData = {
   instructions: "",
 };
 
-const validationSchema = object({
-  title: string().required("Service title is required"),
-  description: string().required("Description is required"),
-  category: object().required("Category is required"),
-  area: object().required("Area is required"),
-  instructions: string().required("Details are required"),
-  items: array()
-    .of(
-      object().shape({
-        id: string().required("Item ID is required"),
-        measure: string().required("Measure is required"),
-      }),
-    )
-    .min(1, "At least one item is required"),
-  image: string().required("Image is required"),
-});
+const createValidationSchema = (mode) =>
+  object({
+    title: string().required("Service title is required"),
+    description: string().required("Description is required"),
+    category: object().required("Category is required"),
+    area: object().required("Area is required"),
+    instructions: string().required("Details are required"),
+    items: array()
+      .of(
+        object().shape({
+          id: string().required("Item ID is required"),
+          measure: string().required("Measure is required"),
+        }),
+      )
+      .min(1, "At least one item is required"),
+    // Image required only for create mode
+    image:
+      mode === "create"
+        ? string().required("Image is required")
+        : string().optional(),
+  });
 
-const AddService = () => {
+const ServiceForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const itemsList = useSelector(selectItems);
+  const { serviceId } = useParams(); // Якщо є serviceId, то режим редагування
+  const mode = serviceId ? "edit" : "create";
+  const validationSchema = createValidationSchema(mode);
+
   const categoriesList = useSelector(selectCategories);
   const areasList = useSelector(selectAreas);
   const [categorySearch, setCategorySearch] = useState("");
   const [areaSearch, setAreaSearch] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [initialData, setInitialData] = useState(defaultData);
+
+  // Завантаження даних для редагування
+  useEffect(() => {
+    if (mode === "edit") {
+      const fetchService = async () => {
+        try {
+          setLoading(true);
+          const service = await getServiceById(serviceId);
+
+          // Підготовка даних для форми
+          const formData = {
+            image: service.thumb, // URL існуючого зображення
+            title: service.title,
+            description: service.description,
+            category: service.category,
+            area: service.area,
+            cookingTime: service.time,
+            items: service.items.map((item) => ({
+              id: item.id,
+              name: item.name,
+              imgURL: item.imgURL,
+              measure: item.measure,
+            })),
+            instructions: service.instructions,
+          };
+
+          setInitialData(formData);
+          setCategorySearch(service.category.name);
+          setAreaSearch(service.area.name);
+        } catch (error) {
+          const { message, status } = normalizeHttpError(error);
+          toast.error(message ?? DEFAULT_ERROR_MESSAGE);
+          if (status === 401) dispatch(appClearSessionAction());
+          navigate("/");
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      fetchService();
+    }
+  }, [mode, serviceId, dispatch, navigate]);
 
   const onSubmit = async (values, { setSubmitting, resetForm, setStatus }) => {
     setSubmitting(true);
 
     const formData = new FormData();
 
-    formData.append("thumb", values.image);
+    // Додаємо зображення тільки якщо це новий File (не URL)
+    if (values.image instanceof File) {
+      formData.append("thumb", values.image);
+    }
+
     formData.append("title", values.title);
     formData.append("description", values.description);
     formData.append("categoryId", values.category.id);
@@ -146,13 +219,23 @@ const AddService = () => {
     );
 
     try {
-      const data = await addService(formData);
+      let data;
+      if (mode === "create") {
+        data = await addService(formData);
+        toast.success("Послугу успішно додано");
+      } else {
+        data = await updateService(serviceId, formData);
+        toast.success("Послугу успішно оновлено");
+      }
+
       resetForm();
       setCategorySearch("");
       setAreaSearch("");
       setStatus({ success: true });
-      toast.success("Service added successfully");
-      data?.service && navigate(`/service/${data.service.id}`);
+
+      if (data?.service) {
+        navigate(`/service/${data.service.id}`);
+      }
     } catch (error) {
       const { message, status } = normalizeHttpError(error);
       toast.error(message ?? DEFAULT_ERROR_MESSAGE);
@@ -161,6 +244,13 @@ const AddService = () => {
       setSubmitting(false);
     }
   };
+
+  if (loading) return <Loader />;
+
+  const pageTitle = mode === "create" ? "Додати послугу" : "Редагувати послугу";
+  const breadcrumbTitle = mode === "create" ? "Додати послугу" : "Редагувати";
+  const submitButtonText =
+    mode === "create" ? "Опублікувати" : "Зберегти зміни";
 
   return (
     <Container>
@@ -174,30 +264,47 @@ const AddService = () => {
             Головна
           </BreadcrumbsItem>
           <BreadcrumbsDivider />
-          <BreadcrumbsItem isActive>Додати послугу</BreadcrumbsItem>
+          <BreadcrumbsItem isActive>{breadcrumbTitle}</BreadcrumbsItem>
         </Breadcrumbs>
 
         <div className={styles.AddService__header}>
-          <Typography variant="h2">Додати послугу</Typography>
+          <Typography variant="h2">{pageTitle}</Typography>
           <Typography variant="body">
-            Об’єднуймо наші зусилля, знання та таланти, щоб створювати послуги,
+            Об'єднуймо наші зусилля, знання та таланти, щоб створювати послуги,
             які надихають і приносять цінність кожному клієнтові.
           </Typography>
         </div>
 
         <Formik
-          initialValues={defaultData}
+          initialValues={initialData}
+          enableReinitialize={true}
           validationSchema={validationSchema}
           onSubmit={onSubmit}
         >
           {({ setFieldValue, values, resetForm, isSubmitting, errors }) => (
             <Form className={styles.AddService__form}>
-              <ImageUpload
-                value={values.image}
-                error={errors.image}
-                name="image"
-                onUpload={(file) => setFieldValue("image", file)}
-              />
+              <div>
+                {mode === "edit" && typeof values.image === "string" && (
+                  <div className={styles.AddService__currentImage}>
+                    <Typography variant="body">Поточне зображення:</Typography>
+                    <img
+                      src={normalizeImagePath(values.image)}
+                      alt="Current service"
+                      className={styles.AddService__currentImagePreview}
+                    />
+                    <Typography variant="body">
+                      Завантажте нове зображення нижче, щоб замінити:
+                    </Typography>
+                  </div>
+                )}
+
+                <ImageUpload
+                  value={values.image instanceof File ? values.image : null}
+                  error={errors.image}
+                  name="image"
+                  onUpload={(file) => setFieldValue("image", file)}
+                />
+              </div>
 
               <div className={styles.AddService__inputs}>
                 <div className={styles.AddService__inputGroup_top}>
@@ -206,7 +313,7 @@ const AddService = () => {
                       name="title"
                       as={Input}
                       variant="ghost"
-                      placeholder="The name of the service"
+                      placeholder="Назва послуги"
                     />
                     <ErrorMessage name="title" component={TypographyError} />
                   </div>
@@ -215,7 +322,7 @@ const AddService = () => {
                     <Field
                       name="description"
                       as={Textarea}
-                      placeholder="Enter a description of the service"
+                      placeholder="Опис послуги"
                     />
                     <ErrorMessage
                       name="description"
@@ -225,7 +332,7 @@ const AddService = () => {
                 </div>
 
                 <div className={styles.AddService__inputGroup}>
-                  <Typography variant="h4">Area</Typography>
+                  <Typography variant="h4">Локація</Typography>
                   <div>
                     <SearchSelect
                       value={areaSearch}
@@ -239,7 +346,7 @@ const AddService = () => {
                         setFieldValue("area", item);
                         setAreaSearch(item.name);
                       }}
-                      placeholder="Select an area"
+                      placeholder="Виберіть локацію"
                     />
                     <ErrorMessage name="area" component={TypographyError} />
                   </div>
@@ -247,7 +354,7 @@ const AddService = () => {
 
                 <div className={styles.AddService__inputGroupWrapper}>
                   <div className={styles.AddService__inputGroup}>
-                    <Typography variant="h4">Category</Typography>
+                    <Typography variant="h4">Категорія</Typography>
                     <div>
                       <SearchSelect
                         value={categorySearch}
@@ -261,7 +368,7 @@ const AddService = () => {
                           setFieldValue("category", item);
                           setCategorySearch(item.name);
                         }}
-                        placeholder="Select a category"
+                        placeholder="Виберіть категорію"
                       />
                       <ErrorMessage
                         name="category"
@@ -273,8 +380,6 @@ const AddService = () => {
 
                 <div>
                   <ItemsFieldGroup
-                    excludeIds={values.items.map((item) => item.id)}
-                    itemsList={itemsList}
                     onAdd={(newData) => {
                       setFieldValue("items", [...values.items, newData]);
                     }}
@@ -312,7 +417,7 @@ const AddService = () => {
                     <Field
                       name="instructions"
                       as={Textarea}
-                      placeholder="Enter service"
+                      placeholder="Додайте детальний опис послуги тут..."
                     />
                     <ErrorMessage
                       name="instructions"
@@ -341,7 +446,11 @@ const AddService = () => {
                     type="submit"
                     disabled={isSubmitting}
                   >
-                    Publish
+                    {isSubmitting
+                      ? mode === "create"
+                        ? "Додаємо..."
+                        : "Зберігаємо..."
+                      : submitButtonText}
                   </Button>
                 </div>
               </div>
@@ -353,4 +462,4 @@ const AddService = () => {
   );
 };
 
-export default AddService;
+export default ServiceForm;

@@ -1,0 +1,119 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.label {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ua-blue);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.required {
+  color: #e74c3c;
+  font-size: 18px;
+}
+
+.textarea {
+  width: 100%;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.02em;
+  border: 1px solid var(--gray-light-color);
+  border-radius: 18px;
+  background: var(--white);
+  color: var(--black);
+  padding: 16px 18px;
+  font-family: inherit;
+  resize: vertical;
+  min-height: 100px;
+  transition: border-color 0.3s ease;
+}
+
+.textarea:focus {
+  outline: none;
+  border-color: var(--gray-dark-color);
+}
+
+.textarea:disabled {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+}
+
+.select {
+  width: 100%;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.02em;
+  border: 1px solid var(--gray-light-color);
+  border-radius: 18px;
+  background: var(--white);
+  color: var(--black);
+  transition: border-color 0.3s ease;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='black' xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 18px center;
+  padding: 16px 48px 16px 18px;
+}
+
+.select:focus {
+  outline: none;
+  border-color: var(--gray-dark-color);
+}
+
+.select:disabled {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+}
+
+.fieldCheckbox {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--black);
+  cursor: pointer;
+}
+
+.checkbox {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: var(--ua-blue);
+}
+
+.checkbox:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.error {
+  color: #e74c3c;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.hint {
+  color: var(--gray-dark-color);
+  font-size: 14px;
+  font-style: italic;
+  line-height: 1.4;
+}

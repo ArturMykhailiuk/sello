@@ -74,3 +74,8 @@ export const addService = async (service) => {
   const response = await api.post("/services", service);
   return response.data?.data;
 };
+
+export const updateService = async (serviceId, service) => {
+  const response = await api.patch(`/services/${serviceId}`, service);
+  return response.data?.data;
+};

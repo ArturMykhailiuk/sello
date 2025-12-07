@@ -4,9 +4,11 @@ import {
   fetchAITemplates,
   fetchServiceAIWorkflows,
   createAIWorkflow,
+  updateAIWorkflow,
   deleteAIWorkflow,
   toggleAIWorkflow,
   fetchUserAIWorkflows,
+  generateSystemPrompt,
 } from "./operations";
 
 const initialState = {
@@ -15,8 +17,10 @@ const initialState = {
   templates: [],
   isLoading: false,
   isCreating: false,
+  isUpdating: false,
   isDeleting: false,
   isToggling: false,
+  isGenerating: false,
   error: null,
 };
 
@@ -86,6 +90,22 @@ const aiWorkflowsSlice = createSlice({
         state.isDeleting = false;
         state.error = payload;
       })
+      // Update AI Workflow
+      .addCase(updateAIWorkflow.pending, (state) => {
+        state.isUpdating = true;
+        state.error = null;
+      })
+      .addCase(updateAIWorkflow.fulfilled, (state, { payload }) => {
+        const index = state.items.findIndex((item) => item.id === payload.id);
+        if (index !== -1) {
+          state.items[index] = payload;
+        }
+        state.isUpdating = false;
+      })
+      .addCase(updateAIWorkflow.rejected, (state, { payload }) => {
+        state.isUpdating = false;
+        state.error = payload;
+      })
       // Toggle AI Workflow
       .addCase(toggleAIWorkflow.pending, (state) => {
         state.isToggling = true;
@@ -113,6 +133,18 @@ const aiWorkflowsSlice = createSlice({
       })
       .addCase(fetchUserAIWorkflows.rejected, (state, { payload }) => {
         state.isLoading = false;
+        state.error = payload;
+      })
+      // Generate System Prompt
+      .addCase(generateSystemPrompt.pending, (state) => {
+        state.isGenerating = true;
+        state.error = null;
+      })
+      .addCase(generateSystemPrompt.fulfilled, (state) => {
+        state.isGenerating = false;
+      })
+      .addCase(generateSystemPrompt.rejected, (state, { payload }) => {
+        state.isGenerating = false;
         state.error = payload;
       }),
 });

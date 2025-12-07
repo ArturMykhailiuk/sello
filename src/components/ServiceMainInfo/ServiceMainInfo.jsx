@@ -23,6 +23,7 @@ export const ServiceMainInfo = ({
   instructions,
   isFavorite,
   updateFavoriteStatus,
+  isOwner,
 }) => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(selectIsLoggedIn);
@@ -101,6 +102,8 @@ export const ServiceMainInfo = ({
           instructions={instructions}
           textColor={textColor}
           updateFavoriteStatus={updateFavoriteStatus}
+          isOwner={isOwner}
+          serviceTitle={title}
         />
       </div>
     </div>

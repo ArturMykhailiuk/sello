@@ -12,7 +12,7 @@ import { getAllItems } from "./store/services";
 
 const Home = lazy(() => import("./pages/Home/Home.jsx"));
 const Service = lazy(() => import("./pages/Service/Service.jsx"));
-const AddService = lazy(() => import("./pages/AddService/AddService.jsx"));
+const ServiceForm = lazy(() => import("./pages/ServiceForm/ServiceForm.jsx"));
 const UserPage = lazy(() => import("./pages/UserPage/UserPage.jsx"));
 const NotFound = lazy(() => import("./pages/NotFound/NotFound.jsx"));
 
@@ -49,7 +49,15 @@ export const App = () => {
           path="/service/add"
           element={
             <PrivateRoute>
-              <AddService />
+              <ServiceForm />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/service/:serviceId/edit"
+          element={
+            <PrivateRoute>
+              <ServiceForm />
             </PrivateRoute>
           }
         />

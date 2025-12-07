@@ -69,6 +69,24 @@ export const deleteAIWorkflow = createAsyncThunk(
 );
 
 /**
+ * Update an AI workflow
+ */
+export const updateAIWorkflow = createAsyncThunk(
+  "aiWorkflows/update",
+  async ({ id, workflowData }, { rejectWithValue }) => {
+    try {
+      const workflow = await aiWorkflowsService.updateAIWorkflow(
+        id,
+        workflowData,
+      );
+      return workflow;
+    } catch (error) {
+      return rejectWithValue(normalizeHttpError(error));
+    }
+  },
+);
+
+/**
  * Toggle AI workflow active status
  */
 export const toggleAIWorkflow = createAsyncThunk(
@@ -92,6 +110,24 @@ export const fetchUserAIWorkflows = createAsyncThunk(
     try {
       const workflows = await aiWorkflowsService.getUserAIWorkflows();
       return workflows;
+    } catch (error) {
+      return rejectWithValue(normalizeHttpError(error));
+    }
+  },
+);
+
+/**
+ * Generate system prompt using n8n workflow
+ */
+export const generateSystemPrompt = createAsyncThunk(
+  "aiWorkflows/generatePrompt",
+  async ({ assistantType, serviceId }, { rejectWithValue }) => {
+    try {
+      const systemPrompt = await aiWorkflowsService.generateSystemPrompt(
+        assistantType,
+        serviceId,
+      );
+      return systemPrompt;
     } catch (error) {
       return rejectWithValue(normalizeHttpError(error));
     }

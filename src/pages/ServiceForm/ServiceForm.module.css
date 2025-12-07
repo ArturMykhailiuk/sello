@@ -164,3 +164,20 @@
   line-height: 20px;
   margin-top: 4px;
 }
+
+.AddService__currentImage {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.AddService__currentImagePreview {
+  max-width: 300px;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 4px;
+}

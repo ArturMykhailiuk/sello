@@ -18,7 +18,7 @@ import { normalizeHttpError } from "../../utils";
 
 import css from "./ServiceAIWorkflowsList.module.css";
 
-export const ServiceAIWorkflowsList = ({ workflows, onAddNew, onChat }) => {
+export const ServiceAIWorkflowsList = ({ workflows, onAddNew, onEdit }) => {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectAIWorkflowsLoading);
   const isDeleting = useSelector(selectAIWorkflowsDeleting);
@@ -97,7 +97,7 @@ export const ServiceAIWorkflowsList = ({ workflows, onAddNew, onChat }) => {
             <ServiceAIWorkflowCard
               key={workflow.id}
               workflow={workflow}
-              onChat={onChat}
+              onEdit={onEdit}
               onToggle={handleToggle}
               onDelete={handleDelete}
               isToggling={isToggling && activeId === workflow.id}
@@ -127,5 +127,5 @@ ServiceAIWorkflowsList.propTypes = {
     }),
   ).isRequired,
   onAddNew: PropTypes.func.isRequired,
-  onChat: PropTypes.func.isRequired,
+  onEdit: PropTypes.func.isRequired,
 };

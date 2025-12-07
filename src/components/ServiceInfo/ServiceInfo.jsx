@@ -35,6 +35,7 @@ export const ServiceInfo = () => {
   const [service, setService] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isAssistantModalOpen, setIsAssistantModalOpen] = useState(false);
+  const [editingWorkflow, setEditingWorkflow] = useState(null); // null = створення, workflow = редагування
   const [isChatModalOpen, setIsChatModalOpen] = useState(false);
   const [selectedWorkflow, setSelectedWorkflow] = useState(null);
 
@@ -145,11 +146,18 @@ export const ServiceInfo = () => {
   };
 
   const handleOpenAssistantModal = () => {
+    setEditingWorkflow(null); // Режим створення
     setIsAssistantModalOpen(true);
   };
 
   const handleCloseAssistantModal = () => {
     setIsAssistantModalOpen(false);
+    setEditingWorkflow(null);
+  };
+
+  const handleEditWorkflow = (workflow) => {
+    setEditingWorkflow(workflow); // Режим редагування
+    setIsAssistantModalOpen(true);
   };
 
   const handleOpenChat = (workflow) => {
@@ -158,10 +166,8 @@ export const ServiceInfo = () => {
       setSelectedWorkflow(workflow);
       setIsChatModalOpen(true);
     } else {
-      // Для інших типів workflows - тут буде логіка редагування
-      // Поки що просто показуємо повідомлення
-      console.log("Edit workflow:", workflow);
-      // TODO: Додати модальне вікно для редагування workflow
+      // Для інших типів workflows - відкриваємо редагування
+      handleEditWorkflow(workflow);
     }
   };
 
@@ -173,7 +179,6 @@ export const ServiceInfo = () => {
   const handleBackClick = () => {
     navigate(goBackPath.current);
   };
-  console.log(goBackPath);
 
   if (loading) return <Loader />;
 
@@ -203,6 +208,7 @@ export const ServiceInfo = () => {
           instructions={service.instructions}
           isFavorite={service.isFavorite}
           updateFavoriteStatus={updateFavoriteStatus}
+          isOwner={isOwner}
         />
       </div>
 
@@ -212,7 +218,7 @@ export const ServiceInfo = () => {
             serviceId={Number(serviceId)}
             workflows={aiWorkflows}
             onAddNew={handleOpenAssistantModal}
-            onChat={handleOpenChat}
+            onEdit={handleEditWorkflow}
           />
         </div>
       )}
@@ -222,6 +228,7 @@ export const ServiceInfo = () => {
           isOpen={isAssistantModalOpen}
           onClose={handleCloseAssistantModal}
           serviceId={Number(serviceId)}
+          editingWorkflow={editingWorkflow}
           onWorkflowCreated={handleOpenChat}
         />
       )}
