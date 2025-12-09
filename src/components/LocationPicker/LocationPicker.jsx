@@ -61,6 +61,7 @@ const MapComponent = ({ center, onLocationSelect, mapInstanceRef }) => {
           address: "Визначення адреси...",
           city: "",
           country: "",
+          street: "",
         });
       }
 
@@ -118,6 +119,19 @@ const MapComponent = ({ center, onLocationSelect, mapInstanceRef }) => {
             // Geocoding failed or no results, using coordinates
           }
 
+          // Витягуємо вулицю з найкращого результату
+          let streetName = "";
+          if (status === "OK" && results && results.length > 0) {
+            const bestResult = results[0];
+            const components = bestResult.address_components;
+            components.forEach((component) => {
+              const types = component.types;
+              if (types.includes("route")) {
+                streetName = component.long_name;
+              }
+            });
+          }
+
           // Викликаємо callback з отриманою адресою
           if (onLocationSelectRef.current) {
             onLocationSelectRef.current({
@@ -126,6 +140,7 @@ const MapComponent = ({ center, onLocationSelect, mapInstanceRef }) => {
               address: formattedAddress,
               city: cityName,
               country: countryName,
+              street: streetName,
             });
           }
         },
@@ -187,6 +202,10 @@ const MapComponent = ({ center, onLocationSelect, mapInstanceRef }) => {
             country:
               place.address_components?.find((comp) =>
                 comp.types.includes("country"),
+              )?.long_name || "",
+            street:
+              place.address_components?.find((comp) =>
+                comp.types.includes("route"),
               )?.long_name || "",
           });
         }

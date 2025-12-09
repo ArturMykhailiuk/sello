@@ -280,9 +280,10 @@ export const ServiceAIAssistantModal = ({
             ))}
           </select>
           {isGenerating && (
-            <Typography variant="caption" className={css.generatingText}>
-              <Loader /> Generating system prompt...
-            </Typography>
+            <div className={css.generatingText}>
+              <Loader />
+              <span>Generating system prompt...</span>
+            </div>
           )}
         </div>
 

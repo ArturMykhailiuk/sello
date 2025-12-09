@@ -14,3 +14,15 @@ export const getAllAreas = createAsyncThunk(
     }
   },
 );
+
+export const createOrUpdateArea = createAsyncThunk(
+  "areas/createOrUpdate",
+  async (locationData, { rejectWithValue }) => {
+    try {
+      const { data } = await api.post("/areas", locationData);
+      return data.data.area;
+    } catch (error) {
+      return rejectWithValue({ error: normalizeHttpError(error) });
+    }
+  },
+);

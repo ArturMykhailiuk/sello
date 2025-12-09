@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { Button } from "../Button/Button";
 import { LocationPicker } from "../LocationPicker/LocationPicker";
 import styles from "./LocationModal.module.css";
@@ -6,9 +7,12 @@ import styles from "./LocationModal.module.css";
 export const LocationModal = ({ isOpen, onClose, onSave, currentLocation }) => {
   const [selectedLocation, setSelectedLocation] = useState(currentLocation);
 
+  // Оновлюємо selectedLocation при відкритті модалки або зміні currentLocation
   useEffect(() => {
-    setSelectedLocation(currentLocation);
-  }, [currentLocation]);
+    if (isOpen) {
+      setSelectedLocation(currentLocation);
+    }
+  }, [isOpen, currentLocation]);
 
   const handleLocationSelect = (location) => {
     console.log("LocationModal received location:", location); // Дебаг
@@ -18,6 +22,7 @@ export const LocationModal = ({ isOpen, onClose, onSave, currentLocation }) => {
   const handleSave = () => {
     if (selectedLocation) {
       onSave(selectedLocation);
+      onClose();
     }
   };
 
@@ -28,7 +33,7 @@ export const LocationModal = ({ isOpen, onClose, onSave, currentLocation }) => {
 
   if (!isOpen) return null;
 
-  return (
+  const modalContent = (
     <div className={styles.modalOverlay} onClick={handleCancel}>
       <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
         <div className={styles.modalHeader}>
@@ -74,4 +79,6 @@ export const LocationModal = ({ isOpen, onClose, onSave, currentLocation }) => {
       </div>
     </div>
   );
+
+  return createPortal(modalContent, document.body);
 };

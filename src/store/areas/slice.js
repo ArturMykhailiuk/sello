@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { getAllAreas } from "./operations";
+import { getAllAreas, createOrUpdateArea } from "./operations";
 
 const initialState = {
   items: [],
@@ -22,6 +22,23 @@ const areasSlice = createSlice({
         state.loading = true;
       })
       .addCase(getAllAreas.rejected, (state, { payload }) => {
+        state.loading = false;
+        state.error = payload?.error;
+      })
+      .addCase(createOrUpdateArea.fulfilled, (state, { payload }) => {
+        // Додаємо нову area або оновлюємо існуючу
+        const index = state.items.findIndex((item) => item.id === payload.id);
+        if (index !== -1) {
+          state.items[index] = payload;
+        } else {
+          state.items.push(payload);
+        }
+        state.loading = false;
+      })
+      .addCase(createOrUpdateArea.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(createOrUpdateArea.rejected, (state, { payload }) => {
         state.loading = false;
         state.error = payload?.error;
       }),

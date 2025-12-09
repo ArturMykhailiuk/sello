@@ -16,6 +16,7 @@ export const ServiceMainInfo = ({
   serviceId,
   imgURL,
   title,
+  area,
   category,
   description,
   owner,
@@ -75,7 +76,7 @@ export const ServiceMainInfo = ({
                 name={owner?.name}
               />
               <div className={css.authorText}>
-                <Typography variant="body" textColor="gray">
+                <Typography variant="bodyS" textColor="gray">
                   Створено:
                 </Typography>
 
@@ -92,6 +93,14 @@ export const ServiceMainInfo = ({
             className={css.description}
           >
             {description}
+          </Typography>
+
+          <Typography variant="h3" textColor={textColor}>
+            Локація
+          </Typography>
+
+          <Typography variant="body" textColor={textColor}>
+            {area.formattedAddress}
           </Typography>
         </div>
 

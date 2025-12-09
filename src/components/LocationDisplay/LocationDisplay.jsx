@@ -8,6 +8,7 @@ export const LocationDisplay = ({ isHome }) => {
     city,
     country,
     address,
+    street,
     latitude,
     longitude,
     loading,
@@ -38,6 +39,7 @@ export const LocationDisplay = ({ isHome }) => {
           address: address,
           city: city,
           country: country,
+          street: street || "",
         }
       : null;
 

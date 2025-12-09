@@ -23,7 +23,7 @@ import clsx from "clsx";
 import { ItemBadge } from "../../components/ItemBadge/ItemBadge.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCategories } from "../../store/categories/index.js";
-import { selectAreas } from "../../store/areas/index.js";
+import { createOrUpdateArea } from "../../store/areas/index.js";
 import { object, string, array } from "yup";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { normalizeHttpError, normalizeImagePath } from "../../utils/index.js";
@@ -38,6 +38,7 @@ import {
 import { useNavigate, useParams } from "react-router";
 import { createItem } from "../../services/items.js";
 import Loader from "../../components/Loader/Loader.jsx";
+import { LocationModal } from "../../components/LocationModal/LocationModal.jsx";
 
 const ItemsFieldGroup = ({ onAdd }) => {
   const [itemName, setItemName] = useState("");
@@ -113,6 +114,7 @@ const defaultData = {
   description: "",
   category: null,
   area: null,
+  location: null, // { lat, lng, address, city, country, street }
   cookingTime: 10,
   items: [],
   instructions: "",
@@ -148,11 +150,10 @@ const ServiceForm = () => {
   const validationSchema = createValidationSchema(mode);
 
   const categoriesList = useSelector(selectCategories);
-  const areasList = useSelector(selectAreas);
   const [categorySearch, setCategorySearch] = useState("");
-  const [areaSearch, setAreaSearch] = useState("");
   const [loading, setLoading] = useState(false);
   const [initialData, setInitialData] = useState(defaultData);
+  const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
 
   // Завантаження даних для редагування
   useEffect(() => {
@@ -169,6 +170,17 @@ const ServiceForm = () => {
             description: service.description,
             category: service.category,
             area: service.area,
+            location:
+              service.area?.latitude && service.area?.longitude
+                ? {
+                    lat: parseFloat(service.area.latitude),
+                    lng: parseFloat(service.area.longitude),
+                    address: service.area.formattedAddress || "",
+                    city: service.area.city || "",
+                    country: service.area.country || "",
+                    street: service.area.street || "",
+                  }
+                : null,
             cookingTime: service.time,
             items: service.items.map((item) => ({
               id: item.id,
@@ -181,7 +193,6 @@ const ServiceForm = () => {
 
           setInitialData(formData);
           setCategorySearch(service.category.name);
-          setAreaSearch(service.area.name);
         } catch (error) {
           const { message, status } = normalizeHttpError(error);
           toast.error(message ?? DEFAULT_ERROR_MESSAGE);
@@ -199,26 +210,56 @@ const ServiceForm = () => {
   const onSubmit = async (values, { setSubmitting, resetForm, setStatus }) => {
     setSubmitting(true);
 
-    const formData = new FormData();
-
-    // Додаємо зображення тільки якщо це новий File (не URL)
-    if (values.image instanceof File) {
-      formData.append("thumb", values.image);
-    }
-
-    formData.append("title", values.title);
-    formData.append("description", values.description);
-    formData.append("categoryId", values.category.id);
-    formData.append("areaId", values.area.id);
-    formData.append("time", values.cookingTime.toString());
-    formData.append("instructions", values.instructions);
-
-    formData.append(
-      "items",
-      JSON.stringify(values.items.map(({ id, measure }) => ({ id, measure }))),
-    );
-
     try {
+      // Створюємо або оновлюємо area якщо є локація
+      let areaId = values.area?.id;
+
+      if (values.location) {
+        const areaData = {
+          name: values.location.city || values.location.address,
+          latitude: values.location.lat,
+          longitude: values.location.lng,
+          formattedAddress: values.location.address,
+          city: values.location.city,
+          country: values.location.country,
+          street: values.location.street,
+        };
+
+        const resultAction = await dispatch(createOrUpdateArea(areaData));
+        if (createOrUpdateArea.fulfilled.match(resultAction)) {
+          areaId = resultAction.payload.id;
+        } else {
+          throw new Error("Failed to create/update area");
+        }
+      }
+
+      if (!areaId) {
+        toast.error("Виберіть локацію");
+        setSubmitting(false);
+        return;
+      }
+
+      const formData = new FormData();
+
+      // Додаємо зображення тільки якщо це новий File (не URL)
+      if (values.image instanceof File) {
+        formData.append("thumb", values.image);
+      }
+
+      formData.append("title", values.title);
+      formData.append("description", values.description);
+      formData.append("categoryId", values.category.id);
+      formData.append("areaId", areaId.toString());
+      formData.append("time", values.cookingTime.toString());
+      formData.append("instructions", values.instructions);
+
+      formData.append(
+        "items",
+        JSON.stringify(
+          values.items.map(({ id, measure }) => ({ id, measure })),
+        ),
+      );
+
       let data;
       if (mode === "create") {
         data = await addService(formData);
@@ -230,7 +271,6 @@ const ServiceForm = () => {
 
       resetForm();
       setCategorySearch("");
-      setAreaSearch("");
       setStatus({ success: true });
 
       if (data?.service) {
@@ -332,25 +372,42 @@ const ServiceForm = () => {
                 </div>
 
                 <div className={styles.AddService__inputGroup}>
-                  <Typography variant="h4">Локація</Typography>
+                  <Typography variant="h4">Локація на карті</Typography>
                   <div>
-                    <SearchSelect
-                      value={areaSearch}
-                      onChange={(val) => {
-                        setAreaSearch(val);
-                        if (!val) setFieldValue("area", null);
-                      }}
-                      name="area"
-                      items={areasList}
-                      onSelect={(item) => {
-                        setFieldValue("area", item);
-                        setAreaSearch(item.name);
-                      }}
-                      placeholder="Виберіть локацію"
-                    />
+                    {values.location && (
+                      <Typography
+                        variant="body"
+                        className={styles.locationInfo}
+                      >
+                        📍 {values.location.address}
+                      </Typography>
+                    )}
+                    <Button
+                      type="button"
+                      variant="light"
+                      bordered
+                      size="mysmall"
+                      onClick={() => setIsLocationModalOpen(true)}
+                      className={styles.locationButton}
+                    >
+                      {values.location
+                        ? "Змінити локацію"
+                        : "Оберіть локацію на карті"}
+                    </Button>
+
                     <ErrorMessage name="area" component={TypographyError} />
                   </div>
                 </div>
+
+                <LocationModal
+                  isOpen={isLocationModalOpen}
+                  onClose={() => setIsLocationModalOpen(false)}
+                  currentLocation={values.location}
+                  onSave={(location) => {
+                    setFieldValue("location", location);
+                    setIsLocationModalOpen(false);
+                  }}
+                />
 
                 <div className={styles.AddService__inputGroupWrapper}>
                   <div className={styles.AddService__inputGroup}>
@@ -436,7 +493,6 @@ const ServiceForm = () => {
                     onClick={() => {
                       resetForm();
                       setCategorySearch("");
-                      setAreaSearch("");
                     }}
                   />
                   <Button

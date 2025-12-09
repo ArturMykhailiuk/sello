@@ -136,6 +136,14 @@
   }
 }
 
+@media (min-width: 768px) {
+  .bodyS {
+    font-size: 14px;
+    line-height: 16px;
+    --Typography-line-height: 16px;
+  }
+}
+
 .TypographyError {
   margin: 4px 0;
 }

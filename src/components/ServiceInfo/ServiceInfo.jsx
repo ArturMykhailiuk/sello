@@ -201,6 +201,7 @@ export const ServiceInfo = () => {
           imgURL={service.thumb}
           title={service.title}
           description={service.description}
+          area={service.area}
           category={service.category}
           time={service.time}
           owner={service.owner}

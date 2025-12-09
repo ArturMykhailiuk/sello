@@ -52,6 +52,7 @@ export const useGeolocation = () => {
     city: null,
     country: null,
     address: null,
+    street: null,
     loading: true,
     error: null,
   });
@@ -84,6 +85,7 @@ export const useGeolocation = () => {
         city: newLocation.city,
         country: newLocation.country,
         address: newLocation.address,
+        street: newLocation.street || null,
         loading: false,
         error: null,
       };
@@ -102,6 +104,7 @@ export const useGeolocation = () => {
       city: null,
       country: null,
       address: null,
+      street: null,
       loading: false,
       error: null,
     };
@@ -177,6 +180,7 @@ export const useGeolocation = () => {
             city: data.city || data.locality || data.principalSubdivision,
             country: data.countryName,
             address: formatLocationAddress(data),
+            street: data.street || null,
             loading: false,
             error: null,
           };
@@ -191,6 +195,7 @@ export const useGeolocation = () => {
             city: null,
             country: null,
             address: `${latitude.toFixed(6)}, ${longitude.toFixed(6)}`,
+            street: null,
             loading: false,
             error: "Failed to get location name",
           };
