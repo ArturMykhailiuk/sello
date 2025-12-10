@@ -10,6 +10,7 @@ import { openSignIn, selectIsLoggedIn } from "../../store/auth/index.js";
 import css from "./ServiceCard.module.css";
 import ArrowUpIcon from "../../assets/icons/arrow-up-right.svg?react";
 import HeartIcon from "../../assets/icons/heart.svg?react";
+import ArrowIncrease from "../../assets/icons/arrow-increase.svg?react";
 import { BACKEND_URL, DEFAULT_ERROR_MESSAGE } from "../../constants/common.js";
 import { normalizeHttpError } from "../../utils/index.js";
 import { appClearSessionAction } from "../../store/utils.js";
@@ -96,7 +97,7 @@ export const ServiceCard = ({
       </div>
 
       <div className={css.cardInfo}>
-        <Typography lineClamp={1} truncate variant="h4">
+        <Typography lineClamp={1} truncate variant="h4" textColor="uablue">
           {title}
         </Typography>
         <Typography
@@ -104,6 +105,7 @@ export const ServiceCard = ({
           truncate
           className={css.cardDescription}
           variant="body"
+          textColor="uablue"
         >
           {description}
         </Typography>
@@ -138,7 +140,7 @@ export const ServiceCard = ({
               variant="light"
               size={isMobile ? "small" : "medium"}
               onClick={navigateToService}
-              icon={<ArrowUpIcon />}
+              icon={<ArrowIncrease />}
             />
           </div>
         </div>

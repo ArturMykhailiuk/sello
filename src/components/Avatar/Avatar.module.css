@@ -1,5 +1,5 @@
 .Avatar {
-  border-radius: 33%;
+  border-radius: 10px;
   object-fit: cover;
   object-position: center;
   background: var(--ua-blue);

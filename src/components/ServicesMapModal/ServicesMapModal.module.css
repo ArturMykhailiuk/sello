@@ -1,0 +1,132 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+}
+
+.modal {
+  background: white;
+  border-radius: 12px;
+  width: 95vw;
+  height: 90vh;
+  max-width: 1400px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid #e5e7eb;
+  background: white;
+  gap: 16px;
+}
+
+.title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.info {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.count {
+  font-size: 14px;
+  color: #6b7280;
+  background: #f3f4f6;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  font-size: 32px;
+  cursor: pointer;
+  color: #6b7280;
+  padding: 4px 8px;
+  line-height: 1;
+  transition: color 0.2s;
+  border-radius: 4px;
+}
+
+.closeButton:hover {
+  color: #374151;
+  background: #f3f4f6;
+}
+
+.mapWrapper {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  touch-action: none; /* Дозволяє карті обробляти всі touch події */
+}
+
+.loading,
+.error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 18px;
+  color: #6b7280;
+}
+
+.error {
+  color: #dc2626;
+}
+
+@media (max-width: 768px) {
+  .overlay {
+    padding: 0;
+  }
+
+  .modal {
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0;
+    max-width: none;
+  }
+
+  .header {
+    padding: 16px;
+    flex-wrap: wrap;
+  }
+
+  .title {
+    font-size: 20px;
+    width: 100%;
+  }
+
+  .info {
+    flex: none;
+    width: 100%;
+    margin-top: 8px;
+  }
+
+  .closeButton {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+  }
+}

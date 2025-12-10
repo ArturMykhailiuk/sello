@@ -11,12 +11,13 @@ import { useBreakpoint } from "../../hooks/useBreakpoint";
 import css from "./ServiceMainInfo.module.css";
 import { ServiceDetail } from "../ServiceDetail";
 import { openSignIn, selectIsLoggedIn } from "../../store/auth";
+import LocationPin from "../../assets/icons/location-pin.svg?react";
 
 export const ServiceMainInfo = ({
   serviceId,
   imgURL,
   title,
-  area,
+  areas,
   category,
   description,
   owner,
@@ -71,7 +72,7 @@ export const ServiceMainInfo = ({
             >
               <Avatar
                 src={avatarUrl}
-                size={38}
+                size={36}
                 alt={owner?.name}
                 name={owner?.name}
               />
@@ -80,12 +81,16 @@ export const ServiceMainInfo = ({
                   Створено:
                 </Typography>
 
-                <Typography variant="body" textColor={textColor}>
+                <Typography variant="bodyS" textColor={textColor}>
                   {owner?.name}
                 </Typography>
               </div>
             </button>
           </div>
+
+          <Typography variant="h5" textColor={textColor}>
+            Короткий опис:
+          </Typography>
 
           <Typography
             variant="body"
@@ -95,13 +100,29 @@ export const ServiceMainInfo = ({
             {description}
           </Typography>
 
-          <Typography variant="h3" textColor={textColor}>
-            Локація
+          <Typography variant="h5" textColor={textColor}>
+            Локації надання послуги:
           </Typography>
 
-          <Typography variant="body" textColor={textColor}>
-            {area.formattedAddress}
-          </Typography>
+          {areas && areas.length > 0 ? (
+            <div className={css.locationsList}>
+              {areas.map((area, index) => (
+                <div key={index} className={css.locationItem}>
+                  <LocationPin />
+                  <Typography variant="body" textColor={textColor}>
+                    {area?.formattedAddress ||
+                      area?.city ||
+                      area?.name ||
+                      "Не вказано"}
+                  </Typography>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <Typography variant="body" textColor={textColor}>
+              Не вказано
+            </Typography>
+          )}
         </div>
 
         <ServiceItems items={items} />

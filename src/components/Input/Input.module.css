@@ -12,7 +12,7 @@
 
 .input {
   width: 100%;
-  padding: 16px 48px 16px 18px; /* Leave space for icon on the right */
+  padding: 10px 48px 10px 18px; /* Leave space for icon on the right */
   font-weight: 500;
   font-size: 16px;
   line-height: 24px;
@@ -29,7 +29,7 @@
 .default {
   border: 1px solid var(--gray-color);
   color: var(--main-color);
-  border-radius: 30px;
+  border-radius: 12px;
 }
 
 .uastyle {

@@ -104,6 +104,18 @@
     font-size: 20px;
   }
 }
+.h5 {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 800;
+  text-transform: uppercase;
+  --Typography-line-height: 20px;
+}
+@media (min-width: 481px) {
+  .h5 {
+    font-size: 18px;
+  }
+}
 
 .body {
   font-size: 14px;

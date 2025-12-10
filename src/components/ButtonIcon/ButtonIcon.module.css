@@ -8,7 +8,7 @@
   transition: color var(--transition-duration) var(--transition-timing-function),
     background var(--transition-duration) var(--transition-timing-function),
     border var(--transition-duration) var(--transition-timing-function);
-  border-radius: var(--border-radius-full);
+  border-radius: 12px;
 }
 
 .ButtonIcon.small {
@@ -19,6 +19,7 @@
 .ButtonIcon.small svg {
   width: 16px;
   height: 16px;
+  fill: var(--ua-blue);
 }
 
 .ButtonIcon.medium {
@@ -29,6 +30,7 @@
 .ButtonIcon.medium svg {
   width: 18px;
   height: 18px;
+  fill: var(--ua-blue);
 }
 
 .ButtonIcon.large {
@@ -39,6 +41,7 @@
 .ButtonIcon.large svg {
   width: 24px;
   height: 24px;
+  fill: var(--ua-blue);
 }
 
 .ButtonIcon.light {
@@ -48,13 +51,13 @@
 }
 
 .ButtonIcon.light:not(:disabled):hover {
-  background: var(--main-color);
+  background: var(--ua-blue);
   color: var(--white-color);
-  border-color: var(--main-color);
+  border-color: var(--ua-blue);
 }
 
 .ButtonIcon.light:not(:disabled):hover svg {
-  color: var(--white-color);
+  fill: var(--ua-yellow);
 }
 
 .ButtonIcon.dark {
