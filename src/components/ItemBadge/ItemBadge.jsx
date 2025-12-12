@@ -3,6 +3,7 @@ import * as styles from "./ItemBadge.module.css";
 import { Image } from "../Image/Image";
 import { ButtonIcon } from "../ButtonIcon/ButtonIcon";
 import XIcon from "../../assets/icons/x.svg?react";
+import CheckIcon from "../../assets/icons/check.svg?react";
 
 /**
  * @param {object} props
@@ -15,7 +16,11 @@ const ItemBadge = ({ imgURL, name, measure, onDelete }) => {
   return (
     <div className={styles.ItemBadge}>
       <div className={styles.imageWrapper}>
-        <Image src={imgURL} alt={name} className={styles.image} />
+        {imgURL ? (
+          <Image src={imgURL} alt={name} className={styles.image} />
+        ) : (
+          <CheckIcon className={styles.image} />
+        )}
       </div>
 
       <div className={styles.content}>
@@ -24,7 +29,7 @@ const ItemBadge = ({ imgURL, name, measure, onDelete }) => {
         </span>
 
         <span className={styles.measure} title={measure}>
-          {measure}
+          {measure + " грн."}
         </span>
       </div>
 

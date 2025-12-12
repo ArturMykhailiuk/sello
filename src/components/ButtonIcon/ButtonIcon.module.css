@@ -11,6 +11,18 @@
   border-radius: 12px;
 }
 
+.ButtonIcon.verysmall {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+}
+
+.ButtonIcon.verysmall svg {
+  width: 12px;
+  height: 12px;
+  fill: var(--ua-blue);
+}
+
 .ButtonIcon.small {
   width: 36px;
   height: 36px;

@@ -153,9 +153,8 @@
 
 .AddService__itemsList {
   display: flex;
+  flex-direction: column;
   gap: 16px;
-  align-items: center;
-  flex-wrap: wrap;
 }
 
 .errorMessage {

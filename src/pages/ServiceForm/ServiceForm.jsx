@@ -475,7 +475,6 @@ const ServiceForm = () => {
                   <div className={styles.AddService__itemsList}>
                     {values.items.map((item) => (
                       <ItemBadge
-                        imgURL={item.imgURL}
                         name={item.name}
                         measure={item.measure}
                         key={item.id}

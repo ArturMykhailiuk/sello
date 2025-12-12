@@ -7,6 +7,7 @@ import {
 } from "@react-google-maps/api";
 import { ServiceMarkerInfo } from "../ServiceMarkerInfo/ServiceMarkerInfo";
 import styles from "./ServicesMap.module.css";
+import locationPinIcon from "../../assets/icons/location-pin.svg";
 
 const mapContainerStyle = {
   width: "100%",
@@ -16,9 +17,9 @@ const mapContainerStyle = {
 const mapOptions = {
   disableDefaultUI: false,
   zoomControl: true,
-  mapTypeControl: false,
+  mapTypeControl: true,
   scaleControl: true,
-  streetViewControl: false,
+  streetViewControl: true,
   rotateControl: false,
   fullscreenControl: true,
   gestureHandling: "greedy", // Дозволяє переміщення одним пальцем
@@ -124,6 +125,12 @@ export const ServicesMap = ({ services }) => {
     );
   }
 
+  const customMarkerIcon = {
+    url: locationPinIcon,
+    scaledSize: { width: 40, height: 40 }, // Розмір іконки
+    anchor: { x: 20, y: 40 }, // Точка прив'язки (низ по центру)
+  };
+
   return (
     <div className={styles.mapContainer}>
       <GoogleMap
@@ -159,6 +166,7 @@ export const ServicesMap = ({ services }) => {
                   title={`${location.service.title} - ${
                     location.area.formattedAddress || location.area.city
                   }`}
+                  icon={customMarkerIcon}
                 />
               );
             });
@@ -172,9 +180,15 @@ export const ServicesMap = ({ services }) => {
               lng: parseFloat(selectedArea.longitude),
             }}
             onCloseClick={handleInfoWindowClose}
+            options={{
+              pixelOffset: new window.google.maps.Size(0, -10),
+            }}
           >
-            <div>
-              <ServiceMarkerInfo service={selectedService} />
+            <div className={styles.infoWindow}>
+              <ServiceMarkerInfo
+                service={selectedService}
+                area={selectedArea}
+              />
             </div>
           </InfoWindow>
         )}

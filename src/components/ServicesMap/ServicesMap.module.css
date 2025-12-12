@@ -19,3 +19,63 @@
   color: #6b7280;
   font-size: 16px;
 }
+
+/* Стилізація InfoWindow */
+.infoWindow {
+  padding: 2px 4px 8px 4px;
+  min-width: 80px;
+  max-width: 120px;
+}
+
+/* Перевизначення стилів Google Maps InfoWindow */
+:global(.gm-style .gm-style-iw-c) {
+  padding: 0 !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  overflow: hidden !important;
+}
+
+:global(.gm-style .gm-style-iw-d) {
+  overflow: hidden !important;
+  padding: 0 !important;
+}
+
+/* Кнопка закриття */
+:global(.gm-style .gm-style-iw-t::after) {
+  box-shadow: none !important;
+  background: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.9) 50%,
+    transparent 51%,
+    transparent
+  ) !important;
+}
+
+:global(.gm-ui-hover-effect) {
+  display: flex !important;
+  justify-content: end !important;
+  top: 6px !important;
+  right: 4px !important;
+  width: 12px !important;
+  height: 12px !important;
+  background-color: transparent !important;
+  opacity: 1 !important;
+  color: var(--ua-blue) !important;
+  border: 1px solid var(--gray-light-color) !important;
+  border-radius: 4px !important;
+}
+
+:global(.gm-ui-hover-effect:hover) {
+  background-color: var(--ua-blue) !important;
+}
+
+:global(.gm-ui-hover-effect > span) {
+  background-color: var(--ua-blue) !important;
+  width: 8px !important;
+  height: 8px !important;
+  margin: auto !important;
+}
+
+:global(.gm-ui-hover-effect:hover > span) {
+  background-color: var(--ua-yellow) !important;
+}

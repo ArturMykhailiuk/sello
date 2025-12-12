@@ -1,8 +1,11 @@
 import { useNavigate } from "react-router";
 import { Button } from "../Button/Button";
+import { ButtonIcon } from "../ButtonIcon/ButtonIcon";
+import ArrowIncrease from "../../assets/icons/arrow-increase.svg?react";
+import HeartIcon from "../../assets/icons/heart.svg?react";
 import styles from "./ServiceMarkerInfo.module.css";
 
-export const ServiceMarkerInfo = ({ service }) => {
+export const ServiceMarkerInfo = ({ service, area }) => {
   const navigate = useNavigate();
 
   const handleViewDetails = () => {
@@ -23,15 +26,27 @@ export const ServiceMarkerInfo = ({ service }) => {
         {service.category && (
           <p className={styles.category}>{service.category.name}</p>
         )}
-        {service.time && <p className={styles.time}>⏱️ {service.time} хв</p>}
-        {service.areas?.[0] && (
+        {area && (
           <p className={styles.location}>
-            📍 {service.areas[0].city || service.areas[0].name}
+            {area.formattedAddress || area.city || area.name}
           </p>
         )}
-        <Button onClick={handleViewDetails} className={styles.button}>
-          Детальніше
-        </Button>
+        <div className={styles.serviceIcons}>
+          <ButtonIcon
+            variant="light"
+            size="verysmall"
+            // onClick={handleFavoriteClick}
+            // disabled={updating}
+            icon={<HeartIcon />}
+          />
+          <ButtonIcon
+            variant="light"
+            size="verysmall"
+            onClick={handleViewDetails}
+            // disabled={updating}
+            icon={<ArrowIncrease />}
+          />
+        </div>
       </div>
     </div>
   );
