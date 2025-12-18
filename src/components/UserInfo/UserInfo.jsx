@@ -19,16 +19,16 @@ export const UserInfo = ({ user, isMyProfile, onAvatarChange }) => {
   const fileInputRef = useRef();
   const breakpoint = useBreakpoint();
   const isMobile = ["mobile", "small-mobile"].includes(breakpoint);
-  console.log(user);
+
   const {
     avatarURL,
     name,
     email,
-    servicesCount,
-    favoriteServicesCount,
-    aiWorkflowsCount,
-    followersCount,
-    followingCount,
+    // servicesCount,
+    // favoriteServicesCount,
+    // aiWorkflowsCount,
+    // followersCount,
+    // followingCount,
   } = user;
 
   const handleAvatarClick = () => {
@@ -83,7 +83,7 @@ export const UserInfo = ({ user, isMyProfile, onAvatarChange }) => {
           <label>Email:</label>
           <span title={email}>{email}</span>
         </div>
-        <div className={styles.profileLabel}>
+        {/* <div className={styles.profileLabel}>
           <label>Додані послуги:</label> {servicesCount}
         </div>
         {isMyProfile && (
@@ -103,7 +103,7 @@ export const UserInfo = ({ user, isMyProfile, onAvatarChange }) => {
           <div className={styles.profileLabel}>
             <label>Підписки:</label> {followingCount}
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );

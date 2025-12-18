@@ -1,4 +1,7 @@
 .card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   background-color: var(--ua-main-1);
   border: 1px solid var(--gray-light-color);
   border-radius: 12px;
@@ -12,7 +15,7 @@
 }
 
 .header {
-  margin-bottom: 16px;
+  margin-bottom: 6px;
 }
 
 .titleRow {
@@ -27,13 +30,13 @@
   flex: 1;
   font-size: 18px;
   font-weight: 600;
-  color: var(--black);
+  color: var(--ua-blue);
   margin: 0;
 }
 
 .badge {
   padding: 4px 12px;
-  border-radius: 16px;
+  border-radius: 6px;
   font-size: 12px;
   font-weight: 500;
   white-space: nowrap;
@@ -41,28 +44,32 @@
 
 .badge.active {
   background: #d4edda;
-  color: #155724;
+  color: #208036;
 }
 
 .badge.inactive {
   background: #f8d7da;
-  color: #721c24;
+  color: #a02834;
 }
 
 .templateType {
   font-size: 14px;
-  color: var(--gray);
+  color: var(--ua-blue);
   font-style: italic;
 }
 
 .content {
   margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
 }
 
 .label {
   font-size: 12px;
   font-weight: 600;
-  color: var(--gray);
+  color: var(--ua-blue);
   text-transform: uppercase;
   margin-bottom: 4px;
 }
@@ -70,24 +77,33 @@
 .prompt {
   font-size: 14px;
   line-height: 1.5;
-  color: var(--black);
+  color: var(--ua-blue);
   margin-bottom: 8px;
 }
 
 .date {
   font-size: 12px;
-  color: var(--gray);
+  color: var(--ua-blue);
+}
+.dateContainer {
+  margin-top: 16px;
 }
 
 .actions {
   display: flex;
   gap: 8px;
   justify-content: center;
+  margin-top: auto;
 }
 
 .actions button {
   flex: 1;
   min-width: 100px;
+}
+
+.loader {
+  width: 6px !important;
+  height: 6px !important;
 }
 
 @media (max-width: 768px) {

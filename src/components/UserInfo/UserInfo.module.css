@@ -4,10 +4,10 @@
   flex-direction: column;
   align-items: center;
   gap: 16px;
-  padding: 30px 54px;
-  border-radius: 30px;
+  padding: 30px 30px;
+  border-radius: 16px;
   border: 1px solid var(--gray-light-color);
-  background-color: #fff;
+  background-color: var(--ua-main-1);
   position: relative;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
@@ -63,7 +63,7 @@
 
 @media (min-width: 440px) {
   .profileCard {
-    padding: 40px 80px;
+    padding: 40px 40px;
     gap: 20px;
   }
 

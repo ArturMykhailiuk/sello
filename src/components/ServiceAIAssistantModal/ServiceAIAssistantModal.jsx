@@ -163,6 +163,10 @@ export const ServiceAIAssistantModal = ({
           newErrors[field.id] =
             val.errorMessage || `Maximum value is ${val.max}`;
         }
+        // Pattern (regex) validation for fields like telegramToken
+        if (val.pattern && !new RegExp(val.pattern).test(stringValue)) {
+          newErrors[field.id] = val.errorMessage || `Invalid format`;
+        }
       }
     });
 
@@ -233,7 +237,7 @@ export const ServiceAIAssistantModal = ({
       return (
         <div className={css.field}>
           <Typography variant="body" className={css.error}>
-            Please select a template type first
+            Спочатку оберіть тип асистента
           </Typography>
         </div>
       );
@@ -282,7 +286,7 @@ export const ServiceAIAssistantModal = ({
           {isGenerating && (
             <div className={css.generatingText}>
               <Loader />
-              <span>Generating system prompt...</span>
+              <span>Генерація системного промпту...</span>
             </div>
           )}
         </div>
@@ -309,7 +313,9 @@ export const ServiceAIAssistantModal = ({
           >
             {isSubmitting ? (
               <>
-                <Loader /> {isEditMode ? "Оновлення..." : "Створення..."}
+                <div style={{ transform: "scale(0.5)" }}>
+                  <Loader />
+                </div>
               </>
             ) : isEditMode ? (
               "Оновити"

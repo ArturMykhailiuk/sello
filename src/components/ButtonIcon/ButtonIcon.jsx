@@ -3,7 +3,7 @@ import clsx from "clsx";
 
 /**
  * @param {object} props
- * @param {"dark"|"light"|"transparent"|"yellow"} props.variant— colour/style preset.
+ * @param {"dark"|"light"|"transparent"|"yellow"|"aicardOnOff"|"aicard"} props.variant— colour/style preset.
  * @param {"verysmall"|"small"|"medium"|"large"} props.size — padding/font-size preset.
  * @param {boolean} props.disabled — whether the button is disabled.
  * @param {"button"|"submit"|"reset"} [props.type] — button type.

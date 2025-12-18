@@ -8,13 +8,14 @@ import { Copyright } from "../Copyright/Copyright";
 export function Footer() {
   return (
     <footer>
+      <div className={styles.separator}></div>
       <Container>
         <div className={styles.wrapper}>
           <Logo />
           <SocialNetworks />
         </div>
       </Container>
-      <div className={styles.separator}></div>
+      {/* <div className={styles.separator}></div> */}
       <Container>
         <Copyright />
       </Container>
