@@ -31,7 +31,7 @@ export function Category() {
     <section>
       <Container className={css.container}>
         <div className={css.headWrapper}>
-          <Typography variant="h2" textColor="blue" className={css.title}>
+          <Typography variant="h2" textColor="uablue" className={css.title}>
             Категорії послуг
           </Typography>
         </div>

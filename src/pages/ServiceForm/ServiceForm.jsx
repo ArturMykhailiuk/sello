@@ -39,6 +39,7 @@ import { useNavigate, useParams } from "react-router";
 import { createItem } from "../../services/items.js";
 import Loader from "../../components/Loader/Loader.jsx";
 import { LocationModal } from "../../components/LocationModal/LocationModal.jsx";
+import { LocationsList } from "../../components/LocationsList/LocationsList.jsx";
 
 const ItemsFieldGroup = ({ onAdd }) => {
   const [itemName, setItemName] = useState("");
@@ -95,9 +96,8 @@ const ItemsFieldGroup = ({ onAdd }) => {
 
       <Button
         className={styles.ItemsFieldGroup__button}
-        variant="light"
-        bordered
-        size="medium"
+        variant="blue"
+        size="mysmall"
         icon={<PlusIcon />}
         disabled={!itemName.trim() || !measure.trim() || isCreating}
         onClick={handleAddItem}
@@ -114,7 +114,7 @@ const defaultData = {
   description: "",
   category: null,
   area: null,
-  location: null, // { lat, lng, address, city, country, street }
+  locations: [], // Array of { lat, lng, address, city, country, street }
   cookingTime: 10,
   items: [],
   instructions: "",
@@ -125,7 +125,15 @@ const createValidationSchema = (mode) =>
     title: string().required("Service title is required"),
     description: string().required("Description is required"),
     category: object().required("Category is required"),
-    area: object().required("Area is required"),
+    locations: array()
+      .of(
+        object().shape({
+          lat: string().required(),
+          lng: string().required(),
+          address: string().required(),
+        }),
+      )
+      .min(1, "At least one location is required"),
     instructions: string().required("Details are required"),
     items: array()
       .of(
@@ -154,6 +162,7 @@ const ServiceForm = () => {
   const [loading, setLoading] = useState(false);
   const [initialData, setInitialData] = useState(defaultData);
   const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
+  const [editingLocationIndex, setEditingLocationIndex] = useState(null); // null = додавання, число = редагування
 
   // Завантаження даних для редагування
   useEffect(() => {
@@ -163,24 +172,25 @@ const ServiceForm = () => {
           setLoading(true);
           const service = await getServiceById(serviceId);
 
-          // Підготовка даних для форми
+          // Підготовка даних для форми - конвертуємо areas в locations array
+          const locations = (service.areas || [])
+            .filter((area) => area?.latitude && area?.longitude)
+            .map((area) => ({
+              lat: parseFloat(area.latitude),
+              lng: parseFloat(area.longitude),
+              address: area.formattedAddress || "",
+              city: area.city || "",
+              country: area.country || "",
+              street: area.street || "",
+            }));
+
           const formData = {
             image: service.thumb, // URL існуючого зображення
             title: service.title,
             description: service.description,
             category: service.category,
-            area: service.area,
-            location:
-              service.area?.latitude && service.area?.longitude
-                ? {
-                    lat: parseFloat(service.area.latitude),
-                    lng: parseFloat(service.area.longitude),
-                    address: service.area.formattedAddress || "",
-                    city: service.area.city || "",
-                    country: service.area.country || "",
-                    street: service.area.street || "",
-                  }
-                : null,
+            area: service.areas?.[0] || null, // Для сумісності
+            locations: locations,
             cookingTime: service.time,
             items: service.items.map((item) => ({
               id: item.id,
@@ -211,30 +221,30 @@ const ServiceForm = () => {
     setSubmitting(true);
 
     try {
-      // Створюємо або оновлюємо area якщо є локація
-      let areaId = values.area?.id;
+      // Створюємо або оновлюємо areas для всіх локацій
+      const areaIds = [];
 
-      if (values.location) {
+      for (const location of values.locations) {
         const areaData = {
-          name: values.location.city || values.location.address,
-          latitude: values.location.lat,
-          longitude: values.location.lng,
-          formattedAddress: values.location.address,
-          city: values.location.city,
-          country: values.location.country,
-          street: values.location.street,
+          name: location.city || location.address,
+          latitude: location.lat,
+          longitude: location.lng,
+          formattedAddress: location.address,
+          city: location.city,
+          country: location.country,
+          street: location.street,
         };
 
         const resultAction = await dispatch(createOrUpdateArea(areaData));
         if (createOrUpdateArea.fulfilled.match(resultAction)) {
-          areaId = resultAction.payload.id;
+          areaIds.push(resultAction.payload.id);
         } else {
           throw new Error("Failed to create/update area");
         }
       }
 
-      if (!areaId) {
-        toast.error("Виберіть локацію");
+      if (areaIds.length === 0) {
+        toast.error("Додайте хоча б одну локацію");
         setSubmitting(false);
         return;
       }
@@ -249,7 +259,12 @@ const ServiceForm = () => {
       formData.append("title", values.title);
       formData.append("description", values.description);
       formData.append("categoryId", values.category.id);
-      formData.append("areaId", areaId.toString());
+
+      // Додаємо всі areaIds як масив
+      areaIds.forEach((id) => {
+        formData.append("areaIds[]", id.toString());
+      });
+
       formData.append("time", values.cookingTime.toString());
       formData.append("instructions", values.instructions);
 
@@ -372,40 +387,52 @@ const ServiceForm = () => {
                 </div>
 
                 <div className={styles.AddService__inputGroup}>
-                  <Typography variant="h4">Локація на карті</Typography>
-                  <div>
-                    {values.location && (
-                      <Typography
-                        variant="body"
-                        className={styles.locationInfo}
-                      >
-                        📍 {values.location.address}
-                      </Typography>
-                    )}
-                    <Button
-                      type="button"
-                      variant="light"
-                      bordered
-                      size="mysmall"
-                      onClick={() => setIsLocationModalOpen(true)}
-                      className={styles.locationButton}
-                    >
-                      {values.location
-                        ? "Змінити локацію"
-                        : "Оберіть локацію на карті"}
-                    </Button>
-
-                    <ErrorMessage name="area" component={TypographyError} />
-                  </div>
+                  <LocationsList
+                    locations={values.locations}
+                    onAdd={() => {
+                      setEditingLocationIndex(null);
+                      setIsLocationModalOpen(true);
+                    }}
+                    onEdit={(index) => {
+                      setEditingLocationIndex(index);
+                      setIsLocationModalOpen(true);
+                    }}
+                    onRemove={(index) => {
+                      const newLocations = values.locations.filter(
+                        (_, i) => i !== index,
+                      );
+                      setFieldValue("locations", newLocations);
+                    }}
+                  />
+                  <ErrorMessage name="locations" component={TypographyError} />
                 </div>
 
                 <LocationModal
                   isOpen={isLocationModalOpen}
-                  onClose={() => setIsLocationModalOpen(false)}
-                  currentLocation={values.location}
-                  onSave={(location) => {
-                    setFieldValue("location", location);
+                  onClose={() => {
                     setIsLocationModalOpen(false);
+                    setEditingLocationIndex(null);
+                  }}
+                  currentLocation={
+                    editingLocationIndex !== null
+                      ? values.locations[editingLocationIndex]
+                      : null
+                  }
+                  onSave={(location) => {
+                    if (editingLocationIndex !== null) {
+                      // Редагування існуючої локації
+                      const newLocations = [...values.locations];
+                      newLocations[editingLocationIndex] = location;
+                      setFieldValue("locations", newLocations);
+                    } else {
+                      // Додавання нової локації
+                      setFieldValue("locations", [
+                        ...values.locations,
+                        location,
+                      ]);
+                    }
+                    setIsLocationModalOpen(false);
+                    setEditingLocationIndex(null);
                   }}
                 />
 
@@ -448,7 +475,6 @@ const ServiceForm = () => {
                   <div className={styles.AddService__itemsList}>
                     {values.items.map((item) => (
                       <ItemBadge
-                        imgURL={item.imgURL}
                         name={item.name}
                         measure={item.measure}
                         key={item.id}
@@ -497,8 +523,8 @@ const ServiceForm = () => {
                   />
                   <Button
                     className={styles.AddService__publishBtn}
-                    variant="dark"
-                    size="small"
+                    variant="blue"
+                    size="mysmall"
                     type="submit"
                     disabled={isSubmitting}
                   >

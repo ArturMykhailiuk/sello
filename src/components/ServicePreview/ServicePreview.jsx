@@ -6,6 +6,8 @@ import { TabKey } from "../../constants/common";
 import { normalizeHttpError, normalizeImagePath } from "../../utils";
 import { Typography } from "../Typography/Typography";
 import { ButtonIcon } from "../ButtonIcon/ButtonIcon";
+import ArrowIncreaseIcon from "../../assets/icons/arrow-increase.svg?react";
+import EditIcon from "../../assets/icons/edit.svg?react";
 import toast from "react-hot-toast";
 import {
   deleteServiceById,
@@ -53,7 +55,7 @@ export const ServicePreview = ({ service, tab, isMyProfile, onDelete }) => {
       <div className={styles.content}>
         <Typography
           variant="h4"
-          textColor="black"
+          textColor="uablue"
           truncate="true"
           lineClamp={1}
         >
@@ -62,29 +64,38 @@ export const ServicePreview = ({ service, tab, isMyProfile, onDelete }) => {
         <Typography
           className={styles.description}
           variant="body"
-          textColor="gray"
+          textColor="uablue"
           truncate="true"
           lineClamp={2}
         >
           {service.description}
         </Typography>
-      </div>
-      <div className={styles.actions}>
-        <ButtonIcon
-          variant="light"
-          size="medium"
-          icon={<ArrowUpRightIcon width={18} height={18} />}
-          onClick={() => navigate(`/service/${service.id}`)}
-        />
-
-        {isMyProfile && (
+        <div className={styles.actions}>
           <ButtonIcon
             variant="light"
             size="medium"
-            icon={<TrashIcon width={18} height={18} />}
-            onClick={handleDelete}
+            icon={<ArrowIncreaseIcon width={18} height={18} />}
+            onClick={() => navigate(`/service/${service.id}`)}
           />
-        )}
+
+          {isMyProfile && (
+            <ButtonIcon
+              variant="light"
+              size="medium"
+              icon={<EditIcon width={18} height={18} />}
+              onClick={handleDelete}
+            />
+          )}
+
+          {isMyProfile && (
+            <ButtonIcon
+              variant="light"
+              size="medium"
+              icon={<TrashIcon width={18} height={18} />}
+              onClick={handleDelete}
+            />
+          )}
+        </div>
       </div>
     </div>
   );

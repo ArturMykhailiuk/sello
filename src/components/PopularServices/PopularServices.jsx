@@ -30,7 +30,7 @@ const PopularServices = ({ services }) => {
   return (
     <section>
       <div className={styles.PopularServices}>
-        <Typography variant="h3">Popular services</Typography>
+        <Typography variant="h3">Популярні послуги</Typography>
         <Swiper
           slidesPerView={1}
           modules={[Grid]}

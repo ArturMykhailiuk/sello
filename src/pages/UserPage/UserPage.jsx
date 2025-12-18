@@ -14,7 +14,7 @@ import {
 import { UserInfo } from "../../components/UserInfo/UserInfo";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser, updateAvatar } from "../../store/auth/index.js";
-import { useBreakpoint } from "../../hooks/index.js";
+// import { useBreakpoint } from "../../hooks/index.js";
 import { openLogOut } from "../../store/auth";
 import { TabsList } from "../../components/TabsList/TabsList";
 import { ListItems } from "../../components/ListItems/ListItems";
@@ -41,8 +41,8 @@ const UserPage = () => {
   const [page, setPage] = useState(1);
   const [user, setUser] = useState(null);
 
-  const breakpoint = useBreakpoint();
-  const isMobile = ["mobile", "small-mobile"].includes(breakpoint);
+  // const breakpoint = useBreakpoint();
+  // const isMobile = ["mobile", "small-mobile"].includes(breakpoint);
 
   const currentUser = useSelector(selectUser);
   const dispatch = useDispatch();
@@ -98,7 +98,6 @@ const UserPage = () => {
                 try {
                   // Check n8n status first
                   const status = await checkN8nStatus();
-                  console.log("n8n status:", status);
                   // setN8nStatus(status);
 
                   if (status.autoConnected) {
@@ -254,37 +253,25 @@ const UserPage = () => {
 
   return (
     <Container className={styles.container}>
-      <PathInfo current={user.name} />
+      <PathInfo current={"Кабінет користувача - " + user.name} />
       <Typography variant="h2" className={styles.title}>
-        Панель користувача
+        Кабінет користувача
       </Typography>
-      <Typography
-        variant="body"
-        textColor={isMobile ? "black" : "gray"}
-        className={styles.description}
-      >
-        Об’єднуймо наші зусилля, знання та таланти, щоб створювати послуги, які
-        надихають і приносять цінність кожному клієнтові.
-      </Typography>
+      <div className={styles.separator}></div>
       <div className={styles.profileContainer}>
-        <div className={styles.profile}>
+        {/* <div className={styles.profile}>
           <UserInfo
             user={user}
             isMyProfile={isMyProfile}
             onAvatarChange={handleAvatarChange}
           />
           {isMyProfile ? (
-            <Button
-              variant="blue"
-              bordered={true}
-              size="medium"
-              onClick={handleOpenLogOut}
-            >
+            <Button variant="uastyle" size="medium" onClick={handleOpenLogOut}>
               Вийти
             </Button>
           ) : user.isFollowed ? (
             <Button
-              variant="blue"
+              variant="uastyle"
               size="medium"
               bordered={true}
               onClick={() => handleUnFollow(id)}
@@ -301,34 +288,75 @@ const UserPage = () => {
               Підписатися
             </Button>
           )}
-        </div>
+        </div> */}
         <div className={styles.profileTabs}>
-          <TabsList
-            isMyProfile={isMyProfile}
-            activeTab={activeTab}
-            onTabChange={handleTabChange}
-          />
-          <ListItems
-            tab={activeTab}
-            items={items}
-            isMyProfile={isMyProfile}
-            onDelete={handleDelete}
-            onFollow={handleFollow}
-            onUnFollow={handleUnFollow}
-            user={user}
-            onConnectN8n={handleConnectN8n}
-            onExecuteWorkflow={handleExecuteWorkflow}
-            onViewWorkflow={handleViewWorkflow}
-          />
-          {totalPages > 1 && (
-            <div className={styles.pagination}>
-              <Pagination
-                totalPages={totalPages}
-                activePage={page}
-                onPageChange={onPageChange}
-              />
-            </div>
-          )}
+          <div>
+            <TabsList
+              isMyProfile={isMyProfile}
+              activeTab={activeTab}
+              onTabChange={handleTabChange}
+              user={user}
+            />
+          </div>
+          <div>
+            {activeTab === TabKey.PROFILE && (
+              <div className={styles.profile}>
+                <UserInfo
+                  user={user}
+                  isMyProfile={isMyProfile}
+                  onAvatarChange={handleAvatarChange}
+                />
+                {isMyProfile ? (
+                  <Button
+                    variant="uastyle"
+                    size="medium"
+                    onClick={handleOpenLogOut}
+                  >
+                    Вийти
+                  </Button>
+                ) : user.isFollowed ? (
+                  <Button
+                    variant="uastyle"
+                    size="medium"
+                    bordered={true}
+                    onClick={() => handleUnFollow(id)}
+                  >
+                    Відписатися
+                  </Button>
+                ) : (
+                  <Button
+                    variant="blue"
+                    size="medium"
+                    bordered={true}
+                    onClick={() => handleFollow(id)}
+                  >
+                    Підписатися
+                  </Button>
+                )}
+              </div>
+            )}
+            <ListItems
+              tab={activeTab}
+              items={items}
+              isMyProfile={isMyProfile}
+              onDelete={handleDelete}
+              onFollow={handleFollow}
+              onUnFollow={handleUnFollow}
+              user={user}
+              onConnectN8n={handleConnectN8n}
+              onExecuteWorkflow={handleExecuteWorkflow}
+              onViewWorkflow={handleViewWorkflow}
+            />
+            {totalPages > 1 && (
+              <div className={styles.pagination}>
+                <Pagination
+                  totalPages={totalPages}
+                  activePage={page}
+                  onPageChange={onPageChange}
+                />
+              </div>
+            )}
+          </div>
         </div>
       </div>
 

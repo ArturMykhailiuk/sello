@@ -3,6 +3,11 @@ import PropTypes from "prop-types";
 import { Button } from "../Button/Button";
 import { Typography } from "../Typography/Typography";
 import css from "./ServiceAIWorkflowCard.module.css";
+import EditIcon from "../../assets/icons/edit.svg?react";
+import OnOffIcon from "../../assets/icons/on-off.svg?react";
+import TrashIcon from "../../assets/icons/trash.svg?react";
+import { ButtonIcon } from "../ButtonIcon/ButtonIcon";
+import Loader from "../Loader/Loader";
 
 export const ServiceAIWorkflowCard = ({
   workflow,
@@ -12,12 +17,12 @@ export const ServiceAIWorkflowCard = ({
   isToggling,
   isDeleting,
 }) => {
-  const { id, name, systemPrompt, isActive, aiTemplate, createdAt } = workflow;
+  const { id, name, isActive, aiTemplate, createdAt } = workflow;
 
-  const truncateText = (text, maxLength = 100) => {
-    if (text.length <= maxLength) return text;
-    return text.substring(0, maxLength) + "...";
-  };
+  // const truncateText = (text, maxLength = 100) => {
+  //   if (text.length <= maxLength) return text;
+  //   return text.substring(0, maxLength) + "...";
+  // };
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -41,43 +46,65 @@ export const ServiceAIWorkflowCard = ({
             {isActive ? "Active" : "Inactive"}
           </span>
         </div>
-        <Typography variant="body2" className={css.templateType}>
-          {aiTemplate?.name || "AI Assistant"}
-        </Typography>
       </div>
 
       <div className={css.content}>
-        <Typography variant="body2" className={css.label}>
-          System Prompt:
-        </Typography>
-        <Typography variant="body1" className={css.prompt}>
-          {truncateText(systemPrompt)}
-        </Typography>
-        <Typography variant="caption" className={css.date}>
-          Created: {formatDate(createdAt)}
-        </Typography>
+        <div>
+          <Typography variant="body2" className={css.templateType}>
+            {aiTemplate?.name || "AI Assistant"}
+          </Typography>
+          {aiTemplate?.name === "Telegram AI Bot" && (
+            <Typography variant="body2" className={css.templateType}>
+              @{workflow.telegramBotUsername}
+            </Typography>
+          )}
+        </div>
+        <div className={css.dateContainer}>
+          <Typography variant="caption" className={css.date}>
+            Created: {formatDate(createdAt)}
+          </Typography>
+        </div>
       </div>
 
       <div className={css.actions}>
-        <Button variant="primary" size="small" onClick={() => onEdit(workflow)}>
-          Змінити
-        </Button>
-        <Button
-          variant="secondary"
+        <ButtonIcon
+          variant="aicard"
+          size="small"
+          onClick={() => onEdit(workflow)}
+          icon={<EditIcon />}
+        ></ButtonIcon>
+        <ButtonIcon
+          variant={isActive ? "aicardOn" : "aicardOff"}
           size="small"
           onClick={() => onToggle(id)}
           disabled={isToggling}
+          icon={
+            isToggling ? (
+              <div style={{ transform: "scale(0.5)" }}>
+                <Loader />
+              </div>
+            ) : (
+              <OnOffIcon />
+            )
+          }
         >
-          {isToggling ? "..." : isActive ? "Деактивувати" : "Активувати"}
-        </Button>
-        <Button
-          variant="danger"
+          {isToggling && <Loader />}
+        </ButtonIcon>
+        <ButtonIcon
+          variant="aicard"
           size="small"
           onClick={() => onDelete(id)}
           disabled={isDeleting}
-        >
-          {isDeleting ? "..." : "Видалити"}
-        </Button>
+          icon={
+            isDeleting ? (
+              <div style={{ transform: "scale(0.5)" }}>
+                <Loader />
+              </div>
+            ) : (
+              <TrashIcon />
+            )
+          }
+        ></ButtonIcon>
       </div>
     </div>
   );

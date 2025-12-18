@@ -1,5 +1,5 @@
 .container {
-  padding: 24px 0;
+  padding: 24px 0 0 0;
 }
 
 .header {
@@ -39,13 +39,14 @@
 
 .emptyTitle {
   margin: 0 0 12px 0;
-  color: var(--black);
+  color: var(--gray-color);
 }
 
 .emptyText {
   margin: 0 0 24px 0;
-  color: var(--gray);
+  color: var(--gray-color);
   max-width: 400px;
+  font-style: cursive;
 }
 
 .emptyButton {

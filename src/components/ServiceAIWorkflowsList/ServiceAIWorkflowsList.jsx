@@ -68,28 +68,23 @@ export const ServiceAIWorkflowsList = ({ workflows, onAddNew, onEdit }) => {
   return (
     <div className={css.container}>
       <div className={css.header}>
-        <Typography variant="h2">AI Assistants</Typography>
-        <Button variant="primary" onClick={onAddNew}>
-          + Add AI Assistant
+        <Typography variant="h2" textColor="uablue">
+          ШІ Асистенти
+        </Typography>
+        <Button variant="uatransparent" size="medium" onClick={onAddNew}>
+          + Додати ШІ Асистента
         </Button>
       </div>
 
       {workflows.length === 0 ? (
         <div className={css.emptyState}>
           <Typography variant="h3" className={css.emptyTitle}>
-            No AI Assistants Yet
+            У Вас ще немає ШІ Асистентів
           </Typography>
           <Typography variant="body1" className={css.emptyText}>
-            Add your first AI assistant to enable intelligent chat support for
-            this service.
+            Додайте свого першого ШІ Асистента, щоб автоматизувати взаємодію з
+            клієнтами та покращити їхній досвід.
           </Typography>
-          <Button
-            variant="primary"
-            onClick={onAddNew}
-            className={css.emptyButton}
-          >
-            + Add AI Assistant
-          </Button>
         </div>
       ) : (
         <div className={css.grid}>

@@ -8,7 +8,19 @@
   transition: color var(--transition-duration) var(--transition-timing-function),
     background var(--transition-duration) var(--transition-timing-function),
     border var(--transition-duration) var(--transition-timing-function);
-  border-radius: var(--border-radius-full);
+  border-radius: 12px;
+}
+
+.ButtonIcon.verysmall {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+}
+
+.ButtonIcon.verysmall svg {
+  width: 12px;
+  height: 12px;
+  fill: var(--ua-blue);
 }
 
 .ButtonIcon.small {
@@ -19,6 +31,7 @@
 .ButtonIcon.small svg {
   width: 16px;
   height: 16px;
+  fill: var(--ua-blue);
 }
 
 .ButtonIcon.medium {
@@ -29,6 +42,7 @@
 .ButtonIcon.medium svg {
   width: 18px;
   height: 18px;
+  fill: var(--ua-blue);
 }
 
 .ButtonIcon.large {
@@ -39,22 +53,69 @@
 .ButtonIcon.large svg {
   width: 24px;
   height: 24px;
+  fill: var(--ua-blue);
+}
+
+.ButtonIcon.aicard {
+  background: var(--ua-main-1);
+  color: var(--main-color);
+  border-color: var(--gray-light-color);
+}
+
+.ButtonIcon.aicard:not(:disabled):hover svg {
+  transform: scale(1.4);
+}
+
+.ButtonIcon.aicardOn {
+  background: var(--ua-main-1);
+  color: var(--main-color);
+  border-color: var(--gray-light-color);
+}
+
+.ButtonIcon.aicardOn svg {
+  background: var(--ua-main-1);
+  fill: red;
+  border-color: var(--gray-light-color);
+  width: 20px;
+  height: 20px;
+}
+
+.ButtonIcon.aicardOn:not(:disabled):hover svg {
+  transform: scale(1.4);
+}
+
+.ButtonIcon.aicardOff {
+  background: var(--ua-main-1);
+  color: var(--main-color);
+  border-color: var(--gray-light-color);
+}
+
+.ButtonIcon.aicardOff svg {
+  background: var(--ua-main-1);
+  fill: rgb(1, 196, 1);
+  border-color: var(--gray-light-color);
+  width: 20px;
+  height: 20px;
+}
+
+.ButtonIcon.aicardOff:not(:disabled):hover svg {
+  transform: scale(1.4);
 }
 
 .ButtonIcon.light {
-  background: var(--white-color);
+  background: var(--ua-main-1);
   color: var(--main-color);
   border-color: var(--gray-light-color);
 }
 
 .ButtonIcon.light:not(:disabled):hover {
-  background: var(--main-color);
+  background: var(--ua-blue);
   color: var(--white-color);
-  border-color: var(--main-color);
+  border-color: var(--ua-blue);
 }
 
 .ButtonIcon.light:not(:disabled):hover svg {
-  color: var(--white-color);
+  fill: var(--ua-yellow);
 }
 
 .ButtonIcon.dark {

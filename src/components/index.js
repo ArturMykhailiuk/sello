@@ -4,6 +4,10 @@ export { default as Loader } from "./Loader/Loader.jsx";
 export { LocationDisplay } from "./LocationDisplay/LocationDisplay.jsx";
 export { LocationModal } from "./LocationModal/LocationModal.jsx";
 export { LocationPicker } from "./LocationPicker/LocationPicker.jsx";
+export { LocationsList } from "./LocationsList/LocationsList.jsx";
+export { ServicesMap } from "./ServicesMap/ServicesMap.jsx";
+export { ServicesMapModal } from "./ServicesMapModal/ServicesMapModal.jsx";
+export { ServiceMarkerInfo } from "./ServiceMarkerInfo/ServiceMarkerInfo.jsx";
 export { WorkflowCard } from "./WorkflowCard/WorkflowCard.jsx";
 export { WorkflowList } from "./WorkflowList/WorkflowList.jsx";
 export { N8nConnectionModal } from "./N8nConnectionModal/N8nConnectionModal.jsx";
@@ -12,5 +16,6 @@ export { ServiceAIWorkflowCard } from "./ServiceAIWorkflowCard/ServiceAIWorkflow
 export { ServiceAIWorkflowsList } from "./ServiceAIWorkflowsList/ServiceAIWorkflowsList.jsx";
 export { ServiceAIAssistantModal } from "./ServiceAIAssistantModal/ServiceAIAssistantModal.jsx";
 export { N8nChat } from "./N8nChat/N8nChat.jsx";
+export { TelegramBotWidget } from "./TelegramBotWidget/TelegramBotWidget.jsx";
 // export { UserAIWorkflowsList } from "./UserAIWorkflowsList/UserAIWorkflowsList.jsx";
 export { WorkflowsTabs } from "./WorkflowsTabs/WorkflowsTabs.jsx";

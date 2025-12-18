@@ -3,6 +3,7 @@ export const BACKEND_URL = import.meta.env.VITE_API_BASE_URL;
 export const DEFAULT_ERROR_MESSAGE = "Something went wrong. Try again.";
 
 export const TabKey = {
+  PROFILE: "profile",
   SERVICES: "services",
   FAVORITES: "favorites",
   FOLLOWERS: "followers",
@@ -11,9 +12,10 @@ export const TabKey = {
 };
 
 export const tabsForOwner = [
-  { key: TabKey.SERVICES, label: "Мої послуги" },
-  { key: TabKey.WORKFLOWS, label: "Мої АІ сценарії" },
-  { key: TabKey.FAVORITES, label: "Мої вподобання" },
+  { key: TabKey.PROFILE, label: "Профіль" },
+  { key: TabKey.SERVICES, label: "Послуги" },
+  { key: TabKey.WORKFLOWS, label: "ШІ сценарії" },
+  { key: TabKey.FAVORITES, label: "Вподобання" },
   { key: TabKey.FOLLOWERS, label: "Підписники" },
   { key: TabKey.FOLLOWING, label: "Підписки" },
 ];
@@ -24,6 +26,8 @@ export const tabsForUser = [
 ];
 
 export const emptyTabMessagesForOwner = {
+  profile:
+    "Your profile is currently empty. Add some information about yourself to let others know more about you.",
   services:
     "Nothing has been added to your services list yet. Please browse our services and add your favorites for easy access in the future.",
   favorites:

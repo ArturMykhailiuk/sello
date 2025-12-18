@@ -1,7 +1,9 @@
 .tabs {
   display: flex;
+  flex-direction: column;
   gap: 30px;
-  border-bottom: 1px solid var(--gray-color);
+  justify-content: center;
+  /* border-bottom: 1px solid var(--gray-color); */
   overflow-x: auto;
   white-space: nowrap;
   -webkit-overflow-scrolling: touch;
@@ -19,7 +21,7 @@
   letter-spacing: -0.36px;
   text-transform: uppercase;
   position: relative;
-  padding-bottom: 13px;
+  padding-bottom: 10px;
   color: var(--gray-color);
   border-radius: 0;
   white-space: nowrap;
@@ -28,17 +30,19 @@
 
 .tab:hover {
   color: var(--ua-blue);
+  /* border-bottom: 1px solid var(--ua-blue); */
 }
 
 .active {
   color: var(--ua-blue);
-  border-bottom: 3px solid var(--ua-blue);
+  /* border-bottom: 1px solid var(--ua-blue); */
   padding-bottom: 10px;
 }
 
 @media (min-width: 481px) {
   .tabs {
-    gap: 40px;
+    gap: 20px;
+    /* max-width: 964px; */
   }
 
   .tab {

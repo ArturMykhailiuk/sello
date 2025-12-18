@@ -12,6 +12,7 @@ import { ServiceMainInfo } from "../ServiceMainInfo/index.js";
 import { ServiceAIWorkflowsList } from "../ServiceAIWorkflowsList/ServiceAIWorkflowsList.jsx";
 import { ServiceAIAssistantModal } from "../ServiceAIAssistantModal/ServiceAIAssistantModal.jsx";
 import { N8nChat } from "../N8nChat/N8nChat.jsx";
+import { TelegramBotWidget } from "../TelegramBotWidget/TelegramBotWidget.jsx";
 import Loader from "../Loader/Loader.jsx";
 import { normalizeHttpError } from "../../utils/index.js";
 import { getServiceById } from "../../services/services.js";
@@ -40,7 +41,7 @@ export const ServiceInfo = () => {
   const [selectedWorkflow, setSelectedWorkflow] = useState(null);
 
   const currentUser = useSelector(selectUser);
-  const aiWorkflows = useSelector(selectAIWorkflows) || [];
+  const aiWorkflows = useSelector(selectAIWorkflows);
 
   useEffect(() => {
     const fetchService = async () => {
@@ -65,6 +66,14 @@ export const ServiceInfo = () => {
   }, [serviceId, dispatch]);
 
   const isOwner = currentUser && service?.owner?.id === currentUser.id;
+
+  // Find active Telegram Bot workflow
+  const activeTelegramBot = aiWorkflows.find(
+    (w) =>
+      w.isActive &&
+      w.aiTemplate?.name === "Telegram AI Bot" &&
+      w.telegramBotUsername,
+  );
 
   // Автоматично відкриваємо чат при заході на сторінку, якщо є активний AI Chat workflow
   useEffect(() => {
@@ -201,7 +210,7 @@ export const ServiceInfo = () => {
           imgURL={service.thumb}
           title={service.title}
           description={service.description}
-          area={service.area}
+          areas={service.areas}
           category={service.category}
           time={service.time}
           owner={service.owner}
@@ -240,6 +249,13 @@ export const ServiceInfo = () => {
           webhookUrl={selectedWorkflow.webhookUrl}
           workflowName={selectedWorkflow.name}
           onClose={handleCloseChat}
+        />
+      )}
+
+      {activeTelegramBot && (
+        <TelegramBotWidget
+          botUsername={activeTelegramBot.telegramBotUsername}
+          workflowName={activeTelegramBot.name}
         />
       )}
     </section>

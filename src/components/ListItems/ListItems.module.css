@@ -6,8 +6,11 @@
 }
 
 .listContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
   width: 100%;
-  margin-top: 32px;
+  /* margin-top: 32px; */
 }
 
 @media (min-width: 481px) {
@@ -15,7 +18,7 @@
     margin-top: 100px;
   }
   .listContainer {
-    margin-top: 40px;
+    /* margin-top: 40px; */
   }
 }
 

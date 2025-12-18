@@ -89,8 +89,8 @@ export const ServiceDetail = ({
 
   return (
     <div>
-      <Typography variant="h3" textColor={textColor} className={styles.title}>
-        Опис послуги
+      <Typography variant="h5" textColor={textColor} className={styles.title}>
+        Детальний опис (інструкції):
       </Typography>
 
       <Typography variant="body" textColor={textColor} className={styles.text}>

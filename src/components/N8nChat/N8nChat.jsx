@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import "@n8n/chat/style.css";
+import "./N8nChat.module.css";
 import { createChat } from "@n8n/chat";
 
 export const N8nChat = ({ webhookUrl, isOpen, workflowName, onClose }) => {
@@ -19,10 +20,10 @@ export const N8nChat = ({ webhookUrl, isOpen, workflowName, onClose }) => {
           defaultOpen: true,
           showWelcomeScreen: true,
           initialMessages: [
-            "Hi there! 👋",
-            `I'm ${
-              workflowName || "your AI assistant"
-            }. How can I help you today?`,
+            "Привіт! 👋",
+            `Я ${
+              workflowName || "ваш AI асистент"
+            }. Чим я можу допомогти сьогодні?`,
           ],
           i18n: {
             en: {
