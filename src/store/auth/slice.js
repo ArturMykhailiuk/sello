@@ -43,6 +43,13 @@ const authSlice = createSlice({
     updateAvatar(state, { payload }) {
       state.user.avatarURL = payload;
     },
+    setAuthData(state, { payload }) {
+      // For Google OAuth: set token and trigger getCurrentUser
+      if (payload.token) {
+        localStorage.setItem("token", payload.token);
+        state.isLoggedIn = true;
+      }
+    },
   },
   extraReducers: (builder) =>
     builder
@@ -90,6 +97,7 @@ export const {
   openLogOut,
   closeLogOut,
   updateAvatar,
+  setAuthData,
 } = authSlice.actions;
 
 export const authReducer = authSlice.reducer;

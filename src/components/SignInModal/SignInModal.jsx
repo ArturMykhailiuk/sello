@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 
 import { Typography } from "../Typography/Typography";
 import { SignInForm } from "../SignInForm";
+import { GoogleSignInButton } from "../GoogleSignInButton/GoogleSignInButton";
 import { login, selectUser } from "../../store/auth";
 import { DEFAULT_ERROR_MESSAGE } from "../../constants/common";
 
@@ -38,6 +39,12 @@ export const SignInModal = ({ onRedirectToSignUp }) => {
       <Typography className={css.title} variant="h2">
         Sign in
       </Typography>
+
+      <GoogleSignInButton />
+
+      <div className={css.divider}>
+        <span>or</span>
+      </div>
 
       <SignInForm
         onSubmit={handleSubmit}
