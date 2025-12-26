@@ -106,25 +106,28 @@
 }
 
 .Button.uastyleHeaderActivePage {
-  font-size: 18px;
+  font-size: 20px;
   background: transparent;
-  color: var(--ua-main);
+  color: cornsilk;
+  /* color: var(--ua-main); */
   padding: 10px 0 5px;
 }
 
 .Button.uastyleHeaderActivePage:not(:disabled):hover {
-  color: var(--ua-main);
+  color: cornsilk;
+  /* color: var(--ua-main); */
 }
 
 .Button.uastyleHeaderNotActivePage {
-  font-size: 18px;
+  font-size: 20px;
   background: transparent;
   color: var(--ua-blue);
   padding: 10px 0 5px;
 }
 
 .Button.uastyleHeaderNotActivePage:not(:disabled):hover {
-  color: var(--ua-main);
+  /* color: var(--ua-main); */
+  color: cornsilk;
 }
 
 .Button.transparent {

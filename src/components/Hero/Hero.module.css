@@ -64,7 +64,9 @@
 }
 
 .heroTitle {
-  color: var(--ua-main);
+  /* color: var(--ua-main); */
+  /* color: rgb(255, 248, 230); */
+  color: cornsilk;
   letter-spacing: -0.02em;
   text-align: center;
   margin: 0 auto;
@@ -101,36 +103,33 @@
   }
 }
 
-.heroButton {
-  border: var(--ua-border-standard) !important;
-  color: var(--ua-main) !important;
-  /* background: rgba(255, 255, 255, 0.2); */
-}
-
-.heroButton:hover {
-  border-color: var(--ua-yellow) !important;
-  background: rgba(5, 108, 178, 0.2) !important;
-  color: var(--ua-yellow) !important;
-}
-
 .heroSearch {
   max-width: 400px;
   width: 100%;
 }
 
 .heroSearch input {
-  background: rgba(255, 255, 255, 0.9) !important;
+  /* background: rgba(255, 255, 255, 0.9) !important; */
+  /* background: cornsilk !important; */
+  background: rgba(var(--ua-blue), 0.4) !important;
   border: var(--ua-border-standard) !important;
-  color: var(--text-primary) !important;
+  color: var(--ua-blue) !important;
   font-size: 16px;
   padding: 12px 16px;
+  /* box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); */
+  border-radius: 12px;
 }
 
 .heroSearch input::placeholder {
-  color: var(--text-secondary) !important;
+  color: var(--gray-color) !important;
 }
 
 .heroSearch input:focus {
-  border-color: var(--ua-yellow) !important;
-  background: rgba(255, 255, 255, 1) !important;
+  /* border-color: var(--ua-yellow) !important; */
+  border: var(--ua-border-standard) !important;
+  /* background: rgba(255, 255, 255, 1) !important; */
+}
+
+.heroSearch input:focus::placeholder {
+  color: transparent !important;
 }

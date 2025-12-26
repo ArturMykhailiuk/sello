@@ -32,7 +32,7 @@ export function Category() {
     <section>
       <Container className={css.container}>
         <div className={css.headWrapper}>
-          <Typography variant="h2" textColor="uablue" className={css.title}>
+          <Typography variant="h3" textColor="uablue">
             Категорії послуг
           </Typography>
         </div>

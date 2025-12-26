@@ -7,7 +7,6 @@ import SearchSelect from "../SearchSelect/SearchSelect.jsx";
 import { ServiceCard } from "../ServiceCard/index.js";
 import { ServicesMapModal } from "../ServicesMapModal/ServicesMapModal.jsx";
 import { selectAreas } from "../../store/areas/index.js";
-// import { selectItems } from "../../store/items/index.js";
 import { useBreakpoint } from "../../hooks/useBreakpoint.js";
 import { getServices } from "../../services/services.js";
 import { normalizeHttpError } from "../../utils/normalizeHttpError.js";
@@ -24,13 +23,10 @@ const getCountOfServices = (breakpoint) => {
 
 export const ServiceList = ({ categoryId }) => {
   const areas = useSelector(selectAreas);
-  // const items = useSelector(selectItems);
   const breakpoint = useBreakpoint({ tablet: 540 });
   const [searchParams, setSearchParams] = useSearchParams();
-
   const [services, setServices] = useState([]);
   const [areaId, setAreaId] = useState(() => searchParams.get("area") ?? null);
-  // const [itemId, setItemId] = useState(() => searchParams.get("item") ?? null);
   const [currentPage, setCurrentPage] = useState(
     () => searchParams.get("page") ?? 1,
   );
@@ -49,7 +45,6 @@ export const ServiceList = ({ categoryId }) => {
           {
             categoryId,
             areaId,
-            // itemId,
             limit: servicesPerPage,
             page: currentPage,
           },
@@ -77,26 +72,12 @@ export const ServiceList = ({ categoryId }) => {
       if (areaId) prev.set("area", areaId);
       else prev.delete("area");
 
-      // if (itemId) prev.set("item", itemId);
-      // else prev.delete("item");
-
       if (currentPage) prev.set("page", currentPage);
       else prev.delete("page");
 
       return prev;
     });
   }, [areaId, currentPage, setSearchParams]);
-
-  // const handleItemSelect = (item) => {
-  //   setItemId(item?.id);
-  //   setCurrentPage(1);
-  // };
-
-  // const handleItemChange = (value) => {
-  //   if (value) return;
-  //   setItemId(null);
-  //   setCurrentPage(1);
-  // };
 
   const handleAreaSelect = (area) => {
     setAreaId(area?.id);
@@ -110,10 +91,6 @@ export const ServiceList = ({ categoryId }) => {
   };
 
   const totalPages = Math.ceil(total / servicesPerPage);
-
-  // const currentItem = itemId
-  //   ? items.find(({ id }) => id === Number(itemId))
-  //   : {};
 
   const currentArea = areaId
     ? areas.find(({ id }) => id === Number(areaId))
@@ -142,13 +119,6 @@ export const ServiceList = ({ categoryId }) => {
   return (
     <div className={css.servicesBlock}>
       <div className={css.servicesFiltersBlock}>
-        {/* <SearchSelect
-          items={items}
-          placeholder="Items"
-          value={currentItem?.name ?? ""}
-          onSelect={handleItemSelect}
-          onChange={handleItemChange}
-        /> */}
         <SearchSelect
           items={areas}
           placeholder="Країна"
