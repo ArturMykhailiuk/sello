@@ -15,7 +15,9 @@ const AboutUs = lazy(() => import("./pages/AboutUs/AboutUs.jsx"));
 const Service = lazy(() => import("./pages/Service/Service.jsx"));
 const ServiceForm = lazy(() => import("./pages/ServiceForm/ServiceForm.jsx"));
 const UserPage = lazy(() => import("./pages/UserPage/UserPage.jsx"));
-const GoogleOAuthCallback = lazy(() => import("./pages/GoogleOAuthCallback/GoogleOAuthCallback.jsx"));
+const GoogleOAuthCallback = lazy(() =>
+  import("./pages/GoogleOAuthCallback/GoogleOAuthCallback.jsx"),
+);
 const NotFound = lazy(() => import("./pages/NotFound/NotFound.jsx"));
 
 export const App = () => {

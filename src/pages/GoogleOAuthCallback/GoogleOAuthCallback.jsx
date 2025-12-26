@@ -15,7 +15,7 @@ export default function GoogleOAuthCallback() {
     if (token) {
       // Set token in Redux store and localStorage
       dispatch(setAuthData({ token }));
-      
+
       // Fetch user data with the new token
       dispatch(getCurrentUser())
         .unwrap()
@@ -34,15 +34,17 @@ export default function GoogleOAuthCallback() {
   }, [searchParams, dispatch, navigate]);
 
   return (
-    <div style={{ 
-      display: "flex", 
-      justifyContent: "center", 
-      alignItems: "center", 
-      height: "100vh",
-      fontSize: "18px",
-      color: "var(--text-primary)"
-    }}>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+        fontSize: "18px",
+        color: "var(--text-primary)",
+      }}
+    >
       Authenticating with Google...
     </div>
   );
-};
+}
