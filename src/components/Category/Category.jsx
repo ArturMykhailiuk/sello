@@ -1,31 +1,32 @@
 import { useEffect, useState } from "react";
-
 import { CategoryList } from "../../components/CategoriesList/CategoriesList";
 import Container from "../../components/UI/Container/Container";
 import { Typography } from "../../components/Typography/Typography";
 import { useBreakpoint } from "../../hooks/useBreakpoint";
-
-import css from "./Category.module.css";
-
-// import allCategories from "./categoriesList.json";
 import { fetchCategories } from "../../services/categories";
-
-// const getCountOfCategories = (breakpoint) => {
-//   if (["desktop", "tablet"].includes(breakpoint)) return 11;
-// return 8;
-// };
+import css from "./Category.module.css";
 
 export function Category() {
   const breakpoint = useBreakpoint({ tablet: 640 });
   const [categories, setCategories] = useState([]);
 
-  // useEffect(() => {
-  //   setCategories(allCategories.slice(0, getCountOfCategories(breakpoint)));
-  // }, [breakpoint]);
-
   useEffect(() => {
-    fetchCategories().then((res) => setCategories(res.categories));
+    fetchCategories(1, 100).then((res) => setCategories(res.categories));
   }, [breakpoint]);
+
+  // Скрол до обраної категорії при поверненні
+  useEffect(() => {
+    const savedCategoryId = sessionStorage.getItem("selectedCategoryId");
+    if (savedCategoryId && categories.length > 0) {
+      setTimeout(() => {
+        const element = document.getElementById(`category-${savedCategoryId}`);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "center" });
+          sessionStorage.removeItem("selectedCategoryId");
+        }
+      }, 100);
+    }
+  }, [categories]);
 
   return (
     <section>

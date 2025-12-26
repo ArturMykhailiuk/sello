@@ -27,8 +27,8 @@
   width: 100%;
   max-height: 90vh;
 
-  background-color: var(--white-color);
-  border-radius: var(--border-radius-m);
+  background-color: var(--ua-main-1);
+  border-radius: var(--ua-border-radius-standard);
   overflow-y: auto;
   opacity: 0;
   transform: scale(0.95);
@@ -63,10 +63,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 50%;
+  border-radius: 25%;
   background: none;
   border: none;
-  color: var(--main-color);
+  color: var(--gray-color);
   cursor: pointer;
   padding: 0;
   transition: background-color var(--transition-duration)
@@ -75,6 +75,6 @@
 }
 
 .close:hover {
-  background-color: var(--main-color);
-  color: var(--white-color);
+  background-color: var(--ua-blue);
+  color: var(--ua-yellow);
 }

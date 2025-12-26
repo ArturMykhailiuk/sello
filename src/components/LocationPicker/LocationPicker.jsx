@@ -330,7 +330,7 @@ const MapComponent = ({ center, onLocationSelect, mapInstanceRef }) => {
   );
 };
 
-export const LocationPicker = ({ onLocationSelect, initialLocation }) => {
+export const LocationPicker = ({ onLocationSelect, initialLocation, onMapError }) => {
   const [currentPosition, setCurrentPosition] = useState(null);
   const [loading, setLoading] = useState(true);
   const mapInstanceRef = useRef(null);
@@ -355,9 +355,9 @@ export const LocationPicker = ({ onLocationSelect, initialLocation }) => {
           setLoading(false);
         },
         () => {
-          alert(
-            "Не вдалося визначити ваше місцезнаходження. Будь ласка, дозвольте доступ до геолокації.",
-          );
+          if (onMapError) {
+            onMapError();
+          }
           setLoading(false);
         },
         {
@@ -367,10 +367,12 @@ export const LocationPicker = ({ onLocationSelect, initialLocation }) => {
         },
       );
     } else {
-      alert("Ваш браузер не підтримує геолокацію");
+      if (onMapError) {
+        onMapError();
+      }
       setLoading(false);
     }
-  }, [initialLocation]);
+  }, [initialLocation, onMapError]);
 
   const handleLocationSelect = (newLocation) => {
     if (onLocationSelect) {

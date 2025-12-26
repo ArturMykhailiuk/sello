@@ -1,5 +1,5 @@
 .container {
-  position: fixed;
+  /* position: fixed;
   top: 0;
   left: 0;
   z-index: 1000;
@@ -12,9 +12,6 @@
   height: 100vh;
 
   background-color: var(--ua-blue);
-  /* background-color: linear-gradient(180deg, #bfbfc0 10%, #056cb2 100%); */
-  /* background-image: url("../../assets/images/hero/mobile_big_meat.webp@1x.webp"),
-    url("../../assets/images/hero/mobile_small_dessert.webp@1x.webp"); */
   background-repeat: no-repeat;
   background-size: 222px 209px, 90px 84px;
   background-position: calc(50% + 40px) calc(100% - 117px),
@@ -25,9 +22,7 @@
   @media (min-device-pixel-ratio: 2),
     (min-resolution: 192dpi),
     (min-resolution: 2dppx) {
-    /* background-image: url("../../assets/images/hero/mobile_big_meat.webp@2x.webp"),
-      url("../../assets/images/hero/mobile_small_dessert.webp@2x.webp"); */
-  }
+  } */
 }
 
 .container.open {

@@ -106,11 +106,10 @@
 }
 
 .Button.uastyleHeaderActivePage {
-  font-size: 16px;
+  font-size: 18px;
   background: transparent;
   color: var(--ua-main);
-  padding-bottom: 5px;
-  /* border:1px solid var(--gray-light-color); */
+  padding: 10px 0 5px;
 }
 
 .Button.uastyleHeaderActivePage:not(:disabled):hover {
@@ -118,11 +117,10 @@
 }
 
 .Button.uastyleHeaderNotActivePage {
-  font-size: 16px;
+  font-size: 18px;
   background: transparent;
   color: var(--ua-blue);
-  padding-bottom: 5px;
-  /* border:1px solid var(--gray-light-color); */
+  padding: 10px 0 5px;
 }
 
 .Button.uastyleHeaderNotActivePage:not(:disabled):hover {
@@ -163,11 +161,9 @@
 }
 
 .Button.uabordered {
-  /* border: 1px solid var(--main-color); */
+  /* border-top: 1px solid var(--ua-main); */
   border-bottom: 1px solid var(--ua-main);
   border-radius: 0;
-  /* padding-left: 2px;
-  padding-right: 2px; */
 }
 
 .Button:disabled {

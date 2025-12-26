@@ -12,7 +12,7 @@ export function CategoryList({ categories }) {
           <CategoryItem data={category} />
         </li>
       ))}
-      <li>
+      {/* <li>
         <Link to={"/?category=all"} className={css.liLoadMore}>
           <Typography
             variant="h4"
@@ -22,7 +22,7 @@ export function CategoryList({ categories }) {
             Всі послуги
           </Typography>
         </Link>
-      </li>
+      </li> */}
     </ul>
   );
 }

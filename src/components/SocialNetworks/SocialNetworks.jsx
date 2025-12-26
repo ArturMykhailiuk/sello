@@ -7,19 +7,19 @@ import YoutubeSVG from "../../assets/icons/youtube.svg?react";
 
 const socialLinks = [
   {
-    href: "https://www.facebook.com/goITclub/",
+    href: "https://www.facebook.com",
     id: "facebook",
     label: "Facebook",
     Icon: FacebookSVG,
   },
   {
-    href: "https://www.instagram.com/goitclub/",
+    href: "https://www.instagram.com",
     id: "instagram",
     label: "Instagram",
     Icon: InstagramSVG,
   },
   {
-    href: "https://www.youtube.com/c/GoIT",
+    href: "https://www.youtube.com",
     id: "youtube",
     label: "YouTube",
     Icon: YoutubeSVG,

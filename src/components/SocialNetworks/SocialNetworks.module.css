@@ -39,7 +39,8 @@
 .link.light {
   background: var(--ua-main);
   color: var(--ua-blue);
-  border-color: var(--gray-light-color);
+  border-color: var(--gray-color);
+  border-radius: 10px;
 }
 
 .link.light:not(:disabled):hover {

@@ -8,9 +8,15 @@ export default function CategoryItem({ data }) {
   const categoryName = data.name;
   const navigate = useNavigate();
 
+  const handleClick = () => {
+    // Зберігаємо ID категорії для подальшого скролу
+    sessionStorage.setItem("selectedCategoryId", data.id.toString());
+    navigate(`/?category=${data.id}`);
+  };
+
   return (
     // <div className={`${css.thumb} ${css[categoryName.toLowerCase()]}`}>
-    <div className={css.thumb}>
+    <div className={css.thumb} id={`category-${data.id}`}>
       <img src={data.thumb} alt={categoryName} className={css.image} />
 
       <div className={css.wrapper}>
@@ -20,7 +26,7 @@ export default function CategoryItem({ data }) {
           className={css.categoryButton}
           variant="uatransparent"
           size="mysmall"
-          onClick={() => navigate(`/?category=${data.id}`)}
+          onClick={handleClick}
         >
           {categoryName}
         </Button>

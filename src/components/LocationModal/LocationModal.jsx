@@ -6,11 +6,13 @@ import styles from "./LocationModal.module.css";
 
 export const LocationModal = ({ isOpen, onClose, onSave, currentLocation }) => {
   const [selectedLocation, setSelectedLocation] = useState(currentLocation);
+  const [mapLoadError, setMapLoadError] = useState(false);
 
   // Оновлюємо selectedLocation при відкритті модалки або зміні currentLocation
   useEffect(() => {
     if (isOpen) {
       setSelectedLocation(currentLocation);
+      setMapLoadError(false);
     }
   }, [isOpen, currentLocation]);
 
@@ -43,15 +45,38 @@ export const LocationModal = ({ isOpen, onClose, onSave, currentLocation }) => {
           </button>
         </div>
 
-        <p className={styles.subtitle}>
-          Натисніть на карту, щоб вибрати локацію, або використайте кнопку "Моя
-          локація"
-        </p>
+        {!mapLoadError && (
+          <p className={styles.subtitle}>
+            Натисніть на карту, щоб вибрати локацію, або використайте кнопку
+            "Моя локація"
+          </p>
+        )}
+
+        {mapLoadError && (
+          <div className={styles.geolocationHint}>
+            <p className={styles.hintTitle}>💡 Як увімкнути геолокацію:</p>
+            <ul className={styles.hintList}>
+              <li>
+                <strong>Chrome/Edge:</strong> Натисніть на іконку замка (🔒) →
+                Дозволи сайту → Місцезнаходження → Дозволити
+              </li>
+              <li>
+                <strong>Firefox:</strong> Натисніть на іконку щита → Дозволи →
+                Місцезнаходження → Дозволити
+              </li>
+              <li>
+                <strong>Safari:</strong> Safari → Налаштування для цього
+                веб-сайту → Місцезнаходження → Дозволити
+              </li>
+            </ul>
+          </div>
+        )}
 
         <div className={styles.mapWrapper}>
           <LocationPicker
             onLocationSelect={handleLocationSelect}
             initialLocation={currentLocation}
+            onMapError={() => setMapLoadError(true)}
           />
         </div>
 

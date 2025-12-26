@@ -1,7 +1,21 @@
 .NotFound {
-    padding: 120px 0 80px;
-    display: flex;
-    min-height: 80vh;
-    justify-content: center;
-    align-items: center;
+  padding: 120px 0 80px;
+  display: flex;
+  flex-direction: column;
+  min-height: 80vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.imageNotFound {
+  background: var(--ua-main);
+}
+
+.titleNotFound {
+  margin-top: 24px;
+  margin-bottom: 16px;
+  font-size: 24px;
+  line-height: 32px;
+  text-align: center;
+  color: var(--ua-blue);
 }

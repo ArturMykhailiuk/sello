@@ -1,15 +1,14 @@
 .DualButtonGroup {
   width: fit-content;
-  border-radius: 18px;
-  /*background: var(--white-color);*/
-  background: #056cb2;
+  border-radius: 14px;
+  background: var(--ua-blue);
 }
 
 .DualButton {
   flex: 1;
   padding: 10px 16px;
   background: transparent;
-  border: 1pt solid #056cb2;
+  border: 1pt solid var(--ua-blue);
   font-size: 12px;
   font-weight: 700;
   line-height: 18px;
@@ -20,15 +19,14 @@
 }
 
 .DualButton.left {
-  /*background: var(--white-color);*/
-  background: #056cb2;
-  color: var(--white-color);
-  border-radius: var(--border-radius-m) 0 0 var(--border-radius-m);
+  background: var(--ua-blue);
+  color: var(--ua-main);
+  border-radius: 14px 0px 0px 14px;
 }
 
 @media (min-width: 481px) {
   .DualButton.left {
-    padding: 14px 30px;
+    padding: 10px 30px;
   }
 }
 
@@ -37,16 +35,15 @@
 }
 
 .DualButton.right {
-  border-radius: 18px;
-  /*background: var(--main-color);*/
-  background: #f6c114;
-  color: var(--white-color);
-  /*border: 1px solid var(--gray-color);*/
+  background: var(--ua-yellow);
+  color: var(--ua-main);
+  border: 1px solid var(--ua-yellow);
+  border-radius: 14px;
 }
 
 @media (min-width: 481px) {
   .DualButton.right {
-    padding: 14px 28px;
+    padding: 10px 30px;
   }
 }
 

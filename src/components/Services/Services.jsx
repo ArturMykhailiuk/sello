@@ -16,6 +16,10 @@ export const Services = ({ categoryId }) => {
 
   const handleBackClick = () => {
     navigate("/");
+    // Примусовий скрол вгору після навігації
+    setTimeout(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    }, 0);
   };
 
   const currentCategory = categories.find(({ id }) => id === categoryId) ?? {};

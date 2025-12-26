@@ -90,7 +90,6 @@ export const useGeolocation = () => {
         error: null,
       };
 
-      console.log("useGeolocation setting location data:", locationData); // Дебаг
       setLocation(locationData);
       saveLocationToStorage(locationData);
     },
@@ -162,7 +161,6 @@ export const useGeolocation = () => {
         const { latitude, longitude } = position.coords;
 
         try {
-          // Використовуємо безкоштовний API для reverse geocoding з кращими параметрами
           const response = await fetch(
             `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=uk&includeRegion=true`,
           );
@@ -172,7 +170,6 @@ export const useGeolocation = () => {
           }
 
           const data = await response.json();
-          console.log("Geolocation API response:", data); // Для дебагу
 
           const locationData = {
             latitude,
@@ -185,7 +182,6 @@ export const useGeolocation = () => {
             error: null,
           };
 
-          console.log("Processed location data:", locationData); // Для дебагу
           setLocation(locationData);
           saveLocationToStorage(locationData);
         } catch {

@@ -1,3 +1,25 @@
+.locationWrapper {
+  position: absolute;
+  top: 0px;
+  left: 0;
+  right: 0;
+  z-index: 2;
+
+  display: flex;
+  justify-content: flex-start;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+
+  @media screen and (min-width: 768px) {
+    padding: 0 36px;
+  }
+
+  @media screen and (min-width: 1440px) {
+    padding: 0 40px;
+  }
+}
+
 .header {
   position: absolute;
   top: 0;
@@ -8,16 +30,16 @@
   padding: 24px 0;
   width: 100%;
   max-width: 1400px;
-  background: linear-gradient(180deg, #bfbfc0 10%, #056cb2 100%);
-  border-radius: 20px;
+  background: linear-gradient(180deg, var(--gray-color) 0%, #267cb6 90%);
+  border-radius: var(--ua-border-radius-standard);
   margin-top: 20px;
 
   @media screen and (min-width: 768px) {
-    padding: 36px 0;
+    padding: 36px 36px;
   }
 
   @media screen and (min-width: 1440px) {
-    padding: 40px 40px;
+    /* padding: 40px 20px; */
   }
 }
 
@@ -28,17 +50,17 @@
   transform: translateX(-50%);
   z-index: 1;
 
-  padding: 24px 0;
-  width: 100%;
-  max-width: 1440px;
+  /* padding: 24px 0; */
+  max-width: 1400px;
   background: transparent;
 
   @media screen and (min-width: 768px) {
-    padding: 36px 0;
+    margin-top: 10px;
+    padding: 46px 36px;
   }
 
   @media screen and (min-width: 1440px) {
-    padding: 40px 0;
+    /* padding: 40px 40px; */
   }
 }
 
@@ -47,7 +69,8 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 0 20px;
+  padding: 0;
+  /* padding: 0 20px; */
 
   @media screen and (min-width: 768px) {
     /* padding: 0 32px; */
@@ -58,16 +81,9 @@
   }
 }
 
-.homeContainer {
-  /* padding: 0 24px; */
-
-  @media screen and (min-width: 768px) {
-    padding: 0 48px;
-  }
-
-  @media screen and (min-width: 1440px) {
-    padding: 0 80px;
-  }
+.leftSection {
+  display: flex;
+  align-items: center;
 }
 
 .menuBtn {
@@ -104,40 +120,11 @@
   align-items: center;
 }
 
-.leftSection {
-  display: flex;
-  align-items: center;
-}
-
-.logo {
-  font-weight: 800;
-  font-size: 20px;
-  line-height: 120%;
-  letter-spacing: -0.02em;
-  /* text-transform: lowercase; */
-  text-decoration: none;
+.logoIcon svg {
+  width: 160px;
+  height: auto;
 
   @media screen and (min-width: 768px) {
-    font-size: 24px;
-    line-height: 117%;
-    letter-spacing: -0.02em;
-  }
-}
-
-.whiteLogo {
-  color: var(--white-color);
-}
-
-.logoImage {
-  height: 64px;
-  /* width: auto; */
-  fill: var(--white-color);
-}
-
-@media screen and (min-width: 768px) {
-  .logoImage {
-    fill: var(--white-color);
-    height: 64px;
-    border-radius: 8px;
+    width: 250px;
   }
 }

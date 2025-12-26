@@ -11,6 +11,7 @@ import { getAllCategories } from "./store/categories";
 import { getAllItems } from "./store/services";
 
 const Home = lazy(() => import("./pages/Home/Home.jsx"));
+const AboutUs = lazy(() => import("./pages/AboutUs/AboutUs.jsx"));
 const Service = lazy(() => import("./pages/Service/Service.jsx"));
 const ServiceForm = lazy(() => import("./pages/ServiceForm/ServiceForm.jsx"));
 const UserPage = lazy(() => import("./pages/UserPage/UserPage.jsx"));
@@ -34,6 +35,7 @@ export const App = () => {
     <Routes>
       <Route path="/" element={<SharedLayout />}>
         <Route index element={<Home />} />
+        <Route path="/about" element={<AboutUs />} />
 
         <Route
           path="/user/:id"
