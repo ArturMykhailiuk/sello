@@ -20,8 +20,8 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: |
-            echo "Starting frontend deployment..."
-            bash /home/ubuntu/scripts/deploy-frontend.sh
+            echo "Starting frontend deployment from branch: ${{ github.ref_name }}..."
+            bash /home/ubuntu/scripts/deploy-frontend.sh "${{ github.ref_name }}"
             
       - name: Notify deployment status
         if: always()
