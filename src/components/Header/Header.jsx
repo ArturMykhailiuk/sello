@@ -16,10 +16,8 @@ import css from "./Header.module.css";
 
 import BurgerMenuIcon from "../../assets/icons/burger-menu.svg?react";
 import clsx from "clsx";
+import LogoIcon from "../../assets/icons/logo_test.svg?react";
 import { Logo } from "../Logo/Logo";
-
-// SVG з assets/icons імпортується як React компонент
-import LogoSvg from "../../assets/icons/logo_test.svg?react";
 
 export default function Header() {
   const homePath = useMatch("/");
@@ -36,21 +34,16 @@ export default function Header() {
 
   return (
     <>
+      <div className={css.locationWrapper}>
+        <LocationDisplay />
+      </div>
       <header className={clsx(css.header, isHome && css.homeHeader)}>
-        <Container className={clsx(css.container, isHome && css.homeContainer)}>
+        <Container className={css.container}>
           <div className={css.leftSection}>
-            <Link
-              className={clsx(css.logo, isHome && css.whiteLogo)}
-              to="/"
-              aria-label="Logo SELL-O"
-            >
-              <LogoSvg className={css.logoImage} />
-            </Link>
-
-            <LocationDisplay isHome={isHome} />
+            <Logo />
           </div>
 
-          {isLoggedIn && !isMobile && <Nav />}
+          {!isMobile && <Nav />}
 
           <div className={css.profileContainer}>
             {isLoggedIn ? <UserBar /> : <AuthBar />}

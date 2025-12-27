@@ -1,8 +1,5 @@
-import { Link } from "react-router";
 import CategoryItem from "../CategoryItem/CategoryItem";
 import css from "./CategoriesList.module.css";
-import { Typography } from "../Typography/Typography";
-import Loader from "../Loader/Loader";
 
 export function CategoryList({ categories }) {
   return (
@@ -12,17 +9,6 @@ export function CategoryList({ categories }) {
           <CategoryItem data={category} />
         </li>
       ))}
-      <li>
-        <Link to={"/?category=all"} className={css.liLoadMore}>
-          <Typography
-            variant="h4"
-            textColor="white"
-            className={css.allCategories}
-          >
-            Всі послуги
-          </Typography>
-        </Link>
-      </li>
     </ul>
   );
 }

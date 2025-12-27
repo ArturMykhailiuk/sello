@@ -17,5 +17,6 @@ export { ServiceAIWorkflowsList } from "./ServiceAIWorkflowsList/ServiceAIWorkfl
 export { ServiceAIAssistantModal } from "./ServiceAIAssistantModal/ServiceAIAssistantModal.jsx";
 export { N8nChat } from "./N8nChat/N8nChat.jsx";
 export { TelegramBotWidget } from "./TelegramBotWidget/TelegramBotWidget.jsx";
+export { GoogleSignInButton } from "./GoogleSignInButton/GoogleSignInButton.jsx";
 // export { UserAIWorkflowsList } from "./UserAIWorkflowsList/UserAIWorkflowsList.jsx";
 export { WorkflowsTabs } from "./WorkflowsTabs/WorkflowsTabs.jsx";

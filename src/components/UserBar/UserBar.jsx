@@ -19,7 +19,7 @@ const ProfileMenu = ({ onClose }) => {
   return (
     <div className={css.popover}>
       <NavLink to={`/user/${user.id}`} className={css.link} onClick={onClose}>
-        Панель
+        Кабінет
       </NavLink>
 
       <button
@@ -69,7 +69,7 @@ export const UserBar = () => {
           <Avatar
             src={user?.avatarURL}
             alt={`${userName}'s avatar`}
-            size={isMobile ? 32 : 50}
+            size={isMobile ? 32 : 40}
             name={userName}
           />
         </div>

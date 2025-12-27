@@ -16,6 +16,10 @@ export const Services = ({ categoryId }) => {
 
   const handleBackClick = () => {
     navigate("/");
+    // Примусовий скрол вгору після навігації
+    setTimeout(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    }, 0);
   };
 
   const currentCategory = categories.find(({ id }) => id === categoryId) ?? {};
@@ -33,12 +37,12 @@ export const Services = ({ categoryId }) => {
             Повернутися
           </button>
           <Typography className={css.servicesCategory} variant="h1">
-            {currentCategory.name}
+            {"Категорія: " + currentCategory.name}
           </Typography>
-          <Typography className={css.servicesDescription} variant="body">
+          {/* <Typography className={css.servicesDescription} variant="body">
             Об’єднуймо наші зусилля, знання та таланти, щоб створювати послуги,
             які надихають і приносять цінність кожному клієнтові.
-          </Typography>
+          </Typography> */}
         </div>
 
         <ServiceList categoryId={categoryId} />

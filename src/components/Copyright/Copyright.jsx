@@ -7,10 +7,10 @@ export const Copyright = () => {
   const breakpoint = useBreakpoint();
   return (
     <Typography
-      variant={breakpoint === "mobile" ? "bodyS" : "body"}
+      variant={breakpoint === "mobile" ? "uablue" : "uablue"}
       className={styles.wrapper}
     >
-      &copy; {year}, SELL-O. All rights reserved
+      &copy; {year}, SELL-O. Всі права застережено
     </Typography>
   );
 };

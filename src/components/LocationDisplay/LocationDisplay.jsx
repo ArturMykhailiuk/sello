@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useGeolocation } from "../../hooks/useGeolocation";
 import { LocationModal } from "../LocationModal/LocationModal";
+import EditIcon from "../../assets/icons/edit.svg?react";
 import css from "./LocationDisplay.module.css";
 
-export const LocationDisplay = ({ isHome }) => {
+export const LocationDisplay = () => {
   const {
     city,
     country,
@@ -45,12 +46,10 @@ export const LocationDisplay = ({ isHome }) => {
 
   const displayText = () => {
     if (loading) return "Визначення...";
-    if (error) return "Вибрати локацію";
+    if (error) return "Обрати локацію";
 
-    // Пріоритет відображення: адреса > місто з країною > країна > координати
     if (address && !address.includes("Координати:")) {
-      // Скорочуємо довгі адреси для header
-      return address.length > 30 ? address.substring(0, 27) + "..." : address;
+      return address;
     }
 
     if (city && country) {
@@ -65,20 +64,20 @@ export const LocationDisplay = ({ isHome }) => {
       return `${latitude.toFixed(3)}, ${longitude.toFixed(3)}`;
     }
 
-    return "Вибрати локацію";
+    return "Обрати локацію";
   };
 
   return (
     <>
-      <div
-        className={`${css.location} ${isHome ? css.whiteLocation : ""}`}
-        onClick={handleLocationClick}
-      >
+      <div className={css.location} onClick={handleLocationClick}>
         <span className={css.locationIcon}>
-          {loading ? "⏳" : error ? "❗" : ""}
+          {loading ? "⏳" : error ? "" : ""}
         </span>
-        <span className={css.locationText}>{displayText()}</span>
-        {/* <span className={css.changeIcon}>📝</span> */}
+        <span className={css.locationText}>
+          {<b>Ваша локація: </b>}
+          {displayText()}
+        </span>
+        <EditIcon className={css.changeIcon} />
       </div>
 
       <LocationModal

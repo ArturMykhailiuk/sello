@@ -40,9 +40,10 @@ export const SignInForm = ({
           error={errors.email}
           name="email"
           onChange={handleChange("email")}
-          placeholder="Email"
+          placeholder="Ел. пошта"
           required
           disabled={disabled}
+          className={css.input}
         />
 
         <Input
@@ -53,16 +54,17 @@ export const SignInForm = ({
           onIconClick={() => setVisiblePassword((prev) => !prev)}
           type={visiblePassword ? "text" : "password"}
           iconRight={visiblePassword ? <EyeOff size={18} /> : <Eye size={18} />}
-          placeholder="Password"
+          placeholder="Гасло"
           required
           disabled={disabled}
+          className={css.input}
         />
       </div>
 
       <Button
         className={css.button}
         type="submit"
-        variant="dark"
+        variant="blue"
         size="medium"
         bordered
         disabled={disabled}

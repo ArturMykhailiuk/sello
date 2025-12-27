@@ -60,6 +60,17 @@ export const NavMenu = ({ onClose }) => {
               className={clsx(css.link)}
               onClick={() => {
                 handleClose();
+                navigate("/about");
+              }}
+            >
+              Про нас
+            </button>
+          </li>
+          <li>
+            <button
+              className={clsx(css.link)}
+              onClick={() => {
+                handleClose();
                 navigate("/service/add");
               }}
             >

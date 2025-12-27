@@ -18,6 +18,9 @@
   --border-radius-m: 30px;
   --border-radius-full: 50%;
 
+  --ua-border-radius-standard: 20px;
+  --ua-border-standard: 1px solid #bfbfc0;
+
   --transition-duration: 0.2s;
   --transition-timing-function: ease;
   --Typography-line-clamp: 1;

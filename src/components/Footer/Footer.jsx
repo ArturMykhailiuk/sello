@@ -15,7 +15,6 @@ export function Footer() {
           <SocialNetworks />
         </div>
       </Container>
-      {/* <div className={styles.separator}></div> */}
       <Container>
         <Copyright />
       </Container>

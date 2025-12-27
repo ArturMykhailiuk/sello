@@ -1,11 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 100" width="200" height="16" fill="currentColor">
-  <!-- Текст SELL- -->
-  <text x="0" y="85" font-family="Arial, sans-serif" font-weight="700" font-size="90" fill="#0D73BA">
-    SELL-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 60" fill="currentColor">
+  <!-- Текст SELL -->
+  <text x="0" y="58" font-family="Courier, serif" font-weight="900" font-size="95" fill="#0D73BA">
+    SELL
   </text>
 
-  <!-- Літера O з маркером (зменшена і вирівняна по розміру) -->
-  <g transform="translate(270, 16) scale(0.78)">
+  <!-- Горизонтальна лінія -->
+  <line x1="235" y1="30" x2="250" y2="30" stroke="#0D73BA" stroke-width="10" stroke-linecap="round"/>
+
+  <!-- Літера O з маркером -->
+  <g transform="translate(260, 0) scale(0.65)">
     <!-- Зовнішнє синє коло -->
     <circle cx="45" cy="45" r="45" fill="#0D73BA"/>
 
