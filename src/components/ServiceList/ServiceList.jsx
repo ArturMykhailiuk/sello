@@ -23,7 +23,9 @@ export const ServiceList = ({ categoryId, searchQuery }) => {
   const breakpoint = useBreakpoint({ tablet: 540 });
   const [searchParams, setSearchParams] = useSearchParams();
   const [allServices, setAllServices] = useState([]);
-  const [selectedCountry, setSelectedCountry] = useState(() => searchParams.get("country") ?? null);
+  const [selectedCountry, setSelectedCountry] = useState(
+    () => searchParams.get("country") ?? null,
+  );
   const [currentPage, setCurrentPage] = useState(
     () => searchParams.get("page") ?? 1,
   );
@@ -35,9 +37,9 @@ export const ServiceList = ({ categoryId, searchQuery }) => {
   // Отримуємо унікальні країни з поточних послуг
   const availableCountries = useMemo(() => {
     const countriesSet = new Set();
-    allServices.forEach(service => {
+    allServices.forEach((service) => {
       if (service.areas && Array.isArray(service.areas)) {
-        service.areas.forEach(area => {
+        service.areas.forEach((area) => {
           if (area.country) {
             countriesSet.add(area.country);
           }
@@ -52,16 +54,17 @@ export const ServiceList = ({ categoryId, searchQuery }) => {
   // Фільтруємо послуги по вибраній країні
   const filteredServices = useMemo(() => {
     if (!selectedCountry) return allServices;
-    return allServices.filter(service => 
-      service.areas && 
-      Array.isArray(service.areas) && 
-      service.areas.some(area => area.country === selectedCountry)
+    return allServices.filter(
+      (service) =>
+        service.areas &&
+        Array.isArray(service.areas) &&
+        service.areas.some((area) => area.country === selectedCountry),
     );
   }, [allServices, selectedCountry]);
 
   const total = filteredServices.length;
   const totalPages = Math.ceil(total / servicesPerPage);
-  
+
   // Пагінація на клієнті
   const services = useMemo(() => {
     const startIndex = (currentPage - 1) * servicesPerPage;
