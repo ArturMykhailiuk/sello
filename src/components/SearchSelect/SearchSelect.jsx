@@ -33,15 +33,26 @@ const SearchSelect = ({
   const [open, setOpen] = useState(false);
   const wrapperRef = useRef(null);
 
-  const filteredItems = items.filter((item) =>
-    item.name.toLowerCase().includes(query.toLowerCase()) &&
-    !excludeIds.includes(item.id)
-  );
+  const filteredItems = items.filter((item) => {
+    // Якщо query порожній - показуємо всі елементи
+    if (!query || query.trim() === "") return !excludeIds.includes(item.id);
+    // Інакше фільтруємо по введеному тексту
+    return item.name.toLowerCase().includes(query.toLowerCase()) &&
+      !excludeIds.includes(item.id);
+  });
 
   const handleSelect = (item) => {
     onSelect(item);
     setQuery(item.name);
     setOpen(false);
+  };
+
+  const handleFocus = () => {
+    setOpen(true);
+  };
+
+  const handleIconClick = () => {
+    setOpen((prev) => !prev);
   };
 
   useEffect(() => {
@@ -73,8 +84,8 @@ const SearchSelect = ({
         onChange={(e) => setQuery(e.target.value)}
         placeholder={required ? `${placeholder}*` : placeholder}
         iconRight={open ? <ChevronUp /> : <ChevronDown />}
-        onFocus={() => setOpen(true)}
-        onIconClick={() => setOpen((prev) => !prev)}
+        onFocus={handleFocus}
+        onIconClick={handleIconClick}
         onBlur={handleBlur}
       />
       {open && (

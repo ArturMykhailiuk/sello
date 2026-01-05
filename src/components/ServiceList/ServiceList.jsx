@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import React, { useState, useEffect, useMemo } from "react";
 import toast from "react-hot-toast";
 
 import { Pagination } from "../Pagination/Pagination.jsx";
 import SearchSelect from "../SearchSelect/SearchSelect.jsx";
 import { ServiceCard } from "../ServiceCard/index.js";
 import { ServicesMapModal } from "../ServicesMapModal/ServicesMapModal.jsx";
-import { selectAreas } from "../../store/areas/index.js";
 import { useBreakpoint } from "../../hooks/useBreakpoint.js";
-import { getServices } from "../../services/services.js";
+import { getServices, searchServices } from "../../services/services.js";
 import { normalizeHttpError } from "../../utils/normalizeHttpError.js";
 import { DEFAULT_ERROR_MESSAGE } from "../../constants/common.js";
 
@@ -21,41 +19,84 @@ const getCountOfServices = (breakpoint) => {
   return 8;
 };
 
-export const ServiceList = ({ categoryId }) => {
-  const areas = useSelector(selectAreas);
+export const ServiceList = ({ categoryId, searchQuery }) => {
   const breakpoint = useBreakpoint({ tablet: 540 });
   const [searchParams, setSearchParams] = useSearchParams();
-  const [services, setServices] = useState([]);
-  const [areaId, setAreaId] = useState(() => searchParams.get("area") ?? null);
+  const [allServices, setAllServices] = useState([]);
+  const [selectedCountry, setSelectedCountry] = useState(() => searchParams.get("country") ?? null);
   const [currentPage, setCurrentPage] = useState(
     () => searchParams.get("page") ?? 1,
   );
-  const [total, setTotal] = useState(0);
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
 
   const servicesPerPage = getCountOfServices(breakpoint);
   const isMobile = ["mobile", "small-mobile"].includes(breakpoint);
+
+  // Отримуємо унікальні країни з поточних послуг
+  const availableCountries = useMemo(() => {
+    const countriesSet = new Set();
+    allServices.forEach(service => {
+      if (service.areas && Array.isArray(service.areas)) {
+        service.areas.forEach(area => {
+          if (area.country) {
+            countriesSet.add(area.country);
+          }
+        });
+      }
+    });
+    return Array.from(countriesSet)
+      .sort()
+      .map((country, index) => ({ id: index + 1, name: country }));
+  }, [allServices]);
+
+  // Фільтруємо послуги по вибраній країні
+  const filteredServices = useMemo(() => {
+    if (!selectedCountry) return allServices;
+    return allServices.filter(service => 
+      service.areas && 
+      Array.isArray(service.areas) && 
+      service.areas.some(area => area.country === selectedCountry)
+    );
+  }, [allServices, selectedCountry]);
+
+  const total = filteredServices.length;
+  const totalPages = Math.ceil(total / servicesPerPage);
+  
+  // Пагінація на клієнті
+  const services = useMemo(() => {
+    const startIndex = (currentPage - 1) * servicesPerPage;
+    return filteredServices.slice(startIndex, startIndex + servicesPerPage);
+  }, [filteredServices, currentPage, servicesPerPage]);
 
   useEffect(() => {
     const abortController = new AbortController();
 
     (async () => {
       try {
-        const { total, services } = await getServices(
-          {
-            categoryId,
-            areaId,
-            limit: servicesPerPage,
-            page: currentPage,
-          },
-          { signal: abortController.signal },
-        );
-        setServices(services);
-        setTotal(total);
+        // Завантажуємо всі послуги без фільтрації по країні
+        const result = searchQuery
+          ? await searchServices(
+              {
+                query: searchQuery,
+                categoryId,
+                limit: 1000, // Завантажуємо всі для клієнтської фільтрації
+                page: 1,
+              },
+              { signal: abortController.signal },
+            )
+          : await getServices(
+              {
+                categoryId,
+                limit: 1000, // Завантажуємо всі для клієнтської фільтрації
+                page: 1,
+              },
+              { signal: abortController.signal },
+            );
+
+        setAllServices(result.services);
       } catch (error) {
         if (!isCancel(error)) {
-          setServices([]);
-          setTotal(0);
+          setAllServices([]);
           const { message } = normalizeHttpError(error);
           toast.error(message ?? DEFAULT_ERROR_MESSAGE);
         }
@@ -65,64 +106,66 @@ export const ServiceList = ({ categoryId }) => {
     return () => {
       abortController.abort();
     };
-  }, [categoryId, areaId, currentPage, servicesPerPage]);
+  }, [categoryId, searchQuery]);
 
   useEffect(() => {
     setSearchParams((prev) => {
-      if (areaId) prev.set("area", areaId);
-      else prev.delete("area");
+      if (selectedCountry) prev.set("country", selectedCountry);
+      else prev.delete("country");
 
       if (currentPage) prev.set("page", currentPage);
       else prev.delete("page");
 
       return prev;
     });
-  }, [areaId, currentPage, setSearchParams]);
+  }, [selectedCountry, currentPage, setSearchParams]);
 
-  const handleAreaSelect = (area) => {
-    setAreaId(area?.id);
+  const handleAreaSelect = (country) => {
+    setSelectedCountry(country?.name);
     setCurrentPage(1);
   };
 
   const handleAreaChange = (value) => {
-    if (value) return;
-    setAreaId(null);
-    setCurrentPage(1);
+    // Дозволяємо вводити текст або очищувати
+    setSelectedCountry(value || null);
+    if (!value) {
+      setCurrentPage(1);
+    }
   };
 
-  const totalPages = Math.ceil(total / servicesPerPage);
-
-  const currentArea = areaId
-    ? areas.find(({ id }) => id === Number(areaId))
-    : {};
-
-  // Підраховуємо всі локації (не послуги)
-  const totalLocations = services.reduce((count, service) => {
-    if (service.areas && Array.isArray(service.areas)) {
-      const validAreas = service.areas.filter((area) => {
-        const lat = area?.latitude;
-        const lng = area?.longitude;
-        return (
-          lat &&
-          lng &&
-          lat !== "undefined" &&
-          lng !== "undefined" &&
-          !isNaN(parseFloat(lat)) &&
-          !isNaN(parseFloat(lng))
-        );
-      });
-      return count + validAreas.length;
-    }
-    return count;
-  }, 0);
+  // Підраховуємо всі локації (не послуги) з урахуванням фільтра країн
+  const totalLocations = useMemo(() => {
+    return filteredServices.reduce((count, service) => {
+      if (service.areas && Array.isArray(service.areas)) {
+        const validAreas = service.areas.filter((area) => {
+          // Фільтруємо по країні якщо вибрана
+          if (selectedCountry && area.country !== selectedCountry) {
+            return false;
+          }
+          const lat = area?.latitude;
+          const lng = area?.longitude;
+          return (
+            lat &&
+            lng &&
+            lat !== "undefined" &&
+            lng !== "undefined" &&
+            !isNaN(parseFloat(lat)) &&
+            !isNaN(parseFloat(lng))
+          );
+        });
+        return count + validAreas.length;
+      }
+      return count;
+    }, 0);
+  }, [filteredServices, selectedCountry]);
 
   return (
     <div className={css.servicesBlock}>
       <div className={css.servicesFiltersBlock}>
         <SearchSelect
-          items={areas}
+          items={availableCountries}
           placeholder="Країна"
-          value={currentArea?.country ?? ""}
+          value={selectedCountry ?? ""}
           onSelect={handleAreaSelect}
           onChange={handleAreaChange}
         />
@@ -137,25 +180,45 @@ export const ServiceList = ({ categoryId }) => {
       </div>
 
       <div className={css.servicesListBlock}>
-        <div className={css.serviceList}>
-          {services.map((service) => (
-            <ServiceCard
-              key={service.id}
-              serviceId={service.id}
-              title={service.title}
-              image={service.thumb}
-              description={service.description}
-              owner={service.owner}
-              isFavorite={service.isFavorite}
-              isMobile={isMobile}
+        {searchQuery && total === 0 ? (
+          <div className={css.emptyMessage}>
+            <p
+              style={{
+                fontSize: "18px",
+                textAlign: "center",
+                margin: "40px 0",
+              }}
+            >
+              Нічого не знайдено за запитом <strong>"{searchQuery}"</strong>
+            </p>
+            <p style={{ fontSize: "14px", textAlign: "center", color: "#666" }}>
+              Спробуйте інші ключові слова, наприклад: "ремонт", "послуга",
+              "дизайн"
+            </p>
+          </div>
+        ) : (
+          <>
+            <div className={css.serviceList}>
+              {services.map((service) => (
+                <ServiceCard
+                  key={service.id}
+                  serviceId={service.id}
+                  title={service.title}
+                  image={service.thumb}
+                  description={service.description}
+                  owner={service.owner}
+                  isFavorite={service.isFavorite}
+                  isMobile={isMobile}
+                />
+              ))}
+            </div>
+            <Pagination
+              totalPages={totalPages}
+              activePage={currentPage}
+              onPageChange={(page) => setCurrentPage(page)}
             />
-          ))}
-        </div>
-        <Pagination
-          totalPages={totalPages}
-          activePage={currentPage}
-          onPageChange={(page) => setCurrentPage(page)}
-        />
+          </>
+        )}
       </div>
 
       <ServicesMapModal

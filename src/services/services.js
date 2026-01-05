@@ -50,6 +50,28 @@ export const getServiceById = async (id) => {
   return data.data.service;
 };
 
+export const searchServices = async (
+  { query, page, limit, categoryId, areaId, itemId },
+  options = {},
+) => {
+  const { signal } = options;
+  const { data } = await api.get(`/services/search`, {
+    params: {
+      ...(query ? { query } : {}),
+      ...(page ? { page } : {}),
+      ...(limit ? { limit } : {}),
+      ...(categoryId ? { categoryId } : {}),
+      ...(areaId ? { areaId } : {}),
+      ...(itemId ? { itemId } : {}),
+    },
+    signal,
+  });
+  return {
+    total: data.data.total,
+    services: data.data.services,
+  };
+};
+
 export const getPopularServices = async () => {
   const { data } = await api.get("/services/popular?limit=10&page=1");
   return { popularServices: data.data.popularServices };

@@ -97,12 +97,18 @@ export const ServiceAIAssistantModal = ({
 
   const handleTemplateChange = async (e) => {
     const newTemplateId = e.target.value;
+    console.log("[DEBUG] Template changed:", {
+      value: e.target.value,
+      type: typeof e.target.value,
+      asNumber: Number(e.target.value),
+    });
     setSelectedTemplateId(newTemplateId);
 
     // If template selected and not in edit mode, trigger prompt generation
     if (newTemplateId && !isEditMode && serviceId) {
       // Find the selected template to get its name
       const template = templates.find((t) => t.id === Number(newTemplateId));
+      console.log("[DEBUG] Found template:", template);
       if (template) {
         try {
           const generatedPrompt = await dispatch(
@@ -199,13 +205,15 @@ export const ServiceAIAssistantModal = ({
         }
       } else {
         // Режим створення
+        const payloadData = {
+          aiTemplateId: Number(selectedTemplateId),
+          ...formData, // Всі динамічні поля
+        };
+
         const newWorkflow = await dispatch(
           createAIWorkflow({
             serviceId,
-            workflowData: {
-              aiTemplateId: Number(selectedTemplateId),
-              ...formData, // Всі динамічні поля
-            },
+            workflowData: payloadData,
           }),
         ).unwrap();
 

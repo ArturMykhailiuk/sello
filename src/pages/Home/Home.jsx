@@ -15,15 +15,26 @@ const isValidCategory = (category) => {
 export default function Home() {
   const [searchParams] = useSearchParams();
   const category = searchParams.get("category");
+  const searchQuery = searchParams.get("search");
+
   const isServicesSubPage = isValidCategory(category);
   const categoryId =
     isServicesSubPage && category !== "all" ? Number(category) : null;
+
+  // Show search results if there's a search query
+  const showSearchResults = searchQuery && searchQuery.trim().length > 0;
 
   return (
     <div className={css.container}>
       <Hero />
 
-      {isServicesSubPage ? <Services categoryId={categoryId} /> : <Category />}
+      {showSearchResults ? (
+        <Services searchQuery={searchQuery} />
+      ) : isServicesSubPage ? (
+        <Services categoryId={categoryId} />
+      ) : (
+        <Category />
+      )}
     </div>
   );
 }

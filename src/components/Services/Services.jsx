@@ -10,7 +10,7 @@ import { selectCategories } from "../../store/categories/selectors.js";
 import css from "./Services.module.css";
 import ArrowLeftIcon from "../../assets/icons/arrow-left.svg?react";
 
-export const Services = ({ categoryId }) => {
+export const Services = ({ categoryId, searchQuery }) => {
   const navigate = useNavigate();
   const categories = useSelector(selectCategories);
 
@@ -23,6 +23,10 @@ export const Services = ({ categoryId }) => {
   };
 
   const currentCategory = categories.find(({ id }) => id === categoryId) ?? {};
+
+  const title = searchQuery
+    ? `Результати пошуку: "${searchQuery}"`
+    : `Категорія: ${currentCategory.name}`;
 
   return (
     <section>
@@ -37,7 +41,7 @@ export const Services = ({ categoryId }) => {
             Повернутися
           </button>
           <Typography className={css.servicesCategory} variant="h1">
-            {"Категорія: " + currentCategory.name}
+            {title}
           </Typography>
           {/* <Typography className={css.servicesDescription} variant="body">
             Об’єднуймо наші зусилля, знання та таланти, щоб створювати послуги,
@@ -45,7 +49,7 @@ export const Services = ({ categoryId }) => {
           </Typography> */}
         </div>
 
-        <ServiceList categoryId={categoryId} />
+        <ServiceList categoryId={categoryId} searchQuery={searchQuery} />
       </Container>
     </section>
   );

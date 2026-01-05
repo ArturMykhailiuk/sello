@@ -1,6 +1,6 @@
 // import { useDispatch, useSelector } from "react-redux";
-// import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useNavigate, useSearchParams } from "react-router";
+import { useState, useEffect } from "react";
 
 import { Typography } from "../Typography/Typography";
 // import { Button } from "../Button/Button";
@@ -8,12 +8,37 @@ import { Input } from "../Input/Input";
 // import { openSignIn, selectIsLoggedIn } from "../../store/auth";
 
 import styles from "./Hero.module.css";
+import { ButtonIcon } from "../ButtonIcon/ButtonIcon";
+import SearchIcon from "../../assets/icons/search.svg?react";
 
 export const Hero = () => {
   // const dispatch = useDispatch();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   // const isLoggedIn = useSelector(selectIsLoggedIn);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState(
+    searchParams.get("search") || "",
+  );
+
+  useEffect(() => {
+    setSearchQuery(searchParams.get("search") || "");
+  }, [searchParams]);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const trimmedQuery = searchQuery.trim();
+    if (trimmedQuery.length >= 2) {
+      navigate(`/?search=${encodeURIComponent(trimmedQuery)}`);
+    } else if (trimmedQuery.length === 0) {
+      navigate("/");
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleSearch(e);
+    }
+  };
 
   // const handleClick = () => {
   //   dispatch(openSignIn());
@@ -31,13 +56,27 @@ export const Hero = () => {
             послугами, що поєднують професіоналізм, надійність та теплу
             атмосферу української спільноти.
           </Typography> */}
-          <Input
-            className={styles.heroSearch}
-            variant="uastyle"
-            placeholder="Швидкий пошук послуг..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
+          <div className={styles.searchWrapper}>
+            <Input
+              className={styles.heroSearch}
+              variant="uastyle"
+              placeholder="Швидкий пошук послуг (мін. 2 символи)..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyPress={handleKeyPress}
+            />
+            <ButtonIcon
+              className={styles.searchButton}
+              onClick={handleSearch}
+              type="button"
+              disabled={
+                searchQuery.trim().length > 0 && searchQuery.trim().length < 2
+              }
+              icon={<SearchIcon />}
+            >
+              🔍
+            </ButtonIcon>
+          </div>
         </div>
       </div>
     </section>
