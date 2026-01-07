@@ -31,11 +31,11 @@ export const LogOutModal = ({ onClose }) => {
   return (
     <div className={css.container}>
       <Typography className={css.title} variant="h2">
-        {isMobile ? "Log out" : "Are you logging out?"}
+        {isMobile ? "Вийти?" : "Ви дійсно хочете вийти?"}
       </Typography>
 
       <Typography className={css.text} variant="body">
-        You can always log back in at any time.
+        Ви завжди можете повернутись у будь-який час.
       </Typography>
 
       <Button
@@ -53,12 +53,12 @@ export const LogOutModal = ({ onClose }) => {
       <Button
         className={css.button}
         type="button"
-        variant="light"
+        variant="blue"
         size="medium"
         bordered
         onClick={onClose}
       >
-        Cancel
+        Відмінити
       </Button>
     </div>
   );

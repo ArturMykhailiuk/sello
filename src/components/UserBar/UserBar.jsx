@@ -28,7 +28,6 @@ const ProfileMenu = ({ onClose }) => {
         onClick={() => dispatch(openLogOut())}
       >
         Вийти
-        <ArrowUpRightIcon className={css.logoutIcon} />
       </button>
     </div>
   );

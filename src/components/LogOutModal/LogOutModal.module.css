@@ -3,6 +3,7 @@
 }
 
 .title {
+  color: var(--ua-blue);
   margin-bottom: 16px;
 
   text-align: center;
