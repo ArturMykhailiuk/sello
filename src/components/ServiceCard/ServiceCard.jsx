@@ -122,7 +122,10 @@ export const ServiceCard = ({
                   textColor="gray"
                   className={css.locationText}
                 >
-                  {area?.formattedAddress || area?.city || area?.name || "Не вказано"}
+                  {area?.formattedAddress ||
+                    area?.city ||
+                    area?.name ||
+                    "Не вказано"}
                 </Typography>
               </div>
             ))}

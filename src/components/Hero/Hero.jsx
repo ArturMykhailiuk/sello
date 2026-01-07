@@ -27,10 +27,10 @@ export const Hero = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     const trimmedQuery = searchQuery.trim();
-    
+
     // Зберігаємо поточну категорію якщо вона є
     const currentCategory = searchParams.get("category");
-    
+
     if (trimmedQuery.length >= 2) {
       const params = new URLSearchParams();
       params.set("search", trimmedQuery);
