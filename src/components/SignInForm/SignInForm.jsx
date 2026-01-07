@@ -69,7 +69,7 @@ export const SignInForm = ({
         bordered
         disabled={disabled}
       >
-        Sign in
+        Увійти
       </Button>
     </form>
   );

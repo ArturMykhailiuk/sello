@@ -40,7 +40,7 @@ export const SignUpForm = ({
           error={errors.name}
           name="name"
           onChange={handleChange("name")}
-          placeholder="Name"
+          placeholder="Ім'я"
           required
           disabled={disabled}
         />
@@ -50,7 +50,7 @@ export const SignUpForm = ({
           error={errors.email}
           name="email"
           onChange={handleChange("email")}
-          placeholder="Email"
+          placeholder="Ел. пошта"
           required
           disabled={disabled}
         />
@@ -63,7 +63,7 @@ export const SignUpForm = ({
           onIconClick={() => setVisiblePassword((prev) => !prev)}
           type={visiblePassword ? "text" : "password"}
           iconRight={visiblePassword ? <EyeOff size={18} /> : <Eye size={18} />}
-          placeholder="Password"
+          placeholder="Гасло"
           required
           disabled={disabled}
         />
@@ -72,12 +72,12 @@ export const SignUpForm = ({
       <Button
         className={css.button}
         type="submit"
-        variant="dark"
+        variant="blue"
         size="medium"
         bordered
         disabled={disabled}
       >
-        Create
+        Створити акаунт
       </Button>
     </form>
   );

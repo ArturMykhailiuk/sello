@@ -36,25 +36,25 @@ export const SignUpModal = ({ onRedirectToSignIn }) => {
   return (
     <div className={css.container}>
       <Typography className={css.title} variant="h2">
-        Sign up
+        Створити акаунт
       </Typography>
 
       <GoogleSignInButton />
 
       <div className={css.divider}>
-        <span>or</span>
+        <span>або</span>
       </div>
 
       <SignUpForm onSubmit={handleSubmit} disabled={disabledForm} />
 
       <div className={css.text}>
-        <span>I already have an account?</span>
+        <span>Вже маєте акаунт?</span>
         <button
           className={css.button}
           type="button"
           onClick={onRedirectToSignIn}
         >
-          Sign in
+          Увійти
         </button>
       </div>
     </div>

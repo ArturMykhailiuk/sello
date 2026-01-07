@@ -5,10 +5,10 @@
   gap: 12px;
   width: 100%;
   padding: 12px 24px;
-  background-color: var(--ua-main);
+  background-color: var(--ua-main-1);
   border: 1px solid #dadce0;
-  border-radius: 4px;
-  color: var(--text-primary);
+  border-radius: 12px;
+  color: var(--ua-blue);
   font-family: "Roboto", system-ui, -apple-system, sans-serif;
   font-size: 14px;
   font-weight: 500;
@@ -17,7 +17,7 @@
 }
 
 .googleSigninButton:hover {
-  background-color: #f7f8f9;
+  background-color: var(--ua-main);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 

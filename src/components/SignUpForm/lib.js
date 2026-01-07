@@ -6,21 +6,21 @@ export const registerValidationSchema = yup.object({
   name: yup
     .string()
     .trim()
-    .min(2, "Name must be at least 2 characters")
-    .max(30, "Name must be at most 30 characters")
-    .required("Name is required"),
+    .min(2, "Ім'я має містити щонайменше 2 символи")
+    .max(30, "Ім'я має містити не більше 30 символів")
+    .required("Ім'я обов'язкове"),
 
   email: yup
     .string()
     .trim()
-    .max(255, "Email must be at most 255 characters")
-    .matches(emailRegexp, "Email must be a valid format like example@mail.com")
-    .required("Email is required"),
+    .max(255, "Email має містити не більше 255 символів")
+    .matches(emailRegexp, "Email має бути у форматі example@mail.com")
+    .required("Email обов'язковий"),
 
   password: yup
     .string()
     .trim()
-    .min(6, "Password must be at least 6 characters")
-    .max(255, "Password must be at most 255 characters")
-    .required("Password is required"),
+    .min(6, "Пароль має містити щонайменше 6 символів")
+    .max(255, "Пароль має містити не більше 255 символів")
+    .required("Пароль обов'язковий"),
 });

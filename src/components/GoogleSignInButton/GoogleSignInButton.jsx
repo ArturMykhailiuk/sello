@@ -40,7 +40,7 @@ export const GoogleSignInButton = () => {
           fill="#EA4335"
         />
       </svg>
-      <span>Continue with Google</span>
+      <span>Продовжити з Google</span>
     </button>
   );
 };
