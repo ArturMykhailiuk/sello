@@ -11,6 +11,7 @@ import css from "./ServiceCard.module.css";
 import ArrowUpIcon from "../../assets/icons/arrow-up-right.svg?react";
 import HeartIcon from "../../assets/icons/heart.svg?react";
 import ArrowIncrease from "../../assets/icons/arrow-increase.svg?react";
+import LocationPin from "../../assets/icons/location-pin.svg?react";
 import { BACKEND_URL, DEFAULT_ERROR_MESSAGE } from "../../constants/common.js";
 import { normalizeHttpError } from "../../utils/index.js";
 import { appClearSessionAction } from "../../store/utils.js";
@@ -27,6 +28,7 @@ export const ServiceCard = ({
   image,
   description,
   owner,
+  areas,
   isFavorite: favorite,
   isMobile,
 }) => {
@@ -109,6 +111,23 @@ export const ServiceCard = ({
         >
           {description}
         </Typography>
+
+        {areas && areas.length > 0 && (
+          <div className={css.locations}>
+            {areas.map((area, index) => (
+              <div key={index} className={css.locationItem}>
+                <LocationPin className={css.locationIcon} />
+                <Typography
+                  variant="bodyS"
+                  textColor="gray"
+                  className={css.locationText}
+                >
+                  {area?.formattedAddress || area?.city || area?.name || "Не вказано"}
+                </Typography>
+              </div>
+            ))}
+          </div>
+        )}
 
         <div className={css.cardActions}>
           <div className={css.cardAuthorInfo}>

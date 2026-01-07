@@ -119,3 +119,36 @@
 .fillFavorite {
   fill: var(--white-color);
 }
+
+.locations {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: -32px;
+}
+
+.locationItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.locationIcon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  stroke: var(--gray-color);
+}
+
+.locationText {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  @supports (-webkit-line-clamp: 1) and (display: -webkit-box) {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}

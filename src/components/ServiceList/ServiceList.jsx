@@ -81,7 +81,7 @@ export const ServiceList = ({ categoryId, searchQuery }) => {
           ? await searchServices(
               {
                 query: searchQuery,
-                categoryId,
+                categoryId: categoryId, // ← явно передаємо categoryId
                 limit: 1000, // Завантажуємо всі для клієнтської фільтрації
                 page: 1,
               },
@@ -89,7 +89,7 @@ export const ServiceList = ({ categoryId, searchQuery }) => {
             )
           : await getServices(
               {
-                categoryId,
+                categoryId: categoryId, // ← явно передаємо categoryId
                 limit: 1000, // Завантажуємо всі для клієнтської фільтрації
                 page: 1,
               },
@@ -210,6 +210,7 @@ export const ServiceList = ({ categoryId, searchQuery }) => {
                   image={service.thumb}
                   description={service.description}
                   owner={service.owner}
+                  areas={service.areas}
                   isFavorite={service.isFavorite}
                   isMobile={isMobile}
                 />

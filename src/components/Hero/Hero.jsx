@@ -27,10 +27,24 @@ export const Hero = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     const trimmedQuery = searchQuery.trim();
+    
+    // Зберігаємо поточну категорію якщо вона є
+    const currentCategory = searchParams.get("category");
+    
     if (trimmedQuery.length >= 2) {
-      navigate(`/?search=${encodeURIComponent(trimmedQuery)}`);
+      const params = new URLSearchParams();
+      params.set("search", trimmedQuery);
+      if (currentCategory) {
+        params.set("category", currentCategory);
+      }
+      navigate(`/?${params.toString()}`);
     } else if (trimmedQuery.length === 0) {
-      navigate("/");
+      // Якщо очистили пошук, залишаємо категорію
+      if (currentCategory) {
+        navigate(`/?category=${currentCategory}`);
+      } else {
+        navigate("/");
+      }
     }
   };
 

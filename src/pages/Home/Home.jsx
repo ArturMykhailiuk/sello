@@ -29,7 +29,7 @@ export default function Home() {
       <Hero />
 
       {showSearchResults ? (
-        <Services searchQuery={searchQuery} />
+        <Services searchQuery={searchQuery} categoryId={categoryId} />
       ) : isServicesSubPage ? (
         <Services categoryId={categoryId} />
       ) : (
