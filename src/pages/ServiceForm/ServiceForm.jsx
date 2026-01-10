@@ -78,7 +78,9 @@ const ItemsFieldGroup = ({ onAdd }) => {
     <div className={styles.ItemsFieldGroup}>
       <div className={styles.AddService__inputGroupWrapper}>
         <div className={styles.AddService__inputGroup}>
-          <Typography variant="h4">Деталізація послуги</Typography>
+          <Typography variant="h4" textColor="uablue">
+            Деталізація послуги
+          </Typography>
           <Input
             value={itemName}
             onChange={(e) => setItemName(e.target.value)}
@@ -122,9 +124,9 @@ const defaultData = {
 
 const createValidationSchema = (mode) =>
   object({
-    title: string().required("Service title is required"),
-    description: string().required("Description is required"),
-    category: object().required("Category is required"),
+    title: string().required("Назва послуги обов'язкова"),
+    description: string().required("Опис обов'язковий"),
+    category: object().required("Категорія обов'язкова"),
     locations: array()
       .of(
         object().shape({
@@ -133,20 +135,18 @@ const createValidationSchema = (mode) =>
           address: string().required(),
         }),
       )
-      .min(1, "At least one location is required"),
-    instructions: string().required("Details are required"),
-    items: array()
-      .of(
-        object().shape({
-          id: string().required("Item ID is required"),
-          measure: string().required("Measure is required"),
-        }),
-      )
-      .min(1, "At least one item is required"),
+      .min(1, "Необхідно додати хоча б одну локацію"),
+    instructions: string().required("Інструкції обов'язкові"),
+    items: array().of(
+      object().shape({
+        id: string().required("ID елемента обов'язковий"),
+        measure: string().required("Вартість обов'язкова"),
+      }),
+    ),
     // Image required only for create mode
     image:
       mode === "create"
-        ? string().required("Image is required")
+        ? string().required("Зображення обов'язкове")
         : string().optional(),
   });
 
@@ -323,8 +323,10 @@ const ServiceForm = () => {
         </Breadcrumbs>
 
         <div className={styles.AddService__header}>
-          <Typography variant="h2">{pageTitle}</Typography>
-          <Typography variant="body">
+          <Typography variant="h2" textColor="uablue">
+            {pageTitle}
+          </Typography>
+          <Typography variant="body" textColor="uablue">
             Об'єднуймо наші зусилля, знання та таланти, щоб створювати послуги,
             які надихають і приносять цінність кожному клієнтові.
           </Typography>
@@ -377,7 +379,7 @@ const ServiceForm = () => {
                     <Field
                       name="description"
                       as={Textarea}
-                      placeholder="Опис послуги"
+                      placeholder="Короткий опис послуги"
                     />
                     <ErrorMessage
                       name="description"
@@ -438,7 +440,9 @@ const ServiceForm = () => {
 
                 <div className={styles.AddService__inputGroupWrapper}>
                   <div className={styles.AddService__inputGroup}>
-                    <Typography variant="h4">Категорія</Typography>
+                    <Typography variant="h4" textColor="uablue">
+                      Категорія
+                    </Typography>
                     <div>
                       <SearchSelect
                         value={categorySearch}
@@ -452,7 +456,7 @@ const ServiceForm = () => {
                           setFieldValue("category", item);
                           setCategorySearch(item.name);
                         }}
-                        placeholder="Виберіть категорію"
+                        placeholder="Оберіть категорію"
                       />
                       <ErrorMessage
                         name="category"
@@ -495,7 +499,9 @@ const ServiceForm = () => {
                     styles.AddService__inputGroup_bottom,
                   )}
                 >
-                  <Typography variant="h4">Деталі послуги</Typography>
+                  <Typography variant="h4" textColor="uablue">
+                    Детальний опис (інструкції)
+                  </Typography>
                   <div>
                     <Field
                       name="instructions"
@@ -512,7 +518,7 @@ const ServiceForm = () => {
                 <div className={styles.AddService__actions}>
                   <ButtonIcon
                     icon={<TrashIcon />}
-                    variant="light"
+                    variant="dark"
                     size="large"
                     type="button"
                     disabled={isSubmitting}

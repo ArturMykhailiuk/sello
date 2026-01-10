@@ -142,6 +142,18 @@
   color: #1e40af;
 }
 
+.retryButtonWrapper {
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.retryButtonWrapper button {
+  min-width: 160px;
+}
+
 @media (max-width: 768px) {
   .modalOverlay {
     padding: 5px;

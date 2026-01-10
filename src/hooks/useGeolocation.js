@@ -141,7 +141,8 @@ export const useGeolocation = () => {
   useEffect(() => {
     // Спочатку перевіряємо збережену локацію
     const storedLocation = getLocationFromStorage();
-    if (storedLocation) {
+
+    if (storedLocation && storedLocation.latitude && storedLocation.longitude) {
       setLocation(storedLocation);
       return;
     }
@@ -184,7 +185,7 @@ export const useGeolocation = () => {
 
           setLocation(locationData);
           saveLocationToStorage(locationData);
-        } catch {
+        } catch (error) {
           const basicLocationData = {
             latitude,
             longitude,
@@ -201,7 +202,7 @@ export const useGeolocation = () => {
         }
       },
       (error) => {
-        console.error("Geolocation error:", error);
+        console.error("❌ Geolocation error:", error);
         setLocation((prev) => ({
           ...prev,
           loading: false,
@@ -210,8 +211,8 @@ export const useGeolocation = () => {
       },
       {
         enableHighAccuracy: true,
-        timeout: 10000,
-        maximumAge: 60000, // Оновлюємо кеш частіше для точності
+        timeout: 30000,
+        maximumAge: 0,
       },
     );
   }, [getLocationFromStorage, saveLocationToStorage]);

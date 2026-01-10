@@ -10,7 +10,9 @@ export const LocationsList = ({ locations = [], onAdd, onEdit, onRemove }) => {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <Typography variant="h4">Локації на карті</Typography>
+        <Typography variant="h4" textColor="uablue">
+          Локації надання послуг
+        </Typography>
         <Button
           type="button"
           variant="blue"
@@ -61,6 +63,7 @@ export const LocationsList = ({ locations = [], onAdd, onEdit, onRemove }) => {
           ))}
         </div>
       )}
+      <div className={styles.separator}></div>
     </div>
   );
 };

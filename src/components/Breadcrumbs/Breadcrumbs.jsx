@@ -1,4 +1,4 @@
-import * as styles from './Breadcrumbs.module.css';
+import * as styles from "./Breadcrumbs.module.css";
 import clsx from "clsx";
 import { Typography } from "../Typography/Typography.jsx";
 
@@ -9,17 +9,11 @@ import { Typography } from "../Typography/Typography.jsx";
  */
 const Breadcrumbs = ({ children, className, ...rest }) => {
   return (
-    <div
-      className={clsx(
-        styles.Breadcrumbs,
-        className,
-      )}
-      {...rest}
-    >
+    <div className={clsx(styles.Breadcrumbs, className)} {...rest}>
       {children}
     </div>
-  )
-}
+  );
+};
 
 /**
  * @param {object} props
@@ -28,7 +22,13 @@ const Breadcrumbs = ({ children, className, ...rest }) => {
  * @param {string} [props.className] - Additional class names
  * @param {function} [props.onClick] - Click handler
  */
-const BreadcrumbsItem = ({ children, isActive, className, onClick, ...rest }) => {
+const BreadcrumbsItem = ({
+  children,
+  isActive,
+  className,
+  onClick,
+  ...rest
+}) => {
   return (
     <button
       type="button"
@@ -40,26 +40,19 @@ const BreadcrumbsItem = ({ children, isActive, className, onClick, ...rest }) =>
         isActive && styles.active,
       )}
     >
-      <Typography
-        variant="body"
-        textColor={isActive ? 'black' : 'gray'}
-      >
+      <Typography variant="body" textColor={isActive ? "gray" : "uablue"}>
         {children}
       </Typography>
     </button>
-  )
-}
+  );
+};
 
 const BreadcrumbsDivider = (props) => {
   return (
-    <Typography
-      variant="body"
-      textColor="gray"
-      {...props}
-    >
+    <Typography variant="body" textColor="gray" {...props}>
       /
     </Typography>
-  )
-}
+  );
+};
 
-export { Breadcrumbs, BreadcrumbsItem, BreadcrumbsDivider }
+export { Breadcrumbs, BreadcrumbsItem, BreadcrumbsDivider };

@@ -37,7 +37,7 @@ export default function AboutUs() {
           <div className={css.valuesList}>
             <div className={css.valueItem}>
               <Typography variant="h3" className={css.valueTitle}>
-                🤝 Єдність
+                Єдність
               </Typography>
               <Typography variant="body" className={css.text}>
                 Об'єднуємо українців незалежно від того, де вони знаходяться
@@ -45,7 +45,7 @@ export default function AboutUs() {
             </div>
             <div className={css.valueItem}>
               <Typography variant="h3" className={css.valueTitle}>
-                💙 Підтримка
+                Підтримка
               </Typography>
               <Typography variant="body" className={css.text}>
                 Допомагаємо один одному знаходити потрібні послуги та фахівців
@@ -53,7 +53,7 @@ export default function AboutUs() {
             </div>
             <div className={css.valueItem}>
               <Typography variant="h3" className={css.valueTitle}>
-                🌍 Глобальність
+                Глобальність
               </Typography>
               <Typography variant="body" className={css.text}>
                 Працюємо для українців у всіх куточках світу

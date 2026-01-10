@@ -46,8 +46,8 @@
 }
 
 .ButtonIcon.large {
-  width: 56px;
-  height: 56px;
+  width: 46px;
+  height: 46px;
 }
 
 .ButtonIcon.large svg {
@@ -119,19 +119,21 @@
 }
 
 .ButtonIcon.dark {
-  background: var(--main-color);
-  color: var(--white-color);
-  border-color: var(--main-color);
+  background: var(--ua-blue);
 }
 
 .ButtonIcon.dark:not(:disabled):hover {
-  background: var(--white-color);
-  color: var(--main-color);
-  border-color: var(--white-color);
+  background: var(--ua-blue);
+  color: var(--white-color);
+  border-color: var(--ua-blue);
+}
+
+.ButtonIcon.dark svg {
+  fill: var(--ua-main-1);
 }
 
 .ButtonIcon.dark:not(:disabled):hover svg {
-  color: var(--main-color);
+  fill: var(--ua-yellow);
 }
 
 .ButtonIcon.yellow {
@@ -144,12 +146,6 @@
 }
 .ButtonIcon.yellow:not(:disabled):hover {
   border-color: var(--ua-yellow);
-}
-
-.ButtonIcon.dark:not(:disabled):hover {
-  background: var(--white-color);
-  color: var(--main-color);
-  border-color: var(--white-color);
 }
 
 .ButtonIcon.transparent {

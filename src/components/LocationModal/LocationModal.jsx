@@ -4,9 +4,21 @@ import { Button } from "../Button/Button";
 import { LocationPicker } from "../LocationPicker/LocationPicker";
 import styles from "./LocationModal.module.css";
 
+const detectBrowser = () => {
+  const userAgent = navigator.userAgent;
+  if (userAgent.includes("Edg")) return "edge";
+  if (userAgent.includes("Chrome")) return "chrome";
+  if (userAgent.includes("Firefox")) return "firefox";
+  if (userAgent.includes("Safari") && !userAgent.includes("Chrome"))
+    return "safari";
+  return "chrome"; // Дефолт
+};
+
 export const LocationModal = ({ isOpen, onClose, onSave, currentLocation }) => {
   const [selectedLocation, setSelectedLocation] = useState(currentLocation);
   const [mapLoadError, setMapLoadError] = useState(false);
+  const [isRetrying, setIsRetrying] = useState(false);
+  const [browser] = useState(detectBrowser());
 
   // Оновлюємо selectedLocation при відкритті модалки або зміні currentLocation
   useEffect(() => {
@@ -17,7 +29,6 @@ export const LocationModal = ({ isOpen, onClose, onSave, currentLocation }) => {
   }, [isOpen, currentLocation]);
 
   const handleLocationSelect = (location) => {
-    console.log("LocationModal received location:", location); // Дебаг
     setSelectedLocation(location);
   };
 
@@ -31,6 +42,42 @@ export const LocationModal = ({ isOpen, onClose, onSave, currentLocation }) => {
   const handleCancel = () => {
     setSelectedLocation(currentLocation);
     onClose();
+  };
+
+  const handleRetryGeolocation = () => {
+    setIsRetrying(true);
+    setMapLoadError(false);
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          const newLocation = {
+            lat: latitude,
+            lng: longitude,
+            address: "Визначення адреси...",
+            city: "",
+            country: "",
+            street: "",
+          };
+          setSelectedLocation(newLocation);
+          setIsRetrying(false);
+          setMapLoadError(false);
+        },
+        () => {
+          setIsRetrying(false);
+          setMapLoadError(true);
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 10000,
+          maximumAge: 0,
+        },
+      );
+    } else {
+      setIsRetrying(false);
+      setMapLoadError(true);
+    }
   };
 
   if (!isOpen) return null;
@@ -47,28 +94,55 @@ export const LocationModal = ({ isOpen, onClose, onSave, currentLocation }) => {
 
         {!mapLoadError && (
           <p className={styles.subtitle}>
-            Натисніть на карту, щоб вибрати локацію, або використайте кнопку
-            "Моя локація"
+            Натисніть на карту або використайте поле пошуку вище для вибору
+            локації
           </p>
         )}
 
         {mapLoadError && (
           <div className={styles.geolocationHint}>
             <p className={styles.hintTitle}>💡 Як увімкнути геолокацію:</p>
-            <ul className={styles.hintList}>
-              <li>
-                <strong>Chrome/Edge:</strong> Натисніть на іконку замка (🔒) →
-                Дозволи сайту → Місцезнаходження → Дозволити
-              </li>
-              <li>
-                <strong>Firefox:</strong> Натисніть на іконку щита → Дозволи →
-                Місцезнаходження → Дозволити
-              </li>
-              <li>
-                <strong>Safari:</strong> Safari → Налаштування для цього
-                веб-сайту → Місцезнаходження → Дозволити
-              </li>
-            </ul>
+            {browser === "chrome" && (
+              <ul className={styles.hintList}>
+                <li>
+                  <strong>Chrome:</strong> Натисніть на іконку замка 🔒 →
+                  Дозволи сайту → Місцезнаходження → Дозволити
+                </li>
+              </ul>
+            )}
+            {browser === "edge" && (
+              <ul className={styles.hintList}>
+                <li>
+                  <strong>Edge:</strong> Натисніть на іконку замка 🔒 → Дозволи
+                  сайту → Місцезнаходження → Дозволити
+                </li>
+              </ul>
+            )}
+            {browser === "firefox" && (
+              <ul className={styles.hintList}>
+                <li>
+                  <strong>Firefox:</strong> Натисніть на іконку щита 🛡️ →
+                  Дозволи → Місцезнаходження → Дозволити
+                </li>
+              </ul>
+            )}
+            {browser === "safari" && (
+              <ul className={styles.hintList}>
+                <li>
+                  <strong>Safari:</strong> Safari → Налаштування для цього
+                  веб-сайту → Місцезнаходження → Дозволити
+                </li>
+              </ul>
+            )}
+            <div className={styles.retryButtonWrapper}>
+              <Button
+                variant="outline"
+                onClick={handleRetryGeolocation}
+                disabled={isRetrying}
+              >
+                {isRetrying ? "Запитуємо геолокацію..." : "Спробувати знову"}
+              </Button>
+            </div>
           </div>
         )}
 
