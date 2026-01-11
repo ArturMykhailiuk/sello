@@ -13,6 +13,7 @@ import { useUncontrolled } from "../../hooks/index.js";
  * @param {function} props.onSelect - Callback with selected item { id, name }
  * @param {string} props.placeholder - Placeholder for the input field
  * @param {boolean} [props.required] - Whether the input is required
+ * @param {boolean} [props.disabled] - Whether the input is disabled
  * @param {string} [props.value] - Controlled value of the input
  * @param {string} [props.defaultValue] - Default value of the input
  * @param {function} [props.onChange] - Change handler (e) => void
@@ -27,7 +28,8 @@ const SearchSelect = ({
   onSelect,
   placeholder = "Select item",
   excludeIds = [],
-  required
+  required,
+  disabled = false,
 }) => {
   const [query, setQuery] = useUncontrolled(value, defaultValue, onChange);
   const [open, setOpen] = useState(false);
@@ -37,8 +39,10 @@ const SearchSelect = ({
     // Якщо query порожній - показуємо всі елементи
     if (!query || query.trim() === "") return !excludeIds.includes(item.id);
     // Інакше фільтруємо по введеному тексту
-    return item.name.toLowerCase().includes(query.toLowerCase()) &&
-      !excludeIds.includes(item.id);
+    return (
+      item.name.toLowerCase().includes(query.toLowerCase()) &&
+      !excludeIds.includes(item.id)
+    );
   });
 
   const handleSelect = (item) => {
@@ -48,11 +52,15 @@ const SearchSelect = ({
   };
 
   const handleFocus = () => {
-    setOpen(true);
+    if (!disabled) {
+      setOpen(true);
+    }
   };
 
   const handleIconClick = () => {
-    setOpen((prev) => !prev);
+    if (!disabled) {
+      setOpen((prev) => !prev);
+    }
   };
 
   useEffect(() => {
@@ -67,17 +75,21 @@ const SearchSelect = ({
   }, []);
 
   const handleBlur = () => {
-    const exists = items.find((item) => item.name.toLowerCase() === query.toLowerCase());
+    const exists = items.find(
+      (item) => item.name.toLowerCase() === query.toLowerCase(),
+    );
     if (exists) {
-      const selectedItem = items.find((item) => item.name.toLowerCase() === query.toLowerCase());
+      const selectedItem = items.find(
+        (item) => item.name.toLowerCase() === query.toLowerCase(),
+      );
       onSelect(selectedItem);
     } else {
       setQuery("");
     }
-  }
+  };
 
   return (
-    <div ref={wrapperRef} className={styles.wrapper} >
+    <div ref={wrapperRef} className={styles.wrapper}>
       <Input
         name={name}
         value={query}
@@ -87,8 +99,9 @@ const SearchSelect = ({
         onFocus={handleFocus}
         onIconClick={handleIconClick}
         onBlur={handleBlur}
+        disabled={disabled}
       />
-      {open && (
+      {open && !disabled && (
         <ul className={styles.dropdownList}>
           {filteredItems.map((item) => (
             <li

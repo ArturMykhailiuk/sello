@@ -40,6 +40,10 @@ export const ServiceInfo = () => {
   const [isChatModalOpen, setIsChatModalOpen] = useState(false);
   const [selectedWorkflow, setSelectedWorkflow] = useState(null);
 
+  // Отримуємо фільтри з state (якщо прийшли зі сторінки з фільтрами)
+  const filterCountry = state?.country;
+  const filterCity = state?.city;
+
   const currentUser = useSelector(selectUser);
   const aiWorkflows = useSelector(selectAIWorkflows);
 
@@ -195,6 +199,59 @@ export const ServiceInfo = () => {
 
   return (
     <section>
+      <Breadcrumbs className={css.breadcrumbs}>
+        <BreadcrumbsItem onClick={() => navigate("/")}>Головна</BreadcrumbsItem>
+        <BreadcrumbsDivider />
+        <BreadcrumbsItem
+          onClick={() => {
+            const params = new URLSearchParams();
+            if (service.category?.id)
+              params.set("category", service.category.id);
+            if (filterCountry) params.set("country", filterCountry);
+            if (filterCity) params.set("city", filterCity);
+            navigate(`/?${params.toString()}`);
+          }}
+          isActive={!filterCountry && !filterCity}
+        >
+          {service.category?.name || "Категорія"}
+        </BreadcrumbsItem>
+        {filterCountry && (
+          <>
+            <BreadcrumbsDivider />
+            <BreadcrumbsItem
+              onClick={() => {
+                const params = new URLSearchParams();
+                if (service.category?.id)
+                  params.set("category", service.category.id);
+                if (filterCountry) params.set("country", filterCountry);
+                navigate(`/?${params.toString()}`);
+              }}
+            >
+              {filterCountry}
+            </BreadcrumbsItem>
+          </>
+        )}
+        {filterCity && (
+          <>
+            <BreadcrumbsDivider />
+            <BreadcrumbsItem
+              onClick={() => {
+                const params = new URLSearchParams();
+                if (service.category?.id)
+                  params.set("category", service.category.id);
+                if (filterCountry) params.set("country", filterCountry);
+                if (filterCity) params.set("city", filterCity);
+                navigate(`/?${params.toString()}`);
+              }}
+            >
+              {filterCity}
+            </BreadcrumbsItem>
+          </>
+        )}
+        <BreadcrumbsDivider />
+        <BreadcrumbsItem isActive>{service.title}</BreadcrumbsItem>
+      </Breadcrumbs>
+
       <button
         className={css.servicesBackButton}
         type="button"

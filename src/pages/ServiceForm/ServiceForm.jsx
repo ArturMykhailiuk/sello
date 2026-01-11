@@ -161,6 +161,8 @@ const ServiceForm = () => {
   const [categorySearch, setCategorySearch] = useState("");
   const [loading, setLoading] = useState(false);
   const [initialData, setInitialData] = useState(defaultData);
+  const [serviceTitle, setServiceTitle] = useState(""); // Для breadcrumbs в режимі редагування
+  const [serviceCategory, setServiceCategory] = useState(null); // Для breadcrumbs категорії
   const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
   const [editingLocationIndex, setEditingLocationIndex] = useState(null); // null = додавання, число = редагування
 
@@ -171,6 +173,10 @@ const ServiceForm = () => {
         try {
           setLoading(true);
           const service = await getServiceById(serviceId);
+
+          // Зберігаємо назву послуги та категорію для breadcrumbs
+          setServiceTitle(service.title);
+          setServiceCategory(service.category);
 
           // Підготовка даних для форми - конвертуємо areas в locations array
           const locations = (service.areas || [])
@@ -319,6 +325,30 @@ const ServiceForm = () => {
             Головна
           </BreadcrumbsItem>
           <BreadcrumbsDivider />
+          {mode === "edit" && serviceCategory && (
+            <>
+              <BreadcrumbsItem
+                onClick={() => {
+                  navigate(`/?category=${serviceCategory.id}`);
+                }}
+              >
+                {serviceCategory.name}
+              </BreadcrumbsItem>
+              <BreadcrumbsDivider />
+            </>
+          )}
+          {mode === "edit" && serviceId && (
+            <>
+              <BreadcrumbsItem
+                onClick={() => {
+                  navigate(`/service/${serviceId}`);
+                }}
+              >
+                {serviceTitle || "Послуга"}
+              </BreadcrumbsItem>
+              <BreadcrumbsDivider />
+            </>
+          )}
           <BreadcrumbsItem isActive>{breadcrumbTitle}</BreadcrumbsItem>
         </Breadcrumbs>
 

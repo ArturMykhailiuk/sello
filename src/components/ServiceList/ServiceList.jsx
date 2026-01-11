@@ -26,6 +26,9 @@ export const ServiceList = ({ categoryId, searchQuery }) => {
   const [selectedCountry, setSelectedCountry] = useState(
     () => searchParams.get("country") ?? null,
   );
+  const [selectedCity, setSelectedCity] = useState(
+    () => searchParams.get("city") ?? null,
+  );
   const [currentPage, setCurrentPage] = useState(
     () => searchParams.get("page") ?? 1,
   );
@@ -51,16 +54,51 @@ export const ServiceList = ({ categoryId, searchQuery }) => {
       .map((country, index) => ({ id: index + 1, name: country }));
   }, [allServices]);
 
-  // Фільтруємо послуги по вибраній країні
-  const filteredServices = useMemo(() => {
-    if (!selectedCountry) return allServices;
-    return allServices.filter(
-      (service) =>
-        service.areas &&
-        Array.isArray(service.areas) &&
-        service.areas.some((area) => area.country === selectedCountry),
-    );
+  // Отримуємо унікальні міста для обраної країни
+  const availableCities = useMemo(() => {
+    if (!selectedCountry) return [];
+
+    const citiesSet = new Set();
+    allServices.forEach((service) => {
+      if (service.areas && Array.isArray(service.areas)) {
+        service.areas.forEach((area) => {
+          if (area.country === selectedCountry && area.city) {
+            citiesSet.add(area.city);
+          }
+        });
+      }
+    });
+    return Array.from(citiesSet)
+      .sort()
+      .map((city, index) => ({ id: index + 1, name: city }));
   }, [allServices, selectedCountry]);
+
+  // Фільтруємо послуги по вибраній країні та місту
+  const filteredServices = useMemo(() => {
+    let filtered = allServices;
+
+    // Фільтр по країні
+    if (selectedCountry) {
+      filtered = filtered.filter(
+        (service) =>
+          service.areas &&
+          Array.isArray(service.areas) &&
+          service.areas.some((area) => area.country === selectedCountry),
+      );
+    }
+
+    // Фільтр по місту
+    if (selectedCity) {
+      filtered = filtered.filter(
+        (service) =>
+          service.areas &&
+          Array.isArray(service.areas) &&
+          service.areas.some((area) => area.city === selectedCity),
+      );
+    }
+
+    return filtered;
+  }, [allServices, selectedCountry, selectedCity]);
 
   const total = filteredServices.length;
   const totalPages = Math.ceil(total / servicesPerPage);
@@ -111,26 +149,61 @@ export const ServiceList = ({ categoryId, searchQuery }) => {
     };
   }, [categoryId, searchQuery]);
 
+  // Синхронізуємо state з URL параметрами (коли URL змінюється ззовні, наприклад з breadcrumbs)
+  useEffect(() => {
+    const countryFromUrl = searchParams.get("country");
+    const cityFromUrl = searchParams.get("city");
+    const pageFromUrl = searchParams.get("page");
+
+    if (countryFromUrl !== selectedCountry) {
+      setSelectedCountry(countryFromUrl);
+    }
+    if (cityFromUrl !== selectedCity) {
+      setSelectedCity(cityFromUrl);
+    }
+    if (pageFromUrl && Number(pageFromUrl) !== currentPage) {
+      setCurrentPage(Number(pageFromUrl));
+    }
+  }, [searchParams]);
+
+  // Оновлюємо URL коли змінюються фільтри через UI
   useEffect(() => {
     setSearchParams((prev) => {
       if (selectedCountry) prev.set("country", selectedCountry);
       else prev.delete("country");
+
+      if (selectedCity) prev.set("city", selectedCity);
+      else prev.delete("city");
 
       if (currentPage) prev.set("page", currentPage);
       else prev.delete("page");
 
       return prev;
     });
-  }, [selectedCountry, currentPage, setSearchParams]);
+  }, [selectedCountry, selectedCity, currentPage, setSearchParams]);
 
   const handleAreaSelect = (country) => {
     setSelectedCountry(country?.name);
+    setSelectedCity(null); // Очищаємо місто при зміні країни
     setCurrentPage(1);
   };
 
   const handleAreaChange = (value) => {
     // Дозволяємо вводити текст або очищувати
     setSelectedCountry(value || null);
+    if (!value) {
+      setSelectedCity(null); // Очищаємо місто якщо країна очищена
+      setCurrentPage(1);
+    }
+  };
+
+  const handleCitySelect = (city) => {
+    setSelectedCity(city?.name);
+    setCurrentPage(1);
+  };
+
+  const handleCityChange = (value) => {
+    setSelectedCity(value || null);
     if (!value) {
       setCurrentPage(1);
     }
@@ -171,6 +244,14 @@ export const ServiceList = ({ categoryId, searchQuery }) => {
           value={selectedCountry ?? ""}
           onSelect={handleAreaSelect}
           onChange={handleAreaChange}
+        />
+        <SearchSelect
+          items={availableCities}
+          placeholder="Місто"
+          value={selectedCity ?? ""}
+          onSelect={handleCitySelect}
+          onChange={handleCityChange}
+          disabled={!selectedCountry || availableCities.length === 0}
         />
         {totalLocations > 0 && (
           <button
@@ -213,6 +294,8 @@ export const ServiceList = ({ categoryId, searchQuery }) => {
                   areas={service.areas}
                   isFavorite={service.isFavorite}
                   isMobile={isMobile}
+                  filterCountry={selectedCountry}
+                  filterCity={selectedCity}
                 />
               ))}
             </div>

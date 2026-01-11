@@ -31,6 +31,8 @@ export const ServiceCard = ({
   areas,
   isFavorite: favorite,
   isMobile,
+  filterCountry,
+  filterCity,
 }) => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -79,7 +81,13 @@ export const ServiceCard = ({
   };
 
   const navigateToService = () => {
-    navigate(`/service/${serviceId}`, { state: { from: location } });
+    navigate(`/service/${serviceId}`, {
+      state: {
+        from: location,
+        country: filterCountry,
+        city: filterCity,
+      },
+    });
   };
 
   // TODO: add util
@@ -89,7 +97,11 @@ export const ServiceCard = ({
 
   return (
     <div className={css.serviceCard}>
-      <div className={css.thumb}>
+      <div
+        className={css.thumb}
+        onClick={navigateToService}
+        style={{ cursor: "pointer" }}
+      >
         <Image
           src={imageURL}
           alt={title}

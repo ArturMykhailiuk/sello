@@ -1,16 +1,21 @@
 .Breadcrumbs {
-    display: flex;
-    gap: 8px;
-    align-items: center;
+  display: flex;
+  gap: 8px;
+  align-items: center;
 }
 
 .BreadcrumbsItem {
-    background: transparent;
-    border: none;
-    text-transform: uppercase;
-    cursor: pointer;
+  background: transparent;
+  border: none;
+  text-transform: uppercase;
+  cursor: pointer;
 }
 
 .BreadcrumbsItem.active {
-    cursor: default;
+  cursor: default;
+}
+
+.BreadcrumbsItem.disabled {
+  cursor: default;
+  pointer-events: none;
 }

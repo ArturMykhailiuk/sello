@@ -29,16 +29,20 @@ const BreadcrumbsItem = ({
   onClick,
   ...rest
 }) => {
+  const isClickable = !!onClick;
+
   return (
     <button
       type="button"
       {...rest}
-      onClick={() => onClick && !isActive && onClick()}
+      onClick={() => onClick && onClick()}
       className={clsx(
         styles.BreadcrumbsItem,
         className,
         isActive && styles.active,
+        !isClickable && styles.disabled,
       )}
+      disabled={!isClickable}
     >
       <Typography variant="body" textColor={isActive ? "gray" : "uablue"}>
         {children}
