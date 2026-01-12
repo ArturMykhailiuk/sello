@@ -6,11 +6,11 @@
 
 .DualButton {
   flex: 1;
-  padding: 10px 16px;
+  padding: 5px 8px;
   background: transparent;
   border: 1pt solid var(--ua-blue);
-  font-size: 12px;
-  font-weight: 700;
+  font-size: 10px;
+  font-weight: 500;
   line-height: 18px;
   cursor: pointer;
   transition: opacity 0.2s;
@@ -21,13 +21,7 @@
 .DualButton.left {
   background: var(--ua-blue);
   color: var(--ua-main);
-  border-radius: 14px 0px 0px 14px;
-}
-
-@media (min-width: 481px) {
-  .DualButton.left {
-    padding: 10px 30px;
-  }
+  border-radius: 10px 0px 0px 10px;
 }
 
 .DualButton.left:hover {
@@ -38,15 +32,26 @@
   background: var(--ua-yellow);
   color: var(--ua-main);
   border: 1px solid var(--ua-yellow);
-  border-radius: 14px;
-}
-
-@media (min-width: 481px) {
-  .DualButton.right {
-    padding: 10px 30px;
-  }
+  border-radius: 10px;
 }
 
 .DualButton.right:hover {
   opacity: 0.7;
+}
+
+@media (min-width: 481px) {
+  .DualButton {
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 18px;
+  }
+  .DualButton.left {
+    padding: 10px 30px;
+    border-radius: 14px 0px 0px 14px;
+  }
+
+  .DualButton.right {
+    padding: 10px 30px;
+    border-radius: 14px;
+  }
 }

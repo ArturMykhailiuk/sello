@@ -20,3 +20,4 @@ export { TelegramBotWidget } from "./TelegramBotWidget/TelegramBotWidget.jsx";
 export { GoogleSignInButton } from "./GoogleSignInButton/GoogleSignInButton.jsx";
 // export { UserAIWorkflowsList } from "./UserAIWorkflowsList/UserAIWorkflowsList.jsx";
 export { WorkflowsTabs } from "./WorkflowsTabs/WorkflowsTabs.jsx";
+export { SlidePanel } from "./SlidePanel/SlidePanel.jsx";

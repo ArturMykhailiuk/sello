@@ -6,7 +6,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid var(--ua-blue);
+  /* border: 1px solid transparent; */
   color: var(--ua-main-1);
 }
 

@@ -9,9 +9,17 @@ import { tabsForOwner, tabsForUser, TabKey } from "../../constants/common";
  * @param {string} props.activeTab
  * @param {(tabKey: string) => void} props.onTabChange
  * @param {object} props.user - User object with counts (servicesCount, aiWorkflowsCount, etc.)
+ * @param {Array} [props.tabs] - Optional array of tabs to display (if not provided, uses default based on isMyProfile)
  */
-export const TabsList = ({ isMyProfile, activeTab, onTabChange, user }) => {
-  const tabs = isMyProfile ? tabsForOwner : tabsForUser;
+export const TabsList = ({
+  isMyProfile,
+  activeTab,
+  onTabChange,
+  user,
+  tabs: externalTabs,
+}) => {
+  const defaultTabs = isMyProfile ? tabsForOwner : tabsForUser;
+  const tabs = externalTabs || defaultTabs;
 
   const getTabCount = (tabKey) => {
     if (!user || tabKey === TabKey.PROFILE) return null;

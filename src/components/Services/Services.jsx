@@ -88,14 +88,14 @@ export const Services = ({ categoryId, searchQuery }) => {
         </Breadcrumbs>
 
         <div className={css.servicesTitleBlock}>
-          <button
+          {/* <button
             className={css.servicesBackButton}
             type="button"
             onClick={handleBackClick}
           >
             <ArrowLeftIcon className={css.servicesBackIcon} />
             Повернутися
-          </button>
+          </button> */}
           <Typography className={css.servicesCategory} variant="h1">
             {title}
           </Typography>

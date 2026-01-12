@@ -17,19 +17,50 @@
 
 @media (min-width: 1440px) {
   .container {
-    margin-top: 190px;
+    margin-top: 170px;
     margin-bottom: 120px;
   }
 }
 
 .title {
-  margin-top: 40px;
+  margin-top: 30px;
   color: var(--ua-blue);
+}
+
+.togglePanelButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+  padding: 8px 16px;
+  background-color: transparent;
+  color: var(--ua-blue);
+  border: 1px solid var(--ua-blue);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.togglePanelButton:hover {
+  background-color: var(--ua-blue);
+  color: var(--ua-main);
+}
+
+.togglePanelButton svg {
+  flex-shrink: 0;
+}
+
+@media (max-width: 1147px) {
+  .togglePanelButton {
+    display: none;
+  }
 }
 
 @media (min-width: 768px) {
   .title {
-    margin-top: 40px;
+    margin-top: 30px;
   }
 }
 
@@ -42,7 +73,6 @@
 .profileContainer {
   display: flex;
   flex-direction: column;
-  margin-top: 40px;
   gap: 64px;
   align-items: center;
 
@@ -61,10 +91,21 @@
 
 .profileTabs {
   display: flex;
-  gap: 40px;
+  gap: 20px;
   width: 100%;
   min-height: 400px;
   border-top: 1px solid var(--light-gray-color);
+  padding-top: 30px;
+  position: relative;
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+}
+
+.profileTabs > div:first-child {
+  border-right: 1px solid var(--gray-color);
 }
 
 @media (min-width: 440px) {
@@ -98,9 +139,9 @@
   }
 }
 
-.separator {
+/* .separator {
   height: 1px;
   border: none;
   border-bottom: 1px solid var(--gray-color);
   margin: 20px 0px;
-}
+} */

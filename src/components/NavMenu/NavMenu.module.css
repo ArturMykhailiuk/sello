@@ -1,5 +1,5 @@
 .container {
-  /* position: fixed;
+  position: fixed;
   top: 0;
   left: 0;
   z-index: 1000;
@@ -22,7 +22,7 @@
   @media (min-device-pixel-ratio: 2),
     (min-resolution: 192dpi),
     (min-resolution: 2dppx) {
-  } */
+  }
 }
 
 .container.open {

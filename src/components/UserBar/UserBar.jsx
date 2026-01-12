@@ -68,7 +68,7 @@ export const UserBar = () => {
           <Avatar
             src={user?.avatarURL}
             alt={`${userName}'s avatar`}
-            size={isMobile ? 32 : 40}
+            size={isMobile ? 28 : 40}
             name={userName}
           />
         </div>

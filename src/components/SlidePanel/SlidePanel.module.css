@@ -1,0 +1,152 @@
+.container {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+}
+
+/* Narrow sidebar with icon - always visible */
+.sideBar {
+  width: 60px;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  /* padding-top: 20px; */
+  gap: 16px;
+  /* border-right: 1px solid var(--gray-color); */
+  flex-shrink: 0;
+  /* background-color: var(--ua-main); */
+  position: sticky;
+  top: 100px;
+  height: fit-content;
+  max-height: calc(100vh - 120px);
+}
+
+.toggleButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  background-color: transparent;
+  color: var(--text-primary);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.toggleButton:hover {
+  background-color: var(--ua-blue);
+  color: var(--ua-main);
+}
+
+.toggleButton:active {
+  transform: scale(0.95);
+}
+
+.tabIconButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  background-color: transparent;
+  color: var(--ua-blue);
+  border: 1px solid var(--gray-light-color);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.tabIconButton:hover {
+  background-color: var(--ua-blue);
+  color: var(--ua-yellow);
+}
+
+.activeTabIcon {
+  background-color: var(--ua-blue);
+  color: var(--ua-yellow);
+}
+
+.tabIconButton svg {
+  width: 20px;
+  height: 20px;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.3s ease;
+}
+
+.panel {
+  transition: all 0.3s ease-in-out;
+  overflow: hidden;
+  flex-shrink: 0;
+  width: 250px;
+  opacity: 1;
+  /* padding-left: 20px; */
+  /* padding-right: 20px; */
+  position: sticky;
+  top: 100px;
+  height: fit-content;
+  max-height: calc(100vh - 120px);
+  /* padding-top: 20px; */
+}
+
+.panel.closed {
+  width: 0;
+  opacity: 0;
+  padding: 0;
+}
+
+.content {
+  min-width: 210px;
+}
+
+/* Mobile - slide panel from left with overlay */
+@media (max-width: 767px) {
+  .container {
+    position: relative;
+  }
+
+  .toggleButton {
+    position: fixed;
+    top: 120px;
+    left: 20px;
+    z-index: 1001;
+  }
+
+  .panel {
+    display: none;
+  }
+}
+
+/* Desktop - smooth collapse/expand */
+@media (min-width: 768px) {
+  .toggleButton {
+    position: relative;
+    top: 0;
+  }
+
+  .panel {
+    width: auto;
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .panel.closed {
+    width: 0;
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+
+  .panel.closed .content {
+    visibility: hidden;
+  }
+}

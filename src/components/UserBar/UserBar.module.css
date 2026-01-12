@@ -6,17 +6,20 @@
   display: flex;
   align-items: center;
   padding-right: 6px;
-  width: 122px;
+  width: 120px;
+  /* height: 20px; */
 
   background-color: var(--ua-yellow);
-  border-radius: 14px;
+  border-radius: 10px;
   cursor: pointer;
   /* border: 1px solid var(--ua-blue); */
-  box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.1);
 
   @media screen and (min-width: 768px) {
     padding-right: 14px;
     width: 200px;
+    /* height: auto; */
+    border-radius: 12px;
+    box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.1);
   }
 }
 
@@ -67,7 +70,7 @@
 
 .popover {
   position: absolute;
-  z-index: 5;
+  z-index: 1001;
   top: calc(100% + 10px);
 
   display: flex;
@@ -79,11 +82,11 @@
 
   background-color: var(--ua-yellow);
   /* border: 1px solid var(--ua-blue); */
-  border-radius: 15px;
-  box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
 
   @media screen and (min-width: 768px) {
     top: calc(100% + 8px);
+    box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.1);
   }
 }
 
