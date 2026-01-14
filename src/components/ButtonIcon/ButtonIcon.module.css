@@ -138,14 +138,13 @@
 
 .ButtonIcon.yellow {
   background: var(--ua-yellow);
-  color: var(--white-color);
-  border-color: var(--ua-blue);
 }
 .ButtonIcon.yellow:not(:disabled):hover svg {
-  color: var(--ua-blue);
+  fill: var(--ua-blue);
 }
 .ButtonIcon.yellow:not(:disabled):hover {
-  border-color: var(--ua-yellow);
+  background: var(--ua-main-1);
+  border-color: var(--gray-light-color);
 }
 
 .ButtonIcon.transparent {

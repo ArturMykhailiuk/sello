@@ -12,10 +12,10 @@
   align-items: center;
   width: 40px;
   height: 40px;
-  background: var(--ua-blue);
-  border: none;
+  background: var(--ua-main);
+  border: 1px solid var(--gray-light-color);
   border-radius: 12px;
-  color: var(--white-color);
+  color: var(--ua-blue);
   transition: background var(--transition-duration)
       var(--transition-timing-function),
     color var(--transition-duration) var(--transition-timing-function);
@@ -24,15 +24,16 @@
 .PaginationButton:not(.PaginationButton__active):not(
     .PaginationButton__disabled
   ):hover {
-  background: var(--ua-yellow);
+  background: var(--ua-blue);
   cursor: pointer;
-  color: var(--ua-blue);
-  border: 1px solid var(--ua-yellow);
+  color: var(--ua-yellow);
+  border: 1px solid var(--ua-blue);
 }
 
 .PaginationButton__active {
-  border: 1px solid var(--ua-blue);
-  color: var(--ua-yellow);
+  border: 1px solid var(--ua-yellow);
+  color: var(--ua-blue);
+  background-color: var(--ua-yellow);
 }
 
 .PaginationButton__disabled {

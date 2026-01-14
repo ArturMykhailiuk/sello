@@ -132,6 +132,7 @@ export const ServiceCard = ({
                 <Typography
                   variant="bodyS"
                   textColor="gray"
+                  truncate
                   className={css.locationText}
                 >
                   {area?.formattedAddress ||
@@ -163,7 +164,7 @@ export const ServiceCard = ({
 
           <div className={css.serviceIcons}>
             <ButtonIcon
-              variant={isFavorite ? "dark" : "light"}
+              variant={isFavorite ? "yellow" : "light"}
               size={isMobile ? "small" : "medium"}
               onClick={handleFavoriteClick}
               disabled={updating}

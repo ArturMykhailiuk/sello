@@ -10,13 +10,16 @@
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 20px;
+  margin-bottom: 10px;
 
   @media screen and (min-width: 768px) {
     padding: 0 36px;
+    margin-bottom: 0;
   }
 
   @media screen and (min-width: 1440px) {
     padding: 0 40px;
+    margin-bottom: 0;
   }
 }
 
@@ -28,18 +31,20 @@
   z-index: 10;
 
   padding: 14px 0;
-  width: 100%;
+  width: calc(100% - 20px);
   max-width: 1400px;
   background: linear-gradient(180deg, var(--gray-color) 0%, #267cb6 90%);
   border-radius: var(--ua-border-radius-standard);
-  margin-top: 16px;
+  margin-top: 20px;
+  padding: 36px 0px;
 
   @media screen and (min-width: 768px) {
     padding: 36px 36px;
+    margin-left: 0;
+    margin-right: 0;
   }
 
   @media screen and (min-width: 1440px) {
-    /* padding: 40px 20px; */
   }
 }
 
@@ -50,7 +55,6 @@
   transform: translateX(-50%);
   z-index: 10;
 
-  /* padding: 24px 0; */
   max-width: 1400px;
   background: transparent;
 
@@ -60,7 +64,6 @@
   }
 
   @media screen and (min-width: 1440px) {
-    /* padding: 40px 40px; */
   }
 }
 
@@ -69,7 +72,6 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  /* padding: 0; */
   padding: 0 20px;
 
   @media screen and (min-width: 768px) {
@@ -99,7 +101,7 @@
 .menuIcon {
   width: 28px;
   height: 28px;
-  fill: var(--main-color);
+  fill: var(--ua-main);
 }
 
 .menuBtn:hover .menuIcon {
@@ -119,12 +121,3 @@
   justify-content: center;
   align-items: center;
 }
-
-/* .logoIcon svg {
-  width: 160px;
-  height: auto;
-
-  @media screen and (min-width: 768px) {
-    width: 250px;
-  }
-} */

@@ -1,18 +1,21 @@
 .serviceCard {
   display: flex;
   gap: 16px;
-  /* flex-direction: column; */
+  flex-direction: column;
   width: 100%;
   border: 1px solid var(--gray-color);
   border-radius: 18px;
   padding: 24px;
   background-color: var(--ua-main-1);
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
+  }
 }
 
 .thumb {
-  /* margin-bottom: 16px; */
-  /* width: 300px; */
   height: 230px;
   flex-shrink: 0;
 
@@ -21,7 +24,8 @@
 
   @media screen and (min-width: 768px) {
     height: 300px;
-    width: 300px;
+    flex-shrink: 1;
+    min-width: 200px;
     border-radius: 12px;
   }
 }
@@ -38,8 +42,12 @@
   flex-direction: column;
   justify-content: center;
   flex-grow: 1;
-  width: 100%;
   gap: 48px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.cardDescription {
 }
 
 @media screen and (min-width: 540px) {
@@ -117,9 +125,9 @@
   }
 }
 
-.fillFavorite {
+/* .fillFavorite {
   fill: var(--white-color);
-}
+} */
 
 .locations {
   display: flex;
@@ -135,8 +143,10 @@
 }
 
 .locationIcon {
+  display: block;
   width: 16px;
   height: 16px;
+
   flex-shrink: 0;
   stroke: var(--gray-color);
 }
@@ -145,11 +155,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-
-  @supports (-webkit-line-clamp: 1) and (display: -webkit-box) {
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
+  flex: 1;
+  min-width: 0;
 }

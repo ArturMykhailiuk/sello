@@ -5,6 +5,10 @@ import toast from "react-hot-toast";
 
 import { Typography } from "../Typography/Typography";
 import { Button } from "../Button/Button";
+import { ButtonIcon } from "../ButtonIcon/ButtonIcon";
+import EditIcon from "../../assets/icons/edit.svg?react";
+import TrashIcon from "../../assets/icons/trash.svg?react";
+import HeartIcon from "../../assets/icons/heart.svg?react";
 import { Modal } from "../Modal/Modal";
 import { DeleteConfirmModal } from "../DeleteConfirmModal/DeleteConfirmModal";
 import { openSignIn, selectIsLoggedIn } from "../../store/auth";
@@ -97,7 +101,14 @@ export const ServiceDetail = ({
         {instructions}
       </Typography>
       <div className={styles.buttonGroup}>
-        <Button
+        <ButtonIcon
+          variant={isFavorite ? "yellow" : "light"}
+          size="medium"
+          icon={<HeartIcon width={18} height={18} />}
+          onClick={handleFavoriteClick}
+          disabled={updating}
+        />
+        {/* <Button
           onClick={handleFavoriteClick}
           type="button"
           variant="blue"
@@ -106,10 +117,10 @@ export const ServiceDetail = ({
           disabled={updating}
         >
           {isFavorite ? "Видалити з вподобань" : "Додати до вподобань"}
-        </Button>
+        </Button> */}
         {isOwner && (
           <>
-            <Button
+            {/* <Button
               onClick={handleEditClick}
               type="button"
               variant="blue"
@@ -128,7 +139,21 @@ export const ServiceDetail = ({
               disabled={updating}
             >
               Видалити
-            </Button>
+            </Button> */}
+            <ButtonIcon
+              variant="light"
+              size="medium"
+              icon={<EditIcon width={18} height={18} />}
+              onClick={handleEditClick}
+              disabled={updating}
+            />
+            <ButtonIcon
+              variant="light"
+              size="medium"
+              icon={<TrashIcon width={18} height={18} />}
+              onClick={handleDeleteClick}
+              disabled={updating}
+            />
           </>
         )}
       </div>
