@@ -7,6 +7,7 @@ import css from "./WorkflowCard.module.css";
 import ArrowUpIcon from "../../assets/icons/arrow-up-right.svg?react";
 import TrashIcon from "../../assets/icons/trash.svg?react";
 import EditIcon from "../../assets/icons/edit.svg?react";
+import OnOffIcon from "../../assets/icons/on-off.svg?react";
 
 export const WorkflowCard = ({
   workflowId,
@@ -60,14 +61,22 @@ export const WorkflowCard = ({
       )}
 
       <div className={css.cardActions}>
-        <Button
+        {/* <Button
           variant="uastyle"
           size={isMobile ? "mysmall" : "mysmall"}
           onClick={handleExecuteClick}
           className={css.executeButton}
         >
           {active ? "Deactivate" : "Activate"}
-        </Button>
+        </Button> */}
+        <button
+          type="button"
+          className={css.viewButton}
+          onClick={handleExecuteClick}
+          aria-label="Edit workflow details"
+        >
+          <OnOffIcon className={css.viewIcon} />
+        </button>
 
         <button
           type="button"

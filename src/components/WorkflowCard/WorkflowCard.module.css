@@ -128,7 +128,7 @@
   align-items: center;
   gap: 8px;
   margin-top: auto;
-  margin-left: 700px;
+  /* margin-left: 700px; */
 }
 
 .executeButton {

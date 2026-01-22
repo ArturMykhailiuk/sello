@@ -277,3 +277,10 @@ return createPortal(
 - Color scheme: Ukrainian flag colors throughout
 - Typography: System fonts with fallbacks
 - Spacing: 4px base unit (8px, 12px, 16px, 20px, 24px, etc.)
+
+## AI Agent Behavior Rules. ITS SUPER CRITICAL TO FOLLOW THESE RULES TO THE LETTER
+
+- **Завжди задавай уточнюючі питання перед внесенням змін** - не припускай, а питай користувача про деталі
+- **Ретельно аналізуй код перед пропозиціями виправлень** - читай файли повністю, розумій контекст
+- **Завжди запитуй дозволу перед внесенням змін** - не вноси зміни автоматично без підтвердження. ЦЕ СУПЕР-СУПЕР КРИТИЧНО
+- **Використовуй українську мову** в усіх поясненнях та комунікації з користувачем

@@ -58,7 +58,12 @@ export const Services = ({ categoryId, searchQuery }) => {
     <section>
       <Container className={css.container}>
         <Breadcrumbs className={css.breadcrumbs}>
-          <BreadcrumbsItem onClick={handleBackClick}>Головна</BreadcrumbsItem>
+          <BreadcrumbsItem
+            className={css.breadcrumbsItem}
+            onClick={handleBackClick}
+          >
+            Головна
+          </BreadcrumbsItem>
           <BreadcrumbsDivider />
           <BreadcrumbsItem
             isActive={!selectedCountry && !selectedCity}

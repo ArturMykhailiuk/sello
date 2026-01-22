@@ -151,6 +151,7 @@ export const ServiceCard = ({
               type="button"
               className={css.cardAuthorButton}
               onClick={navigateToAuthor}
+              aria-label={`View ${owner.name} profile`}
             >
               <Avatar
                 src={owner.avatarURL}
@@ -169,6 +170,10 @@ export const ServiceCard = ({
               onClick={handleFavoriteClick}
               disabled={updating}
               icon={isFavorite ? <HeartIcon /> : <HeartIcon />}
+              aria-label={
+                isFavorite ? "Remove from favorites" : "Add to favorites"
+              }
+              title={isFavorite ? "Remove from favorites" : "Add to favorites"}
             />
 
             <ButtonIcon
@@ -176,6 +181,8 @@ export const ServiceCard = ({
               size={isMobile ? "small" : "medium"}
               onClick={navigateToService}
               icon={<ArrowIncrease />}
+              aria-label="View service details"
+              title="View service details"
             />
           </div>
         </div>

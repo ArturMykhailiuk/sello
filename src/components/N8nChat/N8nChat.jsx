@@ -39,6 +39,26 @@ export const N8nChat = ({ webhookUrl, isOpen, workflowName, onClose }) => {
         console.error("Error creating chat instance:", error);
       }
     }
+
+    // Cleanup для StrictMode - викликаємо unmount якщо існує
+    return () => {
+      if (chatInstanceRef.current) {
+        try {
+          // Спробуємо unmount якщо метод існує
+          if (typeof chatInstanceRef.current.unmount === "function") {
+            chatInstanceRef.current.unmount();
+          }
+          // Також видаляємо DOM елемент
+          const chatWidget = document.querySelector(".n8n-chat");
+          if (chatWidget) {
+            chatWidget.remove();
+          }
+          chatInstanceRef.current = null;
+        } catch (e) {
+          console.error("Error cleaning up chat on re-render:", e);
+        }
+      }
+    };
   }, [isOpen, webhookUrl, workflowName]);
 
   useEffect(() => {

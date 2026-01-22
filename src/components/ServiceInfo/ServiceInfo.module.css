@@ -1,10 +1,15 @@
 .breadcrumbs {
   margin-top: 12px;
   margin-bottom: 12px;
+  margin-left: 10px;
 
   @media screen and (min-width: 768px) {
     margin-bottom: 16px;
   }
+}
+
+p.breadcrumbsItem {
+  font-size: 10px !important;
 }
 
 .detailsBlock {
