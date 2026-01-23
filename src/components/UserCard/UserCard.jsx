@@ -79,9 +79,6 @@ export const UserCard = ({
           <Typography variant="h4" truncate>
             {user.name}
           </Typography>
-          <Typography variant="bodyS" textColor="gray">
-            Мої послуги: {user.servicesCount}
-          </Typography>
           <Button
             variant="light"
             bordered
@@ -91,7 +88,7 @@ export const UserCard = ({
             disabled={loading}
             className={styles.followButton}
           >
-            {isFollowing ? "ПІДПИСАНО" : "ПІДПИСАТИСЯ"}
+            {isFollowing ? "ВІДПИСАТИСЬ" : "ПІДПИСАТИСЯ"}
           </Button>
         </div>
       </div>

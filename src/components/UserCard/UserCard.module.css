@@ -3,12 +3,15 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 16px;
-  background-color: var(--white-color);
+  background-color: var(--ua-main-1);
   flex-wrap: nowrap;
-  padding: 32px 0;
+  padding: 10px;
+  border: 1px solid var(--gray-light-color);
+  border-radius: 18px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 .card:first-child {
-  padding-top: 0;
+  /* padding-top: 10px; */
 }
 .card:not(:last-child) {
   border-bottom: 1px solid var(--gray-light-color);
@@ -87,7 +90,6 @@
 @media (min-width: 768px) {
   .card {
     align-items: center;
-    padding: 40px 0;
   }
 
   .serviceList {

@@ -17,7 +17,13 @@ export default function CategoryItem({ data }) {
   return (
     // <div className={`${css.thumb} ${css[categoryName.toLowerCase()]}`}>
     <div className={css.thumb} id={`category-${data.id}`}>
-      <img src={data.thumb} alt={categoryName} className={css.image} />
+      <img
+        src={data.thumb}
+        alt={categoryName}
+        className={css.image}
+        width="392"
+        height="316"
+      />
 
       <div className={css.wrapper}>
         {/* <p className={css.label}>{data.ua}</p> */}

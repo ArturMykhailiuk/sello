@@ -17,4 +17,15 @@ export default defineConfig({
     __VUE_PROD_DEVTOOLS__: JSON.stringify(false),
     __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: JSON.stringify(false),
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          "react-vendor": ["react", "react-dom", "react-router"],
+          "redux-vendor": ["@reduxjs/toolkit", "react-redux"],
+        },
+      },
+    },
+    chunkSizeWarningLimit: 1000,
+  },
 });

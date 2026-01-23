@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router";
 import { lazy, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { Wrapper } from "@googlemaps/react-wrapper";
 
 import SharedLayout from "./components/layout/SharedLayout/SharedLayout";
 import { PrivateRoute } from "./components/PrivateRoute";
@@ -9,6 +10,17 @@ import { getCurrentUser } from "./store/auth";
 import { getAllAreas } from "./store/areas";
 import { getAllCategories } from "./store/categories";
 import { getAllItems } from "./store/services";
+
+const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+
+const MapStatus = ({ status }) => {
+  if (status === "LOADING") return null; // Тихо завантажуємо
+  if (status === "FAILURE") {
+    console.error("Failed to load Google Maps");
+    return null;
+  }
+  return null;
+};
 
 const Home = lazy(() => import("./pages/Home/Home.jsx"));
 const AboutUs = lazy(() => import("./pages/AboutUs/AboutUs.jsx"));
@@ -35,41 +47,50 @@ export const App = () => {
   }, [dispatch]);
 
   return (
-    <Routes>
-      <Route path="/" element={<SharedLayout />}>
-        <Route index element={<Home />} />
-        <Route path="/about" element={<AboutUs />} />
-        <Route path="/auth/google/callback" element={<GoogleOAuthCallback />} />
+    <Wrapper
+      apiKey={GOOGLE_MAPS_API_KEY}
+      libraries={["places"]}
+      render={MapStatus}
+    >
+      <Routes>
+        <Route path="/" element={<SharedLayout />}>
+          <Route index element={<Home />} />
+          <Route path="/about" element={<AboutUs />} />
+          <Route
+            path="/auth/google/callback"
+            element={<GoogleOAuthCallback />}
+          />
 
-        <Route
-          path="/user/:id"
-          element={
-            <PrivateRoute>
-              <UserPage />
-            </PrivateRoute>
-          }
-        />
+          <Route
+            path="/user/:id"
+            element={
+              <PrivateRoute>
+                <UserPage />
+              </PrivateRoute>
+            }
+          />
 
-        <Route path="/service/:serviceId" element={<Service />} />
-        <Route
-          path="/service/add"
-          element={
-            <PrivateRoute>
-              <ServiceForm />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/service/:serviceId/edit"
-          element={
-            <PrivateRoute>
-              <ServiceForm />
-            </PrivateRoute>
-          }
-        />
+          <Route path="/service/:serviceId" element={<Service />} />
+          <Route
+            path="/service/add"
+            element={
+              <PrivateRoute>
+                <ServiceForm />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/service/:serviceId/edit"
+            element={
+              <PrivateRoute>
+                <ServiceForm />
+              </PrivateRoute>
+            }
+          />
 
-        <Route path="*" element={<NotFound />} />
-      </Route>
-    </Routes>
+          <Route path="*" element={<NotFound />} />
+        </Route>
+      </Routes>
+    </Wrapper>
   );
 };

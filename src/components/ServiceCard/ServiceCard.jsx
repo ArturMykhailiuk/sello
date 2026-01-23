@@ -12,8 +12,8 @@ import ArrowUpIcon from "../../assets/icons/arrow-up-right.svg?react";
 import HeartIcon from "../../assets/icons/heart.svg?react";
 import ArrowIncrease from "../../assets/icons/arrow-increase.svg?react";
 import LocationPin from "../../assets/icons/location-pin.svg?react";
-import { BACKEND_URL, DEFAULT_ERROR_MESSAGE } from "../../constants/common.js";
-import { normalizeHttpError } from "../../utils/index.js";
+import { DEFAULT_ERROR_MESSAGE } from "../../constants/common.js";
+import { normalizeHttpError, normalizeImagePath } from "../../utils/index.js";
 import { appClearSessionAction } from "../../store/utils.js";
 import {
   addFavoriteService,
@@ -90,10 +90,7 @@ export const ServiceCard = ({
     });
   };
 
-  // TODO: add util
-  const imageURL = image?.startsWith("http")
-    ? image
-    : `${BACKEND_URL}static${image}`;
+  const imageURL = normalizeImagePath(image);
 
   return (
     <div className={css.serviceCard}>

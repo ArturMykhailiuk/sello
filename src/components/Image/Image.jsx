@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react'
-import placeholder from '../../assets/images/placeholder.svg'
+import { useState, useEffect } from "react";
+import placeholder from "../../assets/images/placeholder.svg";
 import { normalizeImagePath } from "../../utils/index.js";
 
 /**
@@ -16,25 +16,29 @@ const Image = ({
   className,
   renderFallback,
   fallbackSrc = placeholder,
+  width,
+  height,
   ...props
 }) => {
-  const [failed, setFailed] = useState(false)
+  const [failed, setFailed] = useState(false);
 
   useEffect(() => {
-    setFailed(!src)
-  }, [src])
+    setFailed(!src);
+  }, [src]);
 
   if (failed || !src) {
-    if (renderFallback) return <>{renderFallback()}</>
+    if (renderFallback) return <>{renderFallback()}</>;
 
     return (
       <img
         src={fallbackSrc}
         alt={alt}
         className={className}
+        width={width}
+        height={height}
         {...props}
       />
-    )
+    );
   }
 
   return (
@@ -42,10 +46,12 @@ const Image = ({
       src={normalizeImagePath(src)}
       alt={alt}
       className={className}
+      width={width}
+      height={height}
       onError={() => setFailed(true)}
       {...props}
     />
-  )
-}
+  );
+};
 
-export { Image }
+export { Image };

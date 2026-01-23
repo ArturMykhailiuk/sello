@@ -11,7 +11,13 @@ import {
 import { ServiceMainInfo } from "../ServiceMainInfo/index.js";
 import { ServiceAIWorkflowsList } from "../ServiceAIWorkflowsList/ServiceAIWorkflowsList.jsx";
 import { ServiceAIAssistantModal } from "../ServiceAIAssistantModal/ServiceAIAssistantModal.jsx";
-import { N8nChat } from "../N8nChat/N8nChat.jsx";
+import { lazy, Suspense } from "react";
+
+const N8nChat = lazy(() =>
+  import("../N8nChat/N8nChat.jsx").then((module) => ({
+    default: module.N8nChat,
+  })),
+);
 import { TelegramBotWidget } from "../TelegramBotWidget/TelegramBotWidget.jsx";
 import Loader from "../Loader/Loader.jsx";
 import { normalizeHttpError } from "../../utils/index.js";
@@ -301,12 +307,14 @@ export const ServiceInfo = () => {
       )}
 
       {selectedWorkflow && (
-        <N8nChat
-          isOpen={isChatModalOpen}
-          webhookUrl={selectedWorkflow.webhookUrl}
-          workflowName={selectedWorkflow.name}
-          onClose={handleCloseChat}
-        />
+        <Suspense fallback={null}>
+          <N8nChat
+            isOpen={isChatModalOpen}
+            webhookUrl={selectedWorkflow.webhookUrl}
+            workflowName={selectedWorkflow.name}
+            onClose={handleCloseChat}
+          />
+        </Suspense>
       )}
 
       {activeTelegramBot && (

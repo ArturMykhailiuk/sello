@@ -1,7 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Wrapper } from "@googlemaps/react-wrapper";
-
-const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
 const MapStatus = ({ status }) => {
   if (status === "LOADING") return <div>Завантаження карти...</div>;
@@ -330,7 +327,11 @@ const MapComponent = ({ center, onLocationSelect, mapInstanceRef }) => {
   );
 };
 
-export const LocationPicker = ({ onLocationSelect, initialLocation, onMapError }) => {
+export const LocationPicker = ({
+  onLocationSelect,
+  initialLocation,
+  onMapError,
+}) => {
   const [currentPosition, setCurrentPosition] = useState(null);
   const [loading, setLoading] = useState(true);
   const mapInstanceRef = useRef(null);
@@ -380,8 +381,9 @@ export const LocationPicker = ({ onLocationSelect, initialLocation, onMapError }
     }
   };
 
-  if (!GOOGLE_MAPS_API_KEY) {
-    return <div>Немає API ключа</div>;
+  // Перевіряємо чи завантажено Google Maps API
+  if (!window.google || !window.google.maps) {
+    return <div>Завантаження Google Maps...</div>;
   }
 
   if (loading) {
@@ -394,17 +396,11 @@ export const LocationPicker = ({ onLocationSelect, initialLocation, onMapError }
 
   return (
     <div>
-      <Wrapper
-        apiKey={GOOGLE_MAPS_API_KEY}
-        libraries={["places"]}
-        render={MapStatus}
-      >
-        <MapComponent
-          center={currentPosition}
-          onLocationSelect={handleLocationSelect}
-          mapInstanceRef={mapInstanceRef}
-        />
-      </Wrapper>
+      <MapComponent
+        center={currentPosition}
+        onLocationSelect={handleLocationSelect}
+        mapInstanceRef={mapInstanceRef}
+      />
     </div>
   );
 };

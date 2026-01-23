@@ -21,8 +21,10 @@ export const tabsForOwner = [
 ];
 
 export const tabsForUser = [
+  { key: TabKey.PROFILE, label: "Профіль" },
   { key: TabKey.SERVICES, label: "Послуги" },
   { key: TabKey.FOLLOWERS, label: "Підписники" },
+  { key: TabKey.FOLLOWING, label: "Підписки" },
 ];
 
 export const emptyTabMessagesForOwner = {
