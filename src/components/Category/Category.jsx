@@ -9,9 +9,13 @@ import css from "./Category.module.css";
 export function Category() {
   const breakpoint = useBreakpoint({ tablet: 640 });
   const [categories, setCategories] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetchCategories(1, 100).then((res) => setCategories(res.categories));
+    setIsLoading(true);
+    fetchCategories(1, 100)
+      .then((res) => setCategories(res.categories))
+      .finally(() => setIsLoading(false));
   }, [breakpoint]);
 
   // Скрол до обраної категорії при поверненні
@@ -37,7 +41,17 @@ export function Category() {
           </Typography>
         </div>
 
-        {categories.length > 0 && <CategoryList categories={categories} />}
+        {isLoading ? (
+          <div className={css.skeleton} aria-label="Завантаження категорій">
+            <div className={css.skeletonGrid}>
+              {Array.from({ length: 12 }).map((_, i) => (
+                <div key={i} className={css.skeletonItem} />
+              ))}
+            </div>
+          </div>
+        ) : (
+          categories.length > 0 && <CategoryList categories={categories} />
+        )}
       </Container>
     </section>
   );

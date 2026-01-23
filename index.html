@@ -26,6 +26,16 @@
     />
     <link rel="preload" href="/src/assets/images/hero/map.png" as="image" />
 
+    <!-- Critical CSS for layout stability -->
+    <style>
+      footer {
+        height: 200px;
+        min-height: 200px;
+        flex-shrink: 0;
+        contain: layout style;
+      }
+    </style>
+
     <title>SELL-O</title>
   </head>
   <body>

@@ -10,13 +10,17 @@ footer {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 40px;
+  height: 60px;
+  min-height: 60px;
 }
 
 .separator {
   height: 1px;
+  min-height: 1px;
   border: none;
   border-bottom: 1px solid var(--gray-color);
   margin: 40px 10px;
+  will-change: auto;
 
   @media screen and (min-width: 768px) {
     margin: 40px 20px;
