@@ -15,6 +15,7 @@
   position: relative;
 
   max-width: 1440px;
+  min-height: 360px;
   padding: 94px 20px 50px;
 
   border-radius: var(--ua-border-radius-standard);
@@ -22,12 +23,15 @@
   background-image: url("../../assets/images/hero/map.png");
   background-repeat: no-repeat;
   background-position: center center;
+  contain: layout;
 
   @media screen and (min-width: 768px) {
+    min-height: 400px;
     padding: 120px 29px 50px;
   }
 
   @media screen and (min-width: 1440px) {
+    min-height: 440px;
     padding: 120px 262px 50px;
     max-width: 1600px;
   }
