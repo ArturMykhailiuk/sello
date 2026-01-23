@@ -25,9 +25,12 @@
 
 .liCatlist {
   width: 100%;
+  min-height: 280px;
+  aspect-ratio: 392 / 316;
   border-radius: 20px;
   overflow: hidden;
   letter-spacing: -0.32px;
+  contain: layout;
 }
 
 @media only screen and (min-width: 768px) {

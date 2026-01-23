@@ -18,6 +18,8 @@ const Image = ({
   fallbackSrc = placeholder,
   width,
   height,
+  loading = "lazy",
+  decoding = "async",
   ...props
 }) => {
   const [failed, setFailed] = useState(false);
@@ -25,6 +27,11 @@ const Image = ({
   useEffect(() => {
     setFailed(!src);
   }, [src]);
+
+  const imageStyle = width && height ? {
+    aspectRatio: `${width} / ${height}`,
+    objectFit: 'cover'
+  } : {};
 
   if (failed || !src) {
     if (renderFallback) return <>{renderFallback()}</>;
@@ -36,6 +43,9 @@ const Image = ({
         className={className}
         width={width}
         height={height}
+        loading={loading}
+        decoding={decoding}
+        style={imageStyle}
         {...props}
       />
     );
@@ -48,6 +58,9 @@ const Image = ({
       className={className}
       width={width}
       height={height}
+      loading={loading}
+      decoding={decoding}
+      style={imageStyle}
       onError={() => setFailed(true)}
       {...props}
     />

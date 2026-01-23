@@ -1,8 +1,10 @@
 footer {
-  height: 200px;
-  min-height: 200px;
+  height: 180px;
+  min-height: 180px;
+  max-height: 180px;
   flex-shrink: 0;
-  contain: layout style;
+  contain: layout style paint;
+  will-change: contents;
 }
 
 .wrapper {
