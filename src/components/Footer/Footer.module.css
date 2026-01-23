@@ -1,5 +1,6 @@
 footer {
   min-height: 150px;
+  contain: layout;
 }
 
 .wrapper {

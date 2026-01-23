@@ -14,9 +14,11 @@ const SharedLayout = () => {
       <ScrollToTop />
       <div className={styles.container}>
         <Header />
-        <Suspense fallback={<Loader />}>
-          <Outlet />
-        </Suspense>
+        <main className={styles.main}>
+          <Suspense fallback={<Loader />}>
+            <Outlet />
+          </Suspense>
+        </main>
         <Footer />
       </div>
 
