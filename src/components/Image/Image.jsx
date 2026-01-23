@@ -28,10 +28,13 @@ const Image = ({
     setFailed(!src);
   }, [src]);
 
-  const imageStyle = width && height ? {
-    aspectRatio: `${width} / ${height}`,
-    objectFit: 'cover'
-  } : {};
+  const imageStyle =
+    width && height
+      ? {
+          aspectRatio: `${width} / ${height}`,
+          objectFit: "cover",
+        }
+      : {};
 
   if (failed || !src) {
     if (renderFallback) return <>{renderFallback()}</>;
