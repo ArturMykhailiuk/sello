@@ -3,19 +3,23 @@
   grid-template-columns: 1fr;
   gap: 16px;
   justify-content: center;
+  min-height: 600px;
 
   @media only screen and (min-width: 426px) and (max-width: 767px) {
     grid-template-columns: repeat(2, 1fr);
+    min-height: 700px;
   }
 
   @media only screen and (min-width: 768px) and (max-width: 1279px) {
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
+    min-height: 800px;
   }
 
   @media only screen and (min-width: 1280px) {
     grid-template-columns: repeat(4, 1fr);
     gap: 24px;
+    min-height: 900px;
   }
 }
 
