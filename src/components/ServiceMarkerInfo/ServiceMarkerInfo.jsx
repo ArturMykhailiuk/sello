@@ -3,6 +3,7 @@ import { Button } from "../Button/Button";
 import { ButtonIcon } from "../ButtonIcon/ButtonIcon";
 import ArrowIncrease from "../../assets/icons/arrow-increase.svg?react";
 import HeartIcon from "../../assets/icons/heart.svg?react";
+import { normalizeImagePath } from "../../utils";
 import styles from "./ServiceMarkerInfo.module.css";
 
 export const ServiceMarkerInfo = ({ service, area }) => {
@@ -16,7 +17,7 @@ export const ServiceMarkerInfo = ({ service, area }) => {
     <div className={styles.container}>
       {service.thumb && (
         <img
-          src={service.thumb}
+          src={normalizeImagePath(service.thumb)}
           alt={service.title}
           className={styles.thumbnail}
         />

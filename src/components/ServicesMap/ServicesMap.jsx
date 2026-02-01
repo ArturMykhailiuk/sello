@@ -33,8 +33,9 @@ const clustererOptions = {
 };
 
 export const ServicesMap = ({ services }) => {
-  const [selectedService, setSelectedService] = useState(null);
-  const [selectedArea, setSelectedArea] = useState(null); // Додаємо вибрану area
+  const [selectedLocations, setSelectedLocations] = useState([]); // Масив вибраних локацій
+  const [map, setMap] = useState(null);
+  const [clusterer, setClusterer] = useState(null);
 
   // Створюємо плоский список всіх локацій з усіх послуг
   const serviceLocations = useMemo(() => {
@@ -108,13 +109,79 @@ export const ServicesMap = ({ services }) => {
   }, [serviceLocations]);
 
   const handleMarkerClick = (service, area) => {
-    setSelectedService(service);
-    setSelectedArea(area);
+    // Додаємо або видаляємо локацію зі списку вибраних
+    const locationKey = `${service.id}-${area.id}`;
+    const isSelected = selectedLocations.some(
+      loc => `${loc.service.id}-${loc.area.id}` === locationKey
+    );
+
+    if (isSelected) {
+      // Видаляємо з вибраних
+      setSelectedLocations(prev => 
+        prev.filter(loc => `${loc.service.id}-${loc.area.id}` !== locationKey)
+      );
+    } else {
+      // Додаємо до вибраних
+      setSelectedLocations(prev => [...prev, { service, area }]);
+    }
   };
 
-  const handleInfoWindowClose = () => {
-    setSelectedService(null);
-    setSelectedArea(null);
+  const handleInfoWindowClose = (service, area) => {
+    const locationKey = `${service.id}-${area.id}`;
+    setSelectedLocations(prev => 
+      prev.filter(loc => `${loc.service.id}-${loc.area.id}` !== locationKey)
+    );
+  };
+
+  // Обробник завершення кластеризації
+  const handleClusteringEnd = (clustererInstance) => {
+    if (!clustererInstance || !map) return;
+
+    // Отримуємо поточний зум
+    const currentZoom = map.getZoom();
+    
+    // Перевіряємо чи зум більший за maxZoom кластера (кластери розібрані)
+    if (currentZoom > clustererOptions.maxZoom) {
+      // Отримуємо всі видимі маркери
+      const bounds = map.getBounds();
+      if (!bounds) return;
+
+      const visibleLocations = serviceLocations.filter((location) => {
+        const position = new window.google.maps.LatLng(location.lat, location.lng);
+        return bounds.contains(position);
+      });
+
+      // Відкриваємо картки для всіх видимих маркерів
+      if (visibleLocations.length > 0) {
+        setSelectedLocations(visibleLocations);
+      }
+    } else {
+      // Якщо зум менший (є кластери), закриваємо всі картки
+      setSelectedLocations([]);
+    }
+  };
+
+  // Обробник зміни видимої області карти
+  const handleBoundsChanged = () => {
+    if (!map || !clusterer) return;
+
+    const currentZoom = map.getZoom();
+    
+    // Якщо зум більший за maxZoom - показуємо картки
+    if (currentZoom > clustererOptions.maxZoom) {
+      const bounds = map.getBounds();
+      if (!bounds) return;
+
+      const visibleLocations = serviceLocations.filter((location) => {
+        const position = new window.google.maps.LatLng(location.lat, location.lng);
+        return bounds.contains(position);
+      });
+
+      setSelectedLocations(visibleLocations);
+    } else {
+      // Якщо зум менший або рівний maxZoom - закриваємо картки
+      setSelectedLocations([]);
+    }
   };
 
   if (serviceLocations.length === 0) {
@@ -138,8 +205,14 @@ export const ServicesMap = ({ services }) => {
         center={center}
         zoom={zoom}
         options={mapOptions}
+        onLoad={(mapInstance) => setMap(mapInstance)}
+        onZoomChanged={handleBoundsChanged}
+        onBoundsChanged={handleBoundsChanged}
       >
-        <MarkerClusterer options={clustererOptions}>
+        <MarkerClusterer 
+          options={clustererOptions}
+          onLoad={(clustererInstance) => setClusterer(clustererInstance)}
+        >
           {(clusterer) => {
             console.log("Rendering markers, count:", serviceLocations.length);
             return serviceLocations.map((location, index) => {
@@ -173,25 +246,26 @@ export const ServicesMap = ({ services }) => {
           }}
         </MarkerClusterer>
 
-        {selectedService && selectedArea && (
+        {selectedLocations.map((location, index) => (
           <InfoWindow
+            key={`info-${location.service.id}-${index}`}
             position={{
-              lat: parseFloat(selectedArea.latitude),
-              lng: parseFloat(selectedArea.longitude),
+              lat: parseFloat(location.area.latitude),
+              lng: parseFloat(location.area.longitude),
             }}
-            onCloseClick={handleInfoWindowClose}
+            onCloseClick={() => handleInfoWindowClose(location.service, location.area)}
             options={{
               pixelOffset: new window.google.maps.Size(0, -10),
             }}
           >
             <div className={styles.infoWindow}>
               <ServiceMarkerInfo
-                service={selectedService}
-                area={selectedArea}
+                service={location.service}
+                area={location.area}
               />
             </div>
           </InfoWindow>
-        )}
+        ))}
       </GoogleMap>
     </div>
   );
