@@ -112,24 +112,26 @@ export const ServicesMap = ({ services }) => {
     // Додаємо або видаляємо локацію зі списку вибраних
     const locationKey = `${service.id}-${area.id}`;
     const isSelected = selectedLocations.some(
-      loc => `${loc.service.id}-${loc.area.id}` === locationKey
+      (loc) => `${loc.service.id}-${loc.area.id}` === locationKey,
     );
 
     if (isSelected) {
       // Видаляємо з вибраних
-      setSelectedLocations(prev => 
-        prev.filter(loc => `${loc.service.id}-${loc.area.id}` !== locationKey)
+      setSelectedLocations((prev) =>
+        prev.filter(
+          (loc) => `${loc.service.id}-${loc.area.id}` !== locationKey,
+        ),
       );
     } else {
       // Додаємо до вибраних
-      setSelectedLocations(prev => [...prev, { service, area }]);
+      setSelectedLocations((prev) => [...prev, { service, area }]);
     }
   };
 
   const handleInfoWindowClose = (service, area) => {
     const locationKey = `${service.id}-${area.id}`;
-    setSelectedLocations(prev => 
-      prev.filter(loc => `${loc.service.id}-${loc.area.id}` !== locationKey)
+    setSelectedLocations((prev) =>
+      prev.filter((loc) => `${loc.service.id}-${loc.area.id}` !== locationKey),
     );
   };
 
@@ -139,7 +141,7 @@ export const ServicesMap = ({ services }) => {
 
     // Отримуємо поточний зум
     const currentZoom = map.getZoom();
-    
+
     // Перевіряємо чи зум більший за maxZoom кластера (кластери розібрані)
     if (currentZoom > clustererOptions.maxZoom) {
       // Отримуємо всі видимі маркери
@@ -147,7 +149,10 @@ export const ServicesMap = ({ services }) => {
       if (!bounds) return;
 
       const visibleLocations = serviceLocations.filter((location) => {
-        const position = new window.google.maps.LatLng(location.lat, location.lng);
+        const position = new window.google.maps.LatLng(
+          location.lat,
+          location.lng,
+        );
         return bounds.contains(position);
       });
 
@@ -166,14 +171,17 @@ export const ServicesMap = ({ services }) => {
     if (!map || !clusterer) return;
 
     const currentZoom = map.getZoom();
-    
+
     // Якщо зум більший за maxZoom - показуємо картки
     if (currentZoom > clustererOptions.maxZoom) {
       const bounds = map.getBounds();
       if (!bounds) return;
 
       const visibleLocations = serviceLocations.filter((location) => {
-        const position = new window.google.maps.LatLng(location.lat, location.lng);
+        const position = new window.google.maps.LatLng(
+          location.lat,
+          location.lng,
+        );
         return bounds.contains(position);
       });
 
@@ -209,7 +217,7 @@ export const ServicesMap = ({ services }) => {
         onZoomChanged={handleBoundsChanged}
         onBoundsChanged={handleBoundsChanged}
       >
-        <MarkerClusterer 
+        <MarkerClusterer
           options={clustererOptions}
           onLoad={(clustererInstance) => setClusterer(clustererInstance)}
         >
@@ -253,7 +261,9 @@ export const ServicesMap = ({ services }) => {
               lat: parseFloat(location.area.latitude),
               lng: parseFloat(location.area.longitude),
             }}
-            onCloseClick={() => handleInfoWindowClose(location.service, location.area)}
+            onCloseClick={() =>
+              handleInfoWindowClose(location.service, location.area)
+            }
             options={{
               pixelOffset: new window.google.maps.Size(0, -10),
             }}
