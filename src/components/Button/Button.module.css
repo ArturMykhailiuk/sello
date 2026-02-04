@@ -84,7 +84,7 @@
   background: transparent;
   color: var(--ua-blue);
   border: 1px solid var(--ua-blue);
-  border-radius: 16px;
+  border-radius: 12px;
 }
 
 .Button.uastyle:not(:disabled):hover {

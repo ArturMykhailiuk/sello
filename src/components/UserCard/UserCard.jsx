@@ -6,6 +6,7 @@ import { Typography } from "../Typography/Typography";
 import { ButtonIcon } from "../ButtonIcon/ButtonIcon";
 import { Button } from "../Button/Button";
 import ArrowUpRight from "../../assets/icons/arrow-up-right.svg?react";
+import ArrowIncrease from "../../assets/icons/arrow-increase.svg?react";
 import { normalizeImagePath } from "../../utils/index.js";
 import { Avatar } from "../Avatar/Avatar.jsx";
 import { Image } from "../Image/Image.jsx";
@@ -76,12 +77,11 @@ export const UserCard = ({
           size={breakpoint === "mobile" ? 60 : 85}
         />
         <div className={styles.userDetails}>
-          <Typography variant="h4" truncate>
+          <Typography variant="h4" textColor="uablue" truncate>
             {user.name}
           </Typography>
           <Button
-            variant="light"
-            bordered
+            variant="uastyle"
             fullWidth
             size={buttonSize}
             onClick={handleToggleFollow}
@@ -108,7 +108,7 @@ export const UserCard = ({
 
       <div className={styles.arrowButton}>
         <ButtonIcon
-          icon={<ArrowUpRight />}
+          icon={<ArrowIncrease />}
           variant="light"
           size={iconSize}
           onClick={handleNavigateToUser}

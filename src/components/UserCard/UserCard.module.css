@@ -10,9 +10,7 @@
   border-radius: 18px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
-.card:first-child {
-  /* padding-top: 10px; */
-}
+
 .card:not(:last-child) {
   border-bottom: 1px solid var(--gray-light-color);
 }
@@ -22,7 +20,6 @@
   gap: 16px;
 }
 
-/* Group containing name, count, and follow button */
 .userDetails {
   display: flex;
   flex-direction: column;
@@ -33,22 +30,20 @@
 
 @media (min-width: 768px) {
   .userDetails {
-    max-width: 116px;
+    max-width: 430px;
   }
 }
 
 @media (min-width: 1440px) {
   .userDetails {
-    max-width: 144px;
+    max-width: 430px;
   }
 }
 
-/* Service thumbnails (tablet and desktop only) */
 .serviceList {
   display: none;
 }
 
-/* Thumbnail images */
 .thumb {
   width: 100px;
   height: 100px;
@@ -63,27 +58,14 @@
   object-fit: cover;
 }
 
-/* Arrow icon button wrapper */
 .arrowButton {
   align-self: flex-start;
 }
 
 .followButton {
+  max-width: 140px;
   padding: 10px 24px !important;
-  border-color: var(--gray-color) !important; /* the color has to be forced */
-  color: var(--gray-color) !important; /* the color has to be forced */
   margin-top: 4px;
-}
-
-/* special button styles only for desktop -- has to be forced */
-@media (min-width: 1440px) {
-  .followButton {
-    background-color: var(--ua-blue) !important;
-  }
-
-  .followButton:hover {
-    color: var(--white-color) !important;
-  }
 }
 
 /* Tablet (768px+) layout */
